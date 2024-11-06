@@ -1,8 +1,8 @@
-module com.tonevella.btl {
+module org.example.btloop {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.tonevella.btl to javafx.fxml;
-    exports com.tonevella.btl;
+    opens org.example.btloop to javafx.fxml;
+    exports org.example.btloop;
 }

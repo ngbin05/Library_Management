@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btloop.AppController" style="-fx-background-color: #FAD7A0;">
+    <children>
+        <!-- phần ảnh nền bên trái -->
+        <StackPane HBox.hgrow="ALWAYS">
+            <ImageView fitWidth="700" fitHeight="680" StackPane.alignment="CENTER">
+                <Image url="@LibraryLogo.png" />
+            </ImageView>
+        </StackPane>
+
+        <!-- phần đăng nhập bên phải -->
+        <VBox spacing="10" alignment="CENTER" prefWidth="400.0" prefHeight="400.0" HBox.hgrow="ALWAYS">
+            <children>
+                <GridPane alignment="CENTER" hgap="5" vgap="5">
+                    <Label text="User:" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight:bold;"/>
+                    <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" HBox.hgrow="ALWAYS">
+                        <ImageView fitWidth="24" fitHeight="24">
+                            <Image url="@user_icon.png" />
+                        </ImageView>
+                        <TextField fx:id="userTextField" promptText="Enter username" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <Label text="Password:" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight:bold;"/>
+                    <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1" HBox.hgrow="ALWAYS">
+                        <ImageView fitWidth="24" fitHeight="24">
+                            <Image url="@pass_icon.png" />
+                        </ImageView>
+                        <PasswordField fx:id="pwBox" promptText="Enter password" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </GridPane>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="LOGIN" fx:id="loginButton" style="-fx-background-color: orange; -fx-text-fill: white; -fx-font-size: 16;" />
+                </HBox>
+                <Label fx:id="messageLabel" alignment="CENTER" />
+            </children>
+        </VBox>
+    </children>
+</HBox>
