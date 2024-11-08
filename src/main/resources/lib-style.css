@@ -1,0 +1,41 @@
+/* Tiêu đề Label (Title) với hiệu ứng nhiều màu */
+.label.title {
+    -fx-font-size: 36px; /* Kích thước chữ lớn */
+    -fx-font-family: "Arial", sans-serif; /* Phông chữ hiện đại, dễ đọc */
+    -fx-font-weight: bold; /* Chữ đậm để tạo sự nổi bật */
+    -fx-text-fill: linear-gradient(
+            from 0% 0% to 100% 100%,
+            #ff7b00 25%,
+            #ff4d00 50%,
+            #ff2e63 75%,
+            #ff99cc 100%
+    ); /* Gradient nhiều màu cam, đỏ, hồng */
+    -fx-padding: 20px; /* Khoảng cách xung quanh chữ */
+    -fx-opacity: 1; /* Đảm bảo chữ không bị mờ */
+    -fx-text-alignment: center; /* Canh giữa nội dung chữ trong Label */
+    -fx-background-color: transparent; /* Không có nền */
+}
+
+/* Hiệu ứng sóng nhẹ cho chữ */
+.label.title.animated {
+    -fx-translate-y: -2px; /* Di chuyển chữ lên chút xíu */
+    -fx-transition: -fx-translate-y 0.3s ease-in-out;
+}
+
+.label.title.animated:hover {
+    -fx-translate-y: 4px; /* Di chuyển chữ xuống khi hover để tạo hiệu ứng sóng */
+    -fx-rotate: 2deg; /* Xoay nhẹ chữ để tạo hiệu ứng uốn lượn */
+    -fx-text-fill: linear-gradient(
+            from 0% 0% to 100% 100%,
+            #ff99cc,
+            #ff2e63,
+            #ff4d00,
+            #ff7b00
+    ); /* Gradient nhiều màu đổi thứ tự */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 20, 0.6, 0, 10); /* Đổ bóng sâu hơn khi hover */
+}
+
+/* Thêm hiệu ứng cho việc tiêu đề hiển thị */
+.label.title {
+    -fx-transition: all 0.6s ease-in-out; /* Chuyển động mượt mà */
+}

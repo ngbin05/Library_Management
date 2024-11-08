@@ -1,0 +1,55 @@
+/* Kiểu cho TabPane */
+.tab-pane {
+    -fx-background-color: linear-gradient(to bottom right, #FFDAB9, #FFB6C1); /* Dải màu nhẹ từ vàng cam sang đỏ nhạt */
+    -fx-border-color: #FFB6C1; /* Viền màu đỏ nhạt */
+    -fx-border-width: 1px; /* Độ dày viền mỏng */
+    -fx-border-radius: 30px; /* Bo góc mềm mại hơn */
+    -fx-background-radius: 30px; /* Bo góc nền */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5); /* Đổ bóng nhẹ */
+}
+
+/* Kiểu cho các tab trong TabPane */
+.tab {
+    -fx-background-color: #ffffff; /* Nền trắng cho tab */
+    -fx-text-fill: #FFB6C1; /* Màu chữ đỏ nhạt */
+    -fx-padding: 10px 20px; /* Khoảng cách cho các tab */
+    -fx-border-radius: 50px; /* Bo góc lớn cho tab */
+    -fx-background-radius: 50px; /* Bo góc nền của tab */
+    -fx-font-size: 14px; /* Kích thước chữ */
+    -fx-font-weight: bold; /* Chữ đậm để tab nổi bật */
+    -fx-border-color: transparent; /* Loại bỏ viền mặc định */
+}
+
+/* Khi tab được chọn */
+.tab:selected {
+    -fx-background-color: #FFB6C1; /* Nền khi tab được chọn */
+    -fx-text-fill: white; /* Màu chữ khi tab được chọn */
+    -fx-effect: none; /* Tắt hiệu ứng đổ bóng khi tab được chọn */
+    -fx-border-color: transparent; /* Loại bỏ viền của tab khi chọn */
+    -fx-border-width: 0px; /* Đặt độ dày viền là 0px */
+    -fx-background-radius: 50px; /* Bo góc lớn khi tab được chọn */
+}
+
+/* Khi di chuột vào tab */
+.tab:hover {
+    -fx-background-color: #FFB6C1; /* Màu nền khi hover */
+    -fx-text-fill: white; /* Màu chữ khi hover */
+    -fx-cursor: hand; /* Con trỏ chuột thành tay khi hover */
+}
+
+/* Khi hover trên tab chưa chọn */
+.tab:not(:selected):hover {
+    -fx-background-color: #FFDAB9; /* Nền cam nhạt khi hover trên tab chưa chọn */
+    -fx-text-fill: #FFB6C1; /* Màu chữ khi hover trên tab chưa chọn */
+}
+
+/* Loại bỏ viền mặc định của TabPane */
+.tab-pane .tab-header-area {
+    -fx-border-color: transparent; /* Xóa viền quanh vùng tiêu đề tab */
+    -fx-background-color: transparent; /* Xóa nền */
+}
+
+/* Loại bỏ viền của các tab khi chưa chọn */
+.tab:not(:selected) {
+    -fx-border-color: transparent; /* Xóa viền của tab khi chưa chọn */
+}
