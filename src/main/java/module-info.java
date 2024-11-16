@@ -11,9 +11,13 @@ module org.example.demo {
     requires eu.hansolo.tilesfx;
     requires mysql.connector.java;
     requires java.sql;
+
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
     requires com.google.gson;
+
+    requires java.desktop;
+
 
     opens org.example.demo to javafx.fxml;
     exports org.example.demo;

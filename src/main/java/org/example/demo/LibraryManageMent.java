@@ -13,15 +13,19 @@ public class LibraryManageMent extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("book-view.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 600,500);
         primaryStage.setOpacity(1);
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/icon-library.png")));
         primaryStage.setTitle("Library Management");
-//        LoginController loginController = fxmlLoader.getController();
-//        loginController.setPrimaryStage(primaryStage);
+
+        LoginController loginController = fxmlLoader.getController();
+        loginController.setPrimaryStage(primaryStage);
+
         primaryStage.show();
     }
 

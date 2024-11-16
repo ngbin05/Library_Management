@@ -7,7 +7,9 @@ import java.util.*;
 public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
+
     private static final String PASSWORD = "Binh2352005@";
+
 
     public static Connection connect() {
         Connection conn = null;
@@ -19,6 +21,7 @@ public class Database {
         }
         return conn;
     }
+
 
     public static boolean isBookExistByIsbn(String isbn, String title) {
         // Kiểm tra xem ISBN có phải là "Unknown ISBN" hoặc null không
@@ -83,6 +86,7 @@ public class Database {
             System.out.println("Error inserting document: " + e.getMessage());
         }
     }
+
 //    public static void insertUser(String id, String name, String phone, String address) {
 //        String sql = "INSERT INTO USERS(user_id, user_name, phone_number,address) VALUES(?, ?, ?, ?)";
 //        try (Connection conn = connect();
