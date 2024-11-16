@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9/storage_v2/_src_/schema/thuvien.ndJysA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/BookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/GoogleBooksService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/registerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/anchor-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/bolder-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/button-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/font-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/forgotpass-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/lib-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/Create account.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/add-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/books.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/icon-library.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/library.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/no_image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/password.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/stack-of-books.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/media/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/hello-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/login-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/password-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tabpane-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/textfield-style.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <branch-grouping />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2nB0V27zQsDphNN5v3AKQ8oqqzf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LibraryManageMent.executor": "Run",
+    "Application.MyFxApp.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="LibraryManageMent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.demo.LibraryManageMent" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LibraryManageMent" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="" />
+      <created>1728431186723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728431186723</updated>
+      <workItem from="1728431187863" duration="968000" />
+      <workItem from="1728449058434" duration="21000" />
+      <workItem from="1729444663322" duration="965000" />
+      <workItem from="1729505250397" duration="12000" />
+      <workItem from="1729607364623" duration="11485000" />
+      <workItem from="1729935090191" duration="1666000" />
+      <workItem from="1729941758792" duration="903000" />
+      <workItem from="1729983144968" duration="35000" />
+      <workItem from="1730234467192" duration="1525000" />
+      <workItem from="1730236780669" duration="3000" />
+      <workItem from="1730902391324" duration="29675000" />
+      <workItem from="1730952140079" duration="2984000" />
+      <workItem from="1730956942730" duration="192000" />
+      <workItem from="1731028894376" duration="254000" />
+      <workItem from="1731050998899" duration="902000" />
+      <workItem from="1731119160761" duration="637000" />
+      <workItem from="1731307939173" duration="1680000" />
+      <workItem from="1731462350760" duration="64000" />
+      <workItem from="1731639378954" duration="5564000" />
+      <workItem from="1731645161648" duration="3191000" />
+      <workItem from="1731652937185" duration="4980000" />
+      <workItem from="1731682878724" duration="4075000" />
+      <workItem from="1731721587078" duration="480000" />
+      <workItem from="1731722081334" duration="1634000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
