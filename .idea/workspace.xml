@@ -5,31 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/registerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/anchor-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/bolder-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/button-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/font-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/forgotpass-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib-style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/hello-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/password-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/menu2-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/Home-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -72,8 +60,9 @@
     &quot;Application.MyFxApp.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ducal/Documents/OOP/library_management&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -95,7 +84,7 @@
   <component name="RunManager">
     <configuration name="LibraryManageMent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.demo.LibraryManageMent" />
-      <module name="demo" />
+      <module name="library_management" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.example.demo.*" />
@@ -115,8 +104,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -141,6 +130,16 @@
       <workItem from="1730902391324" duration="29675000" />
       <workItem from="1730952140079" duration="2984000" />
       <workItem from="1730956942730" duration="192000" />
+      <workItem from="1731242520553" duration="8605000" />
+      <workItem from="1731331090714" duration="2885000" />
+      <workItem from="1731336333893" duration="770000" />
+      <workItem from="1731393476602" duration="9000" />
+      <workItem from="1731629744249" duration="1401000" />
+      <workItem from="1731631191919" duration="1152000" />
+      <workItem from="1731686014379" duration="3940000" />
+      <workItem from="1731747385313" duration="20947000" />
+      <workItem from="1731829705987" duration="1354000" />
+      <workItem from="1731899266419" duration="1390000" />
     </task>
     <servers />
   </component>
