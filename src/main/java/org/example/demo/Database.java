@@ -1,8 +1,11 @@
 package org.example.demo;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
-
 
 public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
@@ -87,46 +90,136 @@ public class Database {
         }
     }
 
-//    public static void insertUser(String id, String name, String phone, String address) {
-//        String sql = "INSERT INTO USERS(user_id, user_name, phone_number,address) VALUES(?, ?, ?, ?)";
-//        try (Connection conn = connect();
-//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//            pstmt.setString(1, id);
-//            pstmt.setString(2, name);
-//            pstmt.setString(3, phone);
-//            pstmt.setString(4, address);
-//
-//
-//            int rowsAffected = pstmt.executeUpdate();
-//            System.out.println(rowsAffected + " user(s) inserted.");
-//
-//        } catch (SQLException e) {
-//            System.out.println("Error inserting user: " + e.getMessage());
-//        }
-//    }
-//
-//    public static Customer getUserById(int userId) {
-//        String sql = "SELECT * FROM Users WHERE id = ?";
-//        Customer user = null;
-//
-//        try (Connection conn = connect();
-//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//            pstmt.setInt(1, userId);
-//            ResultSet rs = pstmt.executeQuery();
-//
-//            if (rs.next()) {
-//                user = new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("email"),
-//                        rs.getString("phone"), rs.getString("address"));
-//            }
-//
-//        } catch (SQLException e) {
-//            System.out.println("Error fetching user: " + e.getMessage());
-//        }
-//
-//        return user;
-//    }
+    public static boolean isUserExists(String cccd) {
+        String checkQuery = "SELECT COUNT(*) FROM readers WHERE cccd = ?";
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(checkQuery)) {
+
+            preparedStatement.setString(1, cccd);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // Nếu count > 0, người dùng đã tồn tại
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking user: " + e.getMessage());
+        }
+        return false; // Trả về false nếu có lỗi hoặc không tồn tại
+    }
+
+
+    public static void insertUser(String name, String phone, String address, String cccd) {
+        String sql = "INSERT INTO CUSTOMERS(user_name, phone_number,address, CCCD) VALUES(?, ?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.setString(2, phone);
+            pstmt.setString(3, address);
+            pstmt.setString(4, cccd);
+
+
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println(rowsAffected + " user(s) inserted.");
+
+        } catch (SQLException e) {
+            System.out.println("Error inserting user: " + e.getMessage());
+        }
+    }
+
+    public static List<Customer> getCustomers() throws SQLException {
+        List<Customer> customers = new ArrayList<>();
+
+        String query = "SELECT * FROM customers";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("user_id");
+                String name = resultSet.getString("user_name");
+                String phone = resultSet.getString("phone_number");
+                String address = resultSet.getString("address");
+                String cccd = resultSet.getString("CCCD");
+
+                customers.add(new Customer(id, name, phone,address ,cccd));
+            }
+        }
+
+        return customers;
+    }
+
+
+    public static ObservableList<Customer> getUsersByMultipleSearchTerms(String searchID, String searchName, String searchPhone, String searchCCCD) throws SQLException {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Customers WHERE 1=1");
+
+        // Xây dựng điều kiện tìm kiếm
+        if (!searchID.isEmpty()) {
+            sql.append(" AND user_id LIKE ?");
+        }
+        if (!searchName.isEmpty()) {
+            sql.append(" AND user_name LIKE ?");
+        }
+        if (!searchPhone.isEmpty()) {
+            sql.append(" AND phone_number LIKE ?");
+        }
+        if (!searchCCCD.isEmpty()) {
+            sql.append(" AND CCCD LIKE ?");
+        }
+
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+            int paramIndex = 1;
+
+            // Gán các tham số vào PreparedStatement
+            if (!searchID.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchID + "%");  // Thêm dấu % để tìm kiếm theo phần tử
+            }
+            if (!searchName.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchName + "%");
+            }
+            if (!searchPhone.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchPhone + "%");
+            }
+            if (!searchCCCD.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchCCCD + "%");
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                customerList.add(new Customer(
+                        rs.getInt("user_id"),
+                        rs.getString("user_name"),
+                        rs.getString("phone_number"),
+                        rs.getString("address"),
+                        rs.getString("CCCD")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching users: " + e.getMessage());
+            throw e;  // Ném lại lỗi để xử lý bên ngoài
+        }
+
+        return customerList;
+    }
+
+    public static void deleteCustomer(int customerId) throws SQLException {
+        String sql = "DELETE FROM customers WHERE user_id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, customerId);
+            stmt.executeUpdate();
+        }
+    }
+
+
+
 //
 //    public static List<BorrowedBook> getBorrowedBooksByUserId(int userId) {
 //        String sql = "SELECT b.id, d.title, d.author, b.borrow_date, b.return_date " +

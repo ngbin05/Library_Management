@@ -14,14 +14,14 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" stylesheets="@../../../bolder-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
    <top>
-      <AnchorPane prefHeight="125.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../../../anchor-style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="129.0" prefWidth="623.0" styleClass="anchor-pane" stylesheets="@../../../anchor-style.css" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="8.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../media/books.png" />
                </image>
             </ImageView>
-            <Label layoutX="130.0" layoutY="22.0" styleClass="title" stylesheets="@../../../lib-style.css" text="LIBRARY MANAGEMENT" />
+            <Label layoutX="120.0" layoutY="22.0" prefHeight="82.0" prefWidth="474.0" styleClass="title" stylesheets="@../../../lib-style.css" text="LIBRARY MANAGEMENT" />
          </children></AnchorPane>
    </top>
    <center>
@@ -45,7 +45,7 @@
                            <font>
                               <Font size="13.0" />
                            </font></TextField>
-                        <Button fx:id="loginButton" layoutX="170.0" layoutY="230.0" mnemonicParsing="false" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Sign In" />
+                        <Button layoutX="170.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLogin" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Sign In" />
                         <Label layoutX="45.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="User Name" />
                         <Label layoutX="45.0" layoutY="135.0" stylesheets="@../../../font-style.css" text=" Password " />
                         <PasswordField fx:id="passwordField" layoutX="152.0" layoutY="127.0" onAction="#handleLogin" promptText="Password" stylesheets="@../../../password-style.css">
@@ -97,7 +97,7 @@
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font></TextField>
-                        <Button fx:id="registerButton" layoutX="236.0" layoutY="255.0" mnemonicParsing="false" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Create Account" />
+                        <Button layoutX="236.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleCreate" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Create Account" />
                         <PasswordField fx:id="createPassword" layoutX="230.0" layoutY="195.0" onAction="#handleCreate" promptText="Password" stylesheets="@../../../password-style.css">
                            <font>
                               <Font name="Arial" size="13.0" />

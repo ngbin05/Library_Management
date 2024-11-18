@@ -1,0 +1,13 @@
+.menuItem.selected {
+    -fx-border-color: #336699;  /* Đổi màu viền dưới thành xanh khi được chọn */
+    -fx-border-width: 5px 0px 3px 0px;  /* Chỉ có border dưới */
+}
+.menuItem:hover {
+    -fx-border-color: #336699;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+.sidebarItem:hover {
+    -fx-background-color: #146886;
+    -fx-border-color: WHITE;
+    -fx-border-width: 0px 0px 0px 3px;
+}

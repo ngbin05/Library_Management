@@ -12,7 +12,6 @@
 .border-pane > .bottom,
 .border-pane > .left,
 .border-pane > .right {
-    -fx-background-radius: 35px; /* Bo góc lớn hơn cho các khu vực trong BorderPane */
     -fx-border-width: 1px; /* Độ dày viền cho các khu vực con */
     -fx-border-color: #00b4d8; /* Màu viền các khu vực con */
 }

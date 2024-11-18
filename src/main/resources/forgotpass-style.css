@@ -18,7 +18,6 @@
     -fx-text-fill: #0077b6; /* Màu chữ xanh đậm khi hover */
     -fx-background-color: rgba(0, 180, 216, 0.1); /* Nền sáng nhẹ màu xanh */
     -fx-border-color: #00b4d8; /* Viền sáng lên khi hover */
-    -fx-transform: translateY(-2px); /* Nút hơi nhô lên khi hover */
 }
 
 /* Khi nhấn vào nút Forgot Password */
@@ -26,7 +25,6 @@
     -fx-text-fill: white; /* Chữ trắng khi nhấn */
     -fx-background-color: #00b4d8; /* Nền xanh khi nhấn */
     -fx-border-color: #0077b6; /* Viền xanh đậm khi nhấn */
-    -fx-transform: translateY(2px); /* Nút hơi chìm xuống khi nhấn */
 }
 
 /* Thêm hiệu ứng cho nút khi focus vào */

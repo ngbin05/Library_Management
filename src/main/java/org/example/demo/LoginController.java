@@ -19,9 +19,6 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
     private Label errorLabel;
 
     @FXML
@@ -72,9 +69,6 @@ public class LoginController {
 
     @FXML
     private PasswordField createPassword;
-
-    @FXML
-    private Button registerButton;
 
     @FXML
     private Label errorCreate;
@@ -218,9 +212,6 @@ public class LoginController {
                 fullnameField.requestFocus();
             }
         });
-
-        loginButton.setOnAction(event -> handleLogin());
-        registerButton.setOnAction(event -> handleCreate());
     }
 
     public void setPrimaryStage(Stage stage) {
@@ -231,6 +222,8 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
                 Scene mainScene = new Scene(loader.load());
                 primaryStage.setScene(mainScene);
+                HomeController homeController = loader.getController();
+                homeController.setStage(primaryStage);
                 primaryStage.show();
             } catch (Exception e) {
                 e.printStackTrace();

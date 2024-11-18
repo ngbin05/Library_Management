@@ -1021,11 +1021,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="295" parent="1" name="thuvien">
       <Current>1</Current>
-<<<<<<< HEAD
-      <LastIntrospectionLocalTimestamp>2024-11-15.15:30:18</LastIntrospectionLocalTimestamp>
-=======
-      <LastIntrospectionLocalTimestamp>2024-11-06.19:21:59</LastIntrospectionLocalTimestamp>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
+      <LastIntrospectionLocalTimestamp>2024-11-16.14:29:27</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="296" parent="1" name="mysql.infoschema">
@@ -1051,7 +1047,6 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-<<<<<<< HEAD
     <table id="301" parent="295" name="books">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
@@ -1061,7 +1056,6 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <table id="303" parent="295" name="customers">
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
@@ -1113,7 +1107,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
     <column id="314" parent="301" name="id_sach">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>22</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
@@ -1129,22 +1123,14 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
     <column id="317" parent="301" name="nha_xuatban">
-<<<<<<< HEAD
-=======
-      <NotNull>1</NotNull>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
     <column id="318" parent="301" name="ngay_xuatban">
-<<<<<<< HEAD
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <Position>5</Position>
       <StoredType>date|0s</StoredType>
     </column>
     <column id="319" parent="301" name="the_loai">
-<<<<<<< HEAD
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <Position>6</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
@@ -1155,9 +1141,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="321" parent="301" name="isbn">
       <Position>8</Position>
-<<<<<<< HEAD
       <StoredType>varchar(20)|0s</StoredType>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
     </column>
     <index id="322" parent="301" name="PRIMARY">
       <ColNames>id_sach</ColNames>
@@ -1185,7 +1169,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="327" parent="302" name="user_id">
       <Position>2</Position>
-      <StoredType>varchar(12)|0s</StoredType>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="328" parent="302" name="id_sach">
       <Position>3</Position>
@@ -1208,19 +1192,16 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <foreign-key id="332" parent="302" name="user_borrow">
       <ColNames>user_id</ColNames>
+      <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>user_id</RefColNames>
-<<<<<<< HEAD
       <RefTableName>customers</RefTableName>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
     </foreign-key>
     <foreign-key id="333" parent="302" name="book_borrow">
       <ColNames>id_sach</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id_sach</RefColNames>
-<<<<<<< HEAD
       <RefTableName>books</RefTableName>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
     </foreign-key>
     <index id="334" parent="302" name="PRIMARY">
       <ColNames>borrow_id</ColNames>
@@ -1241,9 +1222,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="338" parent="303" name="user_id">
+      <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>varchar(12)|0s</StoredType>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="339" parent="303" name="user_name">
       <NotNull>1</NotNull>
@@ -1260,33 +1242,28 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-<<<<<<< HEAD
     <column id="342" parent="303" name="CCCD">
+      <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>varchar(20)|0s</StoredType>
     </column>
     <index id="343" parent="303" name="PRIMARY">
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-<<<<<<< HEAD
     <index id="344" parent="303" name="CCCD">
       <ColNames>CCCD</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
     <key id="345" parent="303" name="PRIMARY">
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-<<<<<<< HEAD
     <key id="346" parent="303" name="CCCD">
       <UnderlyingIndexName>CCCD</UnderlyingIndexName>
     </key>
->>>>>>> 14aa9a23902d1b1c8d1533f33b88272e5270211e
   </database-model>
 </dataSource>

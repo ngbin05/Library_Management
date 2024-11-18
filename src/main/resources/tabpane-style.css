@@ -1,7 +1,7 @@
 /* Kiểu cho TabPane */
 .tab-pane {
     -fx-background-color: linear-gradient(to bottom right, #FFDAB9, #FFB6C1); /* Dải màu nhẹ từ vàng cam sang đỏ nhạt */
-    -fx-border-color: #FFB6C1; /* Viền màu đỏ nhạt */
+    -fx-border-color: transparent; /* Viền màu đỏ nhạt */
     -fx-border-width: 1px; /* Độ dày viền mỏng */
     -fx-border-radius: 30px; /* Bo góc mềm mại hơn */
     -fx-background-radius: 30px; /* Bo góc nền */
