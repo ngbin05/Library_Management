@@ -1,0 +1,6 @@
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom right, #D2B48C, #DEB887); /* Dải màu nâu nhạt */
+    -fx-border-color: #DEB887; /* Màu viền nâu nhạt */
+    -fx-border-width: 2px; /* Độ dày viền nhẹ */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5); /* Đổ bóng nhẹ cho AnchorPane */
+}
