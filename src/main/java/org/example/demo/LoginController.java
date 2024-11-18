@@ -219,7 +219,7 @@ public class LoginController {
     }
         private void switchToMainScreen () {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu2-view.fxml"));
                 Scene mainScene = new Scene(loader.load());
                 primaryStage.setScene(mainScene);
                 HomeController homeController = loader.getController();

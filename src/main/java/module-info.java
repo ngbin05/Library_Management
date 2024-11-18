@@ -11,6 +11,7 @@ module org.example.demo {
     requires eu.hansolo.tilesfx;
     requires mysql.connector.java;
     requires java.sql;
+    requires java.desktop;
 
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;

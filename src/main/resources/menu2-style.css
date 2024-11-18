@@ -1,0 +1,80 @@
+.sidebarSystemButton {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 7;
+    -fx-text-fill: #032d4d;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.sidebarSystemButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 20, 0.8, 0, 0);
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+}
+
+.sidebarProfileButton {
+    -fx-background-color: linear-gradient(to right, #032d4d, #336699);
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 7;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.sidebarProfileButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 20, 0.8, 0, 0);
+    -fx-background-color: #34495e;
+}
+
+.sideBar {
+    -fx-spacing: 20;
+    -fx-padding: 30;
+}
+
+.vbox {
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.TotalLayout {
+    -fx-background-radius: 7;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+    -fx-padding: 10;
+    -fx-margin-bottom: 15px;
+    -fx-spacing: 10;
+}
+
+.totalItem {
+    -fx-background-radius: 7;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+    -fx-background-color: linear-gradient(to right, #032d4d, #336699);
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #032d4d;
+    -fx-border-radius: 7;
+}
+
+.totalItem:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 20, 0.8, 0, 0);
+    -fx-background-color: #34495e;
+    -fx-border-color: #5dade2;
+}
+
+.more-info {
+    -fx-effect: dropshadow(gaussian, transparent, 0, 0, 0, 0);
+    -fx-translate-y: 0;
+    -fx-transition: all 0.3s;
+    -fx-text-fill: #ffffff;
+}
+
+
+.totalItem:hover .more-info {
+    -fx-text-fill: #ffffff;
+    -fx-translate-y: -7;
+}
+
+.tableView {
+    -fx-background-radius: 7;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+    -fx-padding: 10;
+    -fx-margin-bottom: 15px;
+    -fx-spacing: 10;
+}
