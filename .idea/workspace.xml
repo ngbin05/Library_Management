@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csdl/thuvien.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +155,7 @@
       <workItem from="1731927742481" duration="452000" />
       <workItem from="1731980259849" duration="6531000" />
       <workItem from="1731988395014" duration="2200000" />
-      <workItem from="1731990639701" duration="2776000" />
+      <workItem from="1731990639701" duration="4431000" />
     </task>
     <servers />
   </component>
