@@ -1,0 +1,41 @@
+/* Kiểu dáng nút cơ bản */
+.button {
+    -fx-text-fill: white;       /* Màu chữ trắng */
+    -fx-font-size: 14px;        /* Kích thước chữ */
+    -fx-font-weight: bold;      /* Chữ đậm */
+    -fx-padding: 5px 15px;     /* Khoảng cách xung quanh chữ */
+    -fx-background-color: #2196f3; /* Màu nền xanh dương */
+    -fx-border-width: 1px;      /* Độ rộng viền mỏng */
+    -fx-border-color: black;    /* Màu viền đen */
+    -fx-cursor: hand;           /* Đổi con trỏ thành tay khi hover */
+    -fx-transition: background-color 0.3s ease, transform 0.3s ease, -fx-text-fill 0.3s ease; /* Hiệu ứng chuyển màu, phóng to và sáng chữ */
+}
+
+/* Hiệu ứng khi hover */
+.button:hover {
+    -fx-background-color: #1565c0; /* Màu nền chuyển sang xanh đậm hơn khi hover */
+    -fx-scale-x: 1.1;  /* Phóng to theo chiều ngang khi hover */
+    -fx-scale-y: 1.1;  /* Phóng to theo chiều dọc khi hover */
+    -fx-text-fill: #ffeb3b; /* Chữ sáng lên màu vàng khi hover */
+}
+
+/* Hiệu ứng khi nhấn nút */
+.button:pressed {
+    -fx-background-color: #0d47a1; /* Màu nền tối hơn khi nhấn */
+    -fx-scale-x: 0.95;  /* Thu nhỏ kích thước khi nhấn */
+    -fx-scale-y: 0.95;  /* Thu nhỏ kích thước khi nhấn */
+}
+
+/* Hiệu ứng khi nút bị vô hiệu hóa */
+.button:disabled {
+    -fx-background-color: #b0bec5; /* Màu nền xám khi nút bị disabled */
+    -fx-text-fill: #ffffff; /* Màu chữ trắng khi disabled */
+    -fx-cursor: not-allowed; /* Thay đổi con trỏ thành hình cấm khi nút disabled */
+}
+
+/* Hiệu ứng cho nút khi có viền khi focus */
+.button:focused {
+    -fx-background-color: #1976d2; /* Nền màu xanh khi focus */
+    -fx-border-color: #ffffff; /* Viền trắng khi focus */
+    -fx-border-width: 1px; /* Độ rộng viền khi focus */
+}

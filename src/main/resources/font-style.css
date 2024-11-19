@@ -1,0 +1,15 @@
+/* Label với kiểu chữ đẹp và màu sắc hiện đại */
+.label {
+    -fx-font-size: 12px; /* Kích thước chữ vừa phải */
+    -fx-font-family: "Arial", sans-serif; /* Phông chữ hiện đại */
+    -fx-font-weight: bold; /* Chữ đậm để dễ nhìn */
+    -fx-text-fill: linear-gradient(to right, #00b4d8, #0077b6); /* Dải màu đẹp cho chữ (xanh lam) */
+    -fx-padding: 5px 10px; /* Khoảng cách xung quanh chữ */
+}
+
+/* Nếu muốn thêm một chút màu nền nhẹ */
+.label {
+    -fx-background-color: rgba(0, 180, 216, 0.1); /* Nền nhẹ màu xanh */
+    -fx-background-radius: 8px; /* Bo góc nền */
+    -fx-padding: 5px 15px; /* Khoảng cách chữ trong label */
+}

@@ -1,0 +1,7 @@
+.anchor-pane {
+    -fx-background-color: #a81a1a;
+    -fx-border-color: #a81a1a; /* Màu viền nâu nhạt */
+    -fx-border-width: 2px; /* Độ dày viền nhẹ */
+    -fx-border-radius: 35px;
+    -fx-background-radius: 35px;
+}

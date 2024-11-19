@@ -1,0 +1,92 @@
+/* Tổng quan cho TableView */
+.table-view {
+    -fx-background-color: #ffffff; /* Màu nền trắng cho TableView */
+    -fx-border-color: #e0e0e0;     /* Màu viền sáng nhẹ */
+    -fx-border-width: 1px;         /* Độ dày viền */
+    -fx-font-size: 14px;            /* Kích thước chữ */
+    -fx-font-family: "Roboto", sans-serif; /* Font chữ hiện đại */
+    -fx-padding: 10px;              /* Khoảng cách giữa nội dung và viền */
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0, 0, 3); /* Bóng nhẹ cho toàn bộ TableView */
+}
+
+/* Cấu hình cho các cột */
+.table-column {
+    -fx-alignment: CENTER;         /* Căn giữa nội dung trong các cột */
+    -fx-text-fill: #333333;        /* Màu chữ cho các cột */
+    -fx-font-weight: bold;         /* Chữ đậm cho các tiêu đề cột */
+    -fx-background-color: #f4f6f9; /* Màu nền sáng cho tiêu đề cột */
+    -fx-padding: 8px;              /* Khoảng cách giữa nội dung và viền cột */
+    -fx-border-width: 0 0 2px 0;   /* Chỉ tạo viền dưới */
+    -fx-border-color: #e0e0e0;     /* Màu viền dưới cột */
+}
+
+/* Cấu hình cho các ô dữ liệu trong TableView */
+.table-cell {
+    -fx-text-fill: #444444;        /* Màu chữ cho các ô dữ liệu */
+    -fx-background-color: #ffffff; /* Màu nền trắng cho các ô */
+    -fx-padding: 8px;              /* Khoảng cách giữa nội dung và viền */
+    -fx-border-width: 0 0 1px 0;   /* Viền dưới mỗi ô */
+    -fx-border-color: #f1f1f1;     /* Màu viền dưới các ô */
+    -fx-background-insets: 0, 0, 0, 0; /* Xóa các khoảng cách ngoài */
+}
+
+/* Cấu hình hiệu ứng khi hover qua các ô */
+.table-cell:hover {
+    -fx-background-color: #f1f1f1; /* Màu nền khi hover */
+    -fx-cursor: hand;               /* Thay đổi con trỏ thành tay */
+    -fx-effect: dropshadow(gaussian, #2196f3, 4, 0, 0, 4); /* Bóng đổ nhẹ với màu xanh */
+}
+
+/* Cấu hình hiệu ứng hover khi hover qua hàng */
+.table-row:hover {
+    -fx-background-color: #e8f5fe;  /* Màu nền nhạt khi hover qua hàng */
+    -fx-border-color: #90caf9;      /* Viền sáng khi hover */
+}
+
+/* Cấu hình cho các hàng khi được chọn */
+.table-row:selected {
+    -fx-background-color: #2196f3;  /* Màu nền của hàng khi chọn */
+    -fx-text-fill: white;            /* Màu chữ trắng khi chọn */
+}
+
+/* Hiệu ứng cho TableColumn khi không có dữ liệu */
+.table-column:empty {
+    -fx-background-color: #f0f0f0; /* Màu nền cho cột trống */
+}
+
+/* Cấu hình cho column header */
+.table-view .column-header {
+    -fx-background-color: #2196f3;  /* Màu nền header */
+    -fx-text-fill: white;            /* Màu chữ trắng cho header */
+    -fx-font-weight: bold;           /* Chữ đậm cho header */
+    -fx-padding: 10px;               /* Khoảng cách trong header */
+    -fx-alignment: center;           /* Căn giữa nội dung header */
+    -fx-border-color: #1976d2;       /* Viền sáng cho header */
+    -fx-border-width: 0 0 2px 0;     /* Viền dưới header */
+}
+
+/* Hiệu ứng hover cho header */
+.table-view .column-header:hover {
+    -fx-background-color: #1976d2; /* Màu nền khi hover vào header */
+}
+
+/* Hiệu ứng khi nhấn nút trên header (sort) */
+.table-view .column-header:pressed {
+    -fx-background-color: #1565c0; /* Màu nền khi nhấn */
+}
+
+/* Hiệu ứng lấp lánh khi hover qua ô */
+.table-view .column-header:focus {
+    -fx-background-color: #1565c0; /* Màu nền khi focus vào header */
+}
+
+/* Cấu hình viền của TableView */
+.table-view .column-header-background {
+    -fx-background-color: #f1f1f1; /* Nền của phần background header */
+}
+
+/* Cấu hình cho dòng đầu tiên (header row) */
+.table-row-cell:filled {
+    -fx-background-color: #ffffff; /* Màu nền của các hàng */
+    -fx-border-color: #eeeeee;     /* Màu viền của các hàng */
+}

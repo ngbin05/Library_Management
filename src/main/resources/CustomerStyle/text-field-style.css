@@ -1,0 +1,34 @@
+/* Kiểu dáng cho TextField */
+.text-field {
+    -fx-background-color: #ffffff;      /* Màu nền trắng */
+    -fx-border-color: #e0e0e0;          /* Màu viền sáng nhẹ */
+    -fx-border-width: 1px;              /* Độ dày viền */
+    -fx-padding: 3px;                  /* Khoảng cách giữa nội dung và viền */
+    -fx-font-size: 14px;                /* Kích thước chữ */
+    -fx-font-family: "Roboto", sans-serif; /* Font chữ hiện đại */
+    -fx-text-fill: #333333;             /* Màu chữ xám đen */
+    -fx-cursor: text;                   /* Hiệu ứng con trỏ khi hover vào TextField */
+    -fx-effect: dropshadow(gaussian, #000000, 3, 0, 0, 2); /* Bóng nhẹ quanh TextField */
+    -fx-transition: background-color 0.3s ease, border-color 0.3s ease; /* Hiệu ứng chuyển màu nền và viền */
+}
+
+/* Hiệu ứng khi TextField có focus */
+.text-field:focused {
+    -fx-background-color: #f1f1f1;      /* Màu nền sáng hơn khi focus */
+    -fx-border-color: #2196f3;          /* Viền chuyển sang màu xanh dương khi focus */
+    -fx-text-fill: #333333;             /* Chữ vẫn giữ màu xám đen */
+}
+
+/* Hiệu ứng khi TextField bị disabled */
+.text-field:disabled {
+    -fx-background-color: #f1f1f1;      /* Nền xám khi vô hiệu hóa */
+    -fx-border-color: #cccccc;          /* Viền xám nhạt */
+    -fx-text-fill: #9e9e9e;             /* Màu chữ xám khi vô hiệu hóa */
+    -fx-cursor: not-allowed;            /* Con trỏ thành hình cấm khi TextField vô hiệu hóa */
+}
+
+/* Hiệu ứng khi TextField chứa lỗi (có thể sử dụng khi có validation) */
+.text-field.error {
+    -fx-border-color: #f44336;          /* Viền đỏ khi có lỗi */
+    -fx-background-color: #ffebee;      /* Nền đỏ nhạt khi có lỗi */
+}
