@@ -22,7 +22,6 @@ public class Book {
         this.isbn = isbn;
     }
 
-    // Getters and setters
     public int getId() {
         return id;
     }

@@ -1,4 +1,6 @@
 package org.example.demo;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -230,5 +232,9 @@ public class LoginController {
                 e.printStackTrace();
             }
         }
+
+    public void handleExitButton(ActionEvent event) {
+        Platform.exit(); // Đóng toàn bộ ứng dụng
+    }
 }
 

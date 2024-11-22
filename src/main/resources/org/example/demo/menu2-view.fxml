@@ -57,7 +57,7 @@
                                     </image>
                                 </ImageView>
                             </graphic></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Books">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showBookList" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Books">
                             <font>
                                 <Font name=".VnArial" size="13.0" />
                             </font>
@@ -226,6 +226,6 @@
             <TableColumn prefWidth="164.5714111328125" text="Expiry Date" />
         </columns>
       </TableView>
-      <Pane fx:id="pane" layoutX="201.0" layoutY="-3.0" prefHeight="600.0" prefWidth="795.0" />
+      <Pane fx:id="pane" layoutX="201.0" layoutY="-3.0" prefHeight="600.0" prefWidth="800.0" />
     </children>
 </AnchorPane>

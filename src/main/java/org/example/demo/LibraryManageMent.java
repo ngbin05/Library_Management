@@ -17,7 +17,7 @@ public class LibraryManageMent extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookList-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         Parent root = fxmlLoader.load();
         Rectangle clip = new Rectangle(795, 600);
         clip.setArcWidth(30); // Độ bo góc ngang
@@ -30,10 +30,8 @@ public class LibraryManageMent extends Application {
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/icon-library.png")));
         primaryStage.setTitle("Library Management");
-        ListBookController listBookController = fxmlLoader.getController();
-        listBookController.setStage(primaryStage);
-//        LoginController controller = fxmlLoader.getController();
-//        controller.setStage(primaryStage);
+        LoginController controller = fxmlLoader.getController();
+        controller.setStage(primaryStage);
 
 
         primaryStage.show();
