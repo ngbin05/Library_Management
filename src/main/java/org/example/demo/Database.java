@@ -10,7 +10,7 @@ public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
 
-    private static final String PASSWORD = "Binh2352005@";
+    private static final String PASSWORD = "danhhao2005";
 
 
     public static Connection connect() {
@@ -431,6 +431,137 @@ public class Database {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean changePassword(String username, String oldPassword, String newPassword) {
+        String querySelect = "SELECT password FROM Accounts WHERE username = ?";
+        String queryUpdate = "UPDATE accounts SET password = ? WHERE username = ?";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement selectStmt = conn.prepareStatement(querySelect)) {
+
+            // Kiểm tra mật khẩu cũ
+            selectStmt.setString(1, username);
+            ResultSet rs = selectStmt.executeQuery();
+            if (rs.next()) {
+                String currentPassword = rs.getString("password");
+
+                if (!currentPassword.equals(oldPassword)) {
+                    System.out.println("Mật khẩu cũ không đúng!");
+                    return false;
+                }
+            } else {
+                System.out.println("Không tìm thấy tài khoản với username này!");
+                return false;
+            }
+
+            // Cập nhật mật khẩu mới
+            try (PreparedStatement updateStmt = conn.prepareStatement(queryUpdate)) {
+                updateStmt.setString(1, newPassword);
+                updateStmt.setString(2, username);
+
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Đổi mật khẩu thành công!");
+                    return true;
+                } else {
+                    System.out.println("Đổi mật khẩu thất bại!");
+                    return false;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thay đổi mật khẩu: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static String getUserName() {
+        String userName = null;
+        String query = "SELECT user_name FROM information_admin LIMIT 1";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            if (resultSet.next()) {
+                userName = resultSet.getString("user_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userName;
+    }
+
+    public static String getPhoneNumber() {
+        String phoneNumber = null;
+        String query = "SELECT phone_number FROM information_admin LIMIT 1";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            if (resultSet.next()) {
+                phoneNumber = resultSet.getString("phone_number");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return phoneNumber;
+    }
+
+    public static String getGmail() {
+        String gmail = null;
+        String query = "SELECT gmail FROM information_admin LIMIT 1";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            if (resultSet.next()) {
+                gmail = resultSet.getString("gmail");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return gmail;
+    }
+
+    public static String getAddress() {
+        String address = null;
+        String query = "SELECT address FROM information_admin LIMIT 1";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            if (resultSet.next()) {
+                address = resultSet.getString("address");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return address;
+    }
+
+    public static boolean updateUserInformation(String user_name, String phoneNumber, String gmail, String address, String user_id) {
+        String sql = "UPDATE information_admin SET user_name = ?, phone_number = ?, gmail = ?, address = ? WHERE user_id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user_name);
+            pstmt.setString(2, phoneNumber);
+            pstmt.setString(3, gmail);
+            pstmt.setString(4, address);
+            pstmt.setString(5, user_id);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu cập nhật thành công
+        } catch (SQLException e) {
+            System.out.println("Error updating user information: " + e.getMessage());
+            return false;
         }
     }
 

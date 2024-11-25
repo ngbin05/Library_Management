@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -36,10 +34,6 @@ public class Menu2Controller {
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
-    @FXML
-    public void showBookList() {
-        loadPage("bookList-view.fxml");
-    }
 
     @FXML
     public void initialize() {
@@ -52,7 +46,18 @@ public class Menu2Controller {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
+    
+    private void loadPage(String fxmlFileName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+            ListReaderController controller = loader.getController();
+            pane.getChildren().setAll(root);
+            controller.setStage((Stage) pane.getScene().getWindow());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void logOut() {
@@ -68,35 +73,5 @@ public class Menu2Controller {
             e.printStackTrace();
         }
     }
-
-    private void loadPage(String fxmlFileName) {
-        try {
-            // Load FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
-
-            // Xử lý chuyển cảnh và cấu hình controller
-            pane.setVisible(true);
-            pane.getChildren().clear();
-            pane.getChildren().setAll(root);
-            pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-
-            // Xử lý controller
-            Object controller = loader.getController();
-            if (controller != null) {
-                if (controller instanceof ListReaderController) {
-                    ListReaderController listReaderController = (ListReaderController) controller;
-                    listReaderController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof ListBookController) {
-                    ListBookController listBookController = (ListBookController) controller;
-                    listBookController.setStage((Stage) pane.getScene().getWindow());
-                }
-                // Thêm các controller khác vào đây nếu cần
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
 
