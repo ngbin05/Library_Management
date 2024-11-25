@@ -16,7 +16,7 @@ public class LibraryManageMent extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         Parent root = fxmlLoader.load();
 
         // Tạo Stage cho ứng dụng
