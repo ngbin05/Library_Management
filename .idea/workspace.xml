@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/button-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/button-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookList-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookList-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tabpane-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tabpane-style.css" afterDir="false" />
-    </list>
+    <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
