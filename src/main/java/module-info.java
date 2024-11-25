@@ -16,8 +16,8 @@ module org.example.demo {
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
     requires com.google.gson;
-
-
+    requires org.bytedeco.javacv;
+    requires org.bytedeco.librealsense;
 
 
     opens org.example.demo to javafx.fxml;

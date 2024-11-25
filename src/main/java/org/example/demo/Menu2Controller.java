@@ -43,6 +43,7 @@ public class Menu2Controller {
 
     @FXML
     public void initialize() {
+        pane.setVisible(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             LocalDateTime now = LocalDateTime.now();
@@ -70,22 +71,32 @@ public class Menu2Controller {
 
     private void loadPage(String fxmlFileName) {
         try {
+            // Load FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
-            if(loader.getController() instanceof ListReaderController) {
-                ListReaderController controller = loader.getController();
-                pane.getChildren().setAll(root);
-                pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                controller.setStage((Stage) pane.getScene().getWindow());
-            }
-            if(loader.getController() instanceof ListBookController) {
-                ListBookController controller = loader.getController();
-                pane.getChildren().setAll(root);
-                controller.setStage((Stage) pane.getScene().getWindow());
+
+            // Xử lý chuyển cảnh và cấu hình controller
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(root);
+            pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+
+            // Xử lý controller
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof ListReaderController) {
+                    ListReaderController listReaderController = (ListReaderController) controller;
+                    listReaderController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ListBookController) {
+                    ListBookController listBookController = (ListBookController) controller;
+                    listBookController.setStage((Stage) pane.getScene().getWindow());
+                }
+                // Thêm các controller khác vào đây nếu cần
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
 

@@ -61,10 +61,12 @@ public class Database {
         return false;
     }
 
-    public static void insertBook(String title, String author, String nha_xuatban, String publish, String theloai, int quantity, String isbn) {
-        String sql = "INSERT INTO BOOKS (ten_sach, tac_gia, nha_xuatban, ngay_xuatban, the_loai, so_luong, isbn) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+    public static void insertBook(String title, String author, String nha_xuatban, String publish, String theloai, int quantity, String isbn, String description, byte[] image) {
+        // Cập nhật câu lệnh SQL để bao gồm trường "image" (BLOB) và "description"
+        String sql = "INSERT INTO BOOKS (ten_sach, tac_gia, nha_xuatban, ngay_xuatban, the_loai, so_luong, isbn, image, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, title);
             pstmt.setString(2, author);
             pstmt.setString(3, nha_xuatban);
@@ -72,11 +74,123 @@ public class Database {
             pstmt.setString(5, theloai);
             pstmt.setInt(6, quantity);
             pstmt.setString(7, isbn);
+             // Thêm mô tả sách vào cơ sở dữ liệu
+
+            // Nếu có ảnh, lưu ảnh vào cơ sở dữ liệu dưới dạng BLOB
+            if (image != null) {
+                pstmt.setBytes(8, image);  // Lưu ảnh dưới dạng byte[]
+            } else {
+                pstmt.setNull(8, Types.BLOB);  // Nếu không có ảnh, lưu NULL
+            }
+            pstmt.setString(9, description);
+
             int rowsAffected = pstmt.executeUpdate();
             System.out.println(rowsAffected + " row(s) inserted.");
         } catch (SQLException e) {
             System.out.println("Error inserting document: " + e.getMessage());
         }
+    }
+
+
+
+
+    public static List<Book> getBooks() throws SQLException {
+        List<Book> books = new ArrayList<>();
+
+        String query = "SELECT * FROM books";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_sach");
+                String name = resultSet.getString("ten_sach");
+                String author = resultSet.getString("tac_gia");
+                String publisher = resultSet.getString("nha_xuatban");
+                String publishedDate = resultSet.getString("ngay_xuatban");
+                String genre = resultSet.getString("the_loai");
+                int quantity = resultSet.getInt("so_luong");
+                String isbn = resultSet.getString("isbn");
+
+                // Đọc mô tả từ cơ sở dữ liệu
+                String description = resultSet.getString("description");
+
+                // Đọc ảnh từ cơ sở dữ liệu
+                byte[] image = resultSet.getBytes("image");
+
+                // Tạo đối tượng Book và thêm vào danh sách
+                books.add(new Book(id, name, author, publisher, publishedDate, genre, quantity, isbn, image,description));
+            }
+        }
+
+        return books;
+    }
+
+
+
+
+    public static void deleteBook(int bookId) throws SQLException {
+        String sql = "DELETE FROM books WHERE id_sach = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, bookId);
+            stmt.executeUpdate();
+        }
+    }
+
+    public static ObservableList<Book> getBooksByNameOrAuthor(String searchTitle, String searchAuthor) throws SQLException {
+        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE 1=1");
+
+        if (!searchTitle.isEmpty()) {
+            sql.append(" AND ten_sach LIKE ?");
+        }
+        if (!searchAuthor.isEmpty()) {
+            sql.append(" AND tac_gia LIKE ?");
+        }
+
+        ObservableList<Book> bookList = FXCollections.observableArrayList();
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+            int paramIndex = 1;
+
+            // Gán các tham số vào PreparedStatement
+            if (!searchTitle.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchTitle + "%");  // Thêm dấu % để tìm kiếm theo phần tử
+            }
+            if (!searchAuthor.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + searchAuthor + "%");
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // Đọc ảnh và mô tả từ cơ sở dữ liệu
+                byte[] image = rs.getBytes("image");
+                String description = rs.getString("description");
+
+                // Thêm đối tượng Book vào danh sách
+                bookList.add(new Book(
+                        rs.getInt("id_sach"),
+                        rs.getString("ten_sach"),
+                        rs.getString("tac_gia"),
+                        rs.getString("nha_xuatban"),
+                        rs.getString("ngay_xuatban"),
+                        rs.getString("the_loai"),
+                        rs.getInt("so_luong"),
+                        rs.getString("isbn"),
+                        image,
+                        description// Truyền ảnh vào constructor
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching books: " + e.getMessage());
+            throw e;
+        }
+
+        return bookList;
     }
 
     public static boolean isUserExists(String cccd) {
@@ -206,87 +320,7 @@ public class Database {
         }
     }
 
-    public static List<Book> getBooks() throws SQLException {
-        List<Book> books = new ArrayList<>();
 
-        String query = "SELECT * FROM books";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id_sach");
-                String name = resultSet.getString("ten_sach");
-                String author = resultSet.getString("tac_gia");
-                String publisher = resultSet.getString("nha_xuatban");
-                String publishedDate = resultSet.getString("ngay_xuatban");
-                String genre = resultSet.getString("the_loai");
-                int quantity = resultSet.getInt("so_luong");
-                String isbn = resultSet.getString("isbn");
-
-                books.add(new Book(id, name, author, publisher ,publishedDate, genre, quantity, isbn));
-            }
-        }
-
-        return books;
-    }
-
-    public static void deleteBook(int bookId) throws SQLException {
-        String sql = "DELETE FROM books WHERE id_sach = ?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, bookId);
-            stmt.executeUpdate();
-        }
-    }
-
-    public static ObservableList<Book> getBooksByNameOrAuthor(String searchTitle, String searchAuthor) throws SQLException {
-        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE 1=1");
-
-        if (!searchTitle.isEmpty()) {
-            sql.append(" AND ten_sach LIKE ?");
-        }
-        if (!searchAuthor.isEmpty()) {
-            sql.append(" AND tac_gia LIKE ?");
-        }
-
-        ObservableList<Book> bookList = FXCollections.observableArrayList();
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
-
-            int paramIndex = 1;
-
-            // Gán các tham số vào PreparedStatement
-            if (!searchTitle.isEmpty()) {
-                pstmt.setString(paramIndex++, "%" + searchTitle + "%");  // Thêm dấu % để tìm kiếm theo phần tử
-            }
-            if (!searchAuthor.isEmpty()) {
-                pstmt.setString(paramIndex++, "%" + searchAuthor + "%");
-            }
-
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                bookList.add(new Book(
-                        rs.getInt("id_sach"),
-                        rs.getString("ten_sach"),
-                        rs.getString("tac_gia"),
-                        rs.getString("nha_xuatban"),
-                        rs.getString("ngay_xuatban"),
-                        rs.getString("the_loai"),
-                        rs.getInt("so_luong"),
-                        rs.getString("isbn")
-                ));
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching books: " + e.getMessage());
-            throw e;
-        }
-
-        return bookList;
-    }
 
 
 

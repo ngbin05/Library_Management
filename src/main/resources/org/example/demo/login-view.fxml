@@ -102,8 +102,14 @@
                                  </font>
                               </TextField>
                               <Button layoutX="170.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLogin" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Sign In" />
-                              <Label layoutX="45.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="User Name" />
-                              <Label layoutX="45.0" layoutY="135.0" stylesheets="@../../../font-style.css" text=" Password " />
+                              <Label layoutX="45.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="User Name">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font></Label>
+                              <Label layoutX="45.0" layoutY="135.0" stylesheets="@../../../font-style.css" text=" Password ">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font></Label>
                               <PasswordField fx:id="passwordField" layoutX="152.0" layoutY="127.0" onAction="#handleLogin" promptText="Password" styleClass="password-field" stylesheets="@../../../textfield-style.css">
                                  <font>
                                     <Font size="13.0" />
@@ -117,12 +123,12 @@
                               </Label>
                               <Label fx:id="usernameEmpty" layoutX="356.0" layoutY="82.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Arial" size="13.0" />
                                  </font>
                               </Label>
                               <Label fx:id="passwordEmpty" layoutX="368.0" layoutY="135.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Arial" size="13.0" />
                                  </font>
                               </Label>
                            </children>

@@ -7,11 +7,13 @@ public class Book {
     private String publisher;
     private String publishedDate;
     private String genre;
+    private String description;
     private int quantity;
     private String isbn;
+    private byte[] image; // Trường ảnh dưới dạng byte[]
 
     // Constructor
-    public Book(int id, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn) {
+    public Book(int id,String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, byte[] image, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -20,8 +22,10 @@ public class Book {
         this.genre = genre;
         this.quantity = quantity;
         this.isbn = isbn;
+        this.image = image;
     }
 
+    // Getter và Setter cho tất cả các trường
     public int getId() {
         return id;
     }
@@ -70,9 +74,18 @@ public class Book {
         this.genre = genre;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getQuantity() {
         return quantity;
     }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -85,15 +98,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", publishedDate='" + publishedDate + '\'' +
-                ", genre='" + genre + '\'' +
-                ", isbn='" + isbn + '\'' +
-                '}';
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

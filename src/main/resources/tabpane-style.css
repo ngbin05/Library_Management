@@ -40,7 +40,6 @@
 
 /* Khi di chuột vào tab */
 .tab:hover {
-    -fx-text-fill: white; /* Màu chữ khi hover */
     -fx-cursor: hand; /* Con trỏ chuột thành tay */
 }
 
