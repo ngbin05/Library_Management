@@ -1,9 +1,0 @@
-/* Bo viền và bo góc cho BorderPane */
-.border-pane {
-    -fx-background-color: transparent; /* Nền sáng, nhẹ */
-    -fx-border-color: transparent; /* Viền xanh */
-    -fx-border-width: 2px;
-    -fx-border-radius: 35px; /* Bo góc lớn hơn cho BorderPane */
-    -fx-background-radius: 35px; /* Bo góc nền */
-}
-

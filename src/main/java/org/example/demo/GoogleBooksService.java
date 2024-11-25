@@ -12,9 +12,8 @@ import java.nio.charset.StandardCharsets;
 
 public class GoogleBooksService {
 
-    private static final String API_KEY = "AIzaSyA7HL8OtLP5Hl43OJs4Xo1hiGo3rwnta6Q";  // Thay API key của bạn ở đây
+    private static final String API_KEY = "AIzaSyA7HL8OtLP5Hl43OJs4Xo1hiGo3rwnta6Q";
 
-    // Phương thức tìm kiếm sách
     public JsonObject searchBooks(String query) {
         try {
             // Mã hóa query để tránh ký tự đặc biệt trong URL
