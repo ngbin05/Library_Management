@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -70,6 +71,12 @@ public class ListBookController {
         addButtonToTable();
         loadBookData();
 
+        bookTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                openBookDetailsWindow(newValue);
+            }
+        });
+
     }
 
     private void loadBookData() {
@@ -78,6 +85,39 @@ public class ListBookController {
             bookList.addAll(Database.getBooks());
             bookTable.setItems(bookList); // Gắn dữ liệu vào TableView
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openBookDetailsWindow(Book book) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookDetail-view.fxml"));
+            Parent bookDetailsParent = fxmlLoader.load();  // Load FXML cho cửa sổ chi tiết sách
+            BookDetailsController controller = fxmlLoader.getController();
+            Scene bookDetailsScene = new Scene(bookDetailsParent);
+            Stage bookDetailsStage = new Stage();
+            bookDetailsStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
+            bookDetailsStage.initOwner(stage);
+            bookDetailsScene.setFill(Color.TRANSPARENT);
+            bookDetailsStage.initStyle(StageStyle.TRANSPARENT);
+            controller.setStage(bookDetailsStage);
+            Platform.runLater(() ->
+            {
+                double mainStageX = stage.getX();
+                double mainStageY = stage.getY();
+                bookDetailsStage.show();
+                double x = mainStageX + stage.getWidth() - rectangle.getWidth();
+                double y = mainStageY + stage.getHeight() - rectangle.getHeight();
+                bookDetailsStage.setX(x);
+                bookDetailsStage.setY(y);
+            });
+
+            // Hiển thị thông tin chi tiết sách
+            controller.displayBookDetails(book);
+
+            bookDetailsStage.setScene(bookDetailsScene);
+            bookDetailsStage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -173,23 +213,22 @@ public class ListBookController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("book-view.fxml"));
             Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
             BookController controller = fxmlLoader.getController();
-            Scene addReaderScene = new Scene(addBookParent,557, 362);  // Thay bằng FXML tương ứng
+            Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
             Stage addBookStage = new Stage();
             addBookStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
             addBookStage.initOwner(stage);
             addBookStage.initStyle(StageStyle.TRANSPARENT);
             rectangle.setVisible(true);
+            addReaderScene.setFill(Color.TRANSPARENT);
             addBookStage.setScene(addReaderScene);
             controller.setStage(addBookStage);
             Platform.runLater(() ->
             {
                 double mainStageX = stage.getX();
                 double mainStageY = stage.getY();
-                double mainStageWidth = stage.getWidth();
-                double mainStageHeight = stage.getHeight();
                 addBookStage.show();
-                double x = mainStageX + (mainStageWidth - addBookStage.getWidth()) / 2;
-                double y = mainStageY + (mainStageHeight - addBookStage.getHeight()) / 2;
+                double x = mainStageX + stage.getWidth() - rectangle.getWidth();
+                double y = mainStageY + stage.getHeight() - rectangle.getHeight();
                 addBookStage.setX(x);
                 addBookStage.setY(y);
 

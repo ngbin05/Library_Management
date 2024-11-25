@@ -1,60 +1,51 @@
 /* Kiểu cho TabPane */
-
 .tab-pane .tab-header-area {
-    -fx-background-color: transparent; /* Đảm bảo làm nền trong suốt */
-    -fx-border-color: transparent;    /* Loại bỏ viền nếu có */
+    -fx-background-color: transparent; /* Làm nền trong suốt */
+    -fx-border-color: transparent;
 }
 
-.tab-pane .tab-header-area > .headers-region {
-    -fx-background-color: transparent; /* Đảm bảo phần vùng chứa các tab cũng trong suốt */
+.tab-pane .tab-header-area,
+.tab-pane .tab-header-area > .headers-region,
+.tab-pane .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
+/* Làm phần chứa các tab cũng trong suốt */
 
 .tab-pane {
-    -fx-background-color: linear-gradient(to bottom right, #FFDAB9, #FFB6C1); /* Dải màu nhẹ từ vàng cam sang đỏ nhạt */
-    -fx-border-color: transparent; /* Viền màu đỏ nhạt */
-    -fx-border-width: 1px; /* Độ dày viền mỏng */
-    -fx-border-radius: 35px; /* Bo góc mềm mại hơn */
-    -fx-background-radius: 35px; /* Bo góc nền */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 5); /* Đổ bóng nhẹ */
+    -fx-background-color: transparent;
+    -fx-border-color: transparent; /* Loại bỏ viền */
 }
 
 /* Kiểu cho các tab trong TabPane */
 .tab {
-    -fx-background-color: #ffffff; /* Nền trắng cho tab */
-    -fx-text-fill: #FFB6C1; /* Màu chữ đỏ nhạt */
-    -fx-padding: 10px 20px; /* Khoảng cách cho các tab */
-    -fx-border-radius: 35px; /* Bo góc lớn cho tab */
-    -fx-background-radius: 35px; /* Bo góc nền của tab */
+    -fx-background-color: linear-gradient(to bottom right, #2196F3, #FFFFFF);
+    -fx-text-fill: #2196F3;
+    -fx-padding: 10px 125,9px; /* Khoảng cách trong tab */
+    -fx-border-radius: 125px; /* Bo góc lớn */
+    -fx-background-radius: 125px; /* Bo góc nền */
     -fx-font-size: 14px; /* Kích thước chữ */
-    -fx-font-weight: bold; /* Chữ đậm để tab nổi bật */
-    -fx-border-color: transparent; /* Loại bỏ viền mặc định */
+    -fx-font-weight: bold; /* Chữ đậm */
+    -fx-border-color: linear-gradient(to top left, #2196F3, #FFFFFF);
 }
 
 /* Khi tab được chọn */
 .tab:selected {
-    -fx-background-color: #FFB6C1; /* Nền khi tab được chọn */
+    -fx-background-color: linear-gradient(to bottom right, #2196F3, #FFFFFF);
+    -fx-border-color: linear-gradient(to top left, #2196F3, #FFFFFF); /* Gradient từ xanh dương sang trắng */
     -fx-text-fill: white; /* Màu chữ khi tab được chọn */
-    -fx-effect: none; /* Tắt hiệu ứng đổ bóng khi tab được chọn */
     -fx-border-color: transparent; /* Loại bỏ viền của tab khi chọn */
-    -fx-border-width: 0px; /* Đặt độ dày viền là 0px */
-    -fx-background-radius: 35px; /* Bo góc lớn khi tab được chọn */
+    -fx-background-radius: 125px; /* Bo góc lớn khi tab được chọn */
 }
 
 /* Khi di chuột vào tab */
 .tab:hover {
-    -fx-background-color: #FFB6C1; /* Màu nền khi hover */
-    -fx-text-fill: white; /* Màu chữ khi hover */
-    -fx-cursor: hand; /* Con trỏ chuột thành tay khi hover */
+    -fx-cursor: hand; /* Con trỏ chuột thành tay */
 }
 
 /* Khi hover trên tab chưa chọn */
-.tab:not(:selected):hover {
-    -fx-background-color: #FFDAB9; /* Nền cam nhạt khi hover trên tab chưa chọn */
-    -fx-text-fill: #FFB6C1; /* Màu chữ khi hover trên tab chưa chọn */
+.tab {
+    -fx-border-color: linear-gradient(to top right, #0d47a1, #B0BEC5);/* Gradient giữa 3 màu xanh dương đậm hơn */
+    -fx-background-color: linear-gradient(to bottom left, #0d47a1, #B0BEC5);
 }
 
-
-/* Loại bỏ viền của các tab khi chưa chọn */
-.tab:not(:selected) {
-    -fx-border-color: transparent; /* Xóa viền của tab khi chưa chọn */
-}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -9,141 +10,206 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-border-radius: 35px;" styleClass="border-pane" stylesheets="@../../../bolder-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
-   <top>
-      <AnchorPane prefHeight="129.0" prefWidth="623.0" styleClass="anchor-pane" stylesheets="@../../../anchor-style.css" BorderPane.alignment="CENTER">
+<StackPane style="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="8.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../media/books.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="122.0" layoutY="24.0" prefHeight="82.0" prefWidth="474.0" styleClass="title" stylesheets="@../../../lib-style.css" text="LIBRARY MANAGEMENT" textFill="#138ee0" />
-         </children></AnchorPane>
-   </top>
-   <center>
-      <TabPane prefHeight="350.0" prefWidth="600.0" stylesheets="@../../../tabpane-style.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Sign In">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="600.0">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="316.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../media/user.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="331.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../media/password.png" />
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="usernameField" layoutX="152.0" layoutY="74.0" onAction="#handleLogin" prefHeight="25.0" prefWidth="150.0" promptText="User name" stylesheets="@../../../textfield-style.css">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <Button layoutX="170.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLogin" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Sign In" />
-                        <Label layoutX="45.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="User Name" />
-                        <Label layoutX="45.0" layoutY="135.0" stylesheets="@../../../font-style.css" text=" Password " />
-                        <PasswordField fx:id="passwordField" layoutX="152.0" layoutY="127.0" onAction="#handleLogin" promptText="Password" stylesheets="@../../../password-style.css">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </PasswordField>
-                        <Label layoutX="140.0" layoutY="170.0" styleClass="forgot-password" stylesheets="@../../../forgotpass-style.css" text="Forgot password?" />
-                        <Label fx:id="errorLabel" layoutX="152.0" layoutY="206.0" onDragDetected="#initialize" text="Lỗi! Sai tài khoản hoặc tên dăng nhập!" textFill="#db0000">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="usernameEmpty" layoutX="356.0" layoutY="82.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="passwordEmpty" layoutX="368.0" layoutY="135.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Sign Up">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="597.0">
-                     <children>
-                        <Label layoutX="125.0" layoutY="45.0" stylesheets="@../../../font-style.css" text="Your Name" />
-                        <Label layoutX="124.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="      Email    " />
-                        <Label layoutX="125.0" layoutY="124.0" stylesheets="@../../../font-style.css" text="    Phone    " />
-                        <Label layoutX="125.0" layoutY="162.0" stylesheets="@../../../font-style.css" text="User Name" />
-                        <Label layoutX="125.0" layoutY="200.0" stylesheets="@../../../font-style.css" text=" Password " />
-                        <TextField fx:id="fullnameField" layoutX="230.0" layoutY="40.0" onAction="#handleCreate" promptText="Your full name" stylesheets="@../../../textfield-style.css">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="emailField" layoutX="230.0" layoutY="79.0" onAction="#handleCreate" promptText="Email" stylesheets="@../../../textfield-style.css">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="phoneField" layoutX="230.0" layoutY="119.0" onAction="#handleCreate" promptText="Phone number" stylesheets="@../../../textfield-style.css">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="createUsername" layoutX="230.0" layoutY="157.0" onAction="#handleCreate" promptText="User name" stylesheets="@../../../textfield-style.css">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </TextField>
-                        <Button layoutX="236.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleCreate" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Create Account" />
-                        <PasswordField fx:id="createPassword" layoutX="230.0" layoutY="195.0" onAction="#handleCreate" promptText="Password" stylesheets="@../../../password-style.css">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </PasswordField>
-                        <Label fx:id="errorCreate" layoutX="216.0" layoutY="235.0" text="Lỗi! Tài khoản này đã tồn tại!" textFill="#c00000">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="fullnameEmpty" layoutX="402.0" layoutY="48.0" text="Lỗi! Tên bạn còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="emailEmpty" layoutX="402.0" layoutY="87.0" text="Lỗi! Email còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="createUsernameEmpty" layoutX="402.0" layoutY="165.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="createPasswordEmpty" layoutX="402.0" layoutY="203.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="phoneEmpty" layoutX="402.0" layoutY="127.0" text="Lỗi! Số điện thoại còn trống!" textFill="#c50202">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </center>
-</BorderPane>
+            <AnchorPane layoutX="-3.0" layoutY="-1.0" prefHeight="161.0" prefWidth="625.0" styleClass="anchor-pane" stylesheets="@../../../anchor-style.css">
+               <children>
+                  <Label layoutX="220.0" layoutY="20.0" prefHeight="71.0" prefWidth="386.0" text="LIBRARY MANAGEMENT">
+                     <font>
+                        <Font name="Agency FB Bold" size="36.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color opacity="0.8883248567581177" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.24593495934959347">
+                                 <color>
+                                    <Color green="0.1342105269432068" blue="0.44736841320991516" opacity="0.8899999856948853" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.44602226223604513">
+                                 <color>
+                                    <Color red="0.2945094108581543" green="0.33510395884513855" blue="0.429824560880661" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.5336798166639384">
+                                 <color>
+                                    <Color red="0.06015811115503311" green="0.13099776208400726" blue="0.19298245012760162" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.6957767228678998">
+                                 <color>
+                                    <Color red="0.10840372741222382" green="0.15003789961338043" blue="0.38596490025520325" opacity="0.8199999928474426" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.8650215529000926">
+                                 <color>
+                                    <Color red="0.23554256558418274" green="0.3133799135684967" blue="0.4385964870452881" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.017999999225139618" green="0.04039999842643738" blue="0.05999999865889549" opacity="0.6472081542015076" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <ImageView fitHeight="60.0" fitWidth="40.0" layoutX="517.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../media/books.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="20.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="29.0" prefWidth="77.0" stylesheets="@../../../button-style.css" text="Exit">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <TabPane layoutX="1.0" layoutY="107.0" prefHeight="395.0" prefWidth="625.0" stylesheets="@../../../tabpane-style.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab closable="false" text="Sign In">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="623.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="316.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../media/user.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="331.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../media/password.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="usernameField" layoutX="152.0" layoutY="74.0" onAction="#handleLogin" prefHeight="25.0" prefWidth="150.0" promptText="User name" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="170.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLogin" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Sign In" />
+                              <Label layoutX="45.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="User Name">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font></Label>
+                              <Label layoutX="45.0" layoutY="135.0" stylesheets="@../../../font-style.css" text=" Password ">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font></Label>
+                              <PasswordField fx:id="passwordField" layoutX="152.0" layoutY="127.0" onAction="#handleLogin" promptText="Password" styleClass="password-field" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </PasswordField>
+                              <Label layoutX="140.0" layoutY="170.0" styleClass="forgot-password" stylesheets="@../../../forgotpass-style.css" text="Forgot password?" />
+                              <Label fx:id="errorLabel" layoutX="152.0" layoutY="206.0" onDragDetected="#initialize" text="Lỗi! Sai tài khoản hoặc tên dăng nhập!" textFill="#db0000">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernameEmpty" layoutX="356.0" layoutY="82.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="passwordEmpty" layoutX="368.0" layoutY="135.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Sign Up">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="593.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
+                           <children>
+                              <Label layoutX="125.0" layoutY="45.0" stylesheets="@../../../font-style.css" text="Your Name" />
+                              <Label layoutX="124.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="      Email    " />
+                              <Label layoutX="125.0" layoutY="124.0" stylesheets="@../../../font-style.css" text="    Phone    " />
+                              <Label layoutX="125.0" layoutY="162.0" stylesheets="@../../../font-style.css" text="User Name" />
+                              <Label layoutX="125.0" layoutY="200.0" stylesheets="@../../../font-style.css" text=" Password " />
+                              <TextField fx:id="fullnameField" layoutX="230.0" layoutY="40.0" onAction="#handleCreate" promptText="Your full name" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="emailField" layoutX="230.0" layoutY="79.0" onAction="#handleCreate" promptText="Email" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="phoneField" layoutX="230.0" layoutY="119.0" onAction="#handleCreate" promptText="Phone number" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="createUsername" layoutX="230.0" layoutY="157.0" onAction="#handleCreate" promptText="User name" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="236.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleCreate" onKeyPressed="#initialize" stylesheets="@../../../button-style.css" text="Create Account" />
+                              <PasswordField fx:id="createPassword" layoutX="230.0" layoutY="195.0" onAction="#handleCreate" promptText="Password" stylesheets="@../../../textfield-style.css">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </PasswordField>
+                              <Label fx:id="errorCreate" layoutX="216.0" layoutY="235.0" text="Lỗi! Tài khoản này đã tồn tại!" textFill="#c00000">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="fullnameEmpty" layoutX="402.0" layoutY="48.0" text="Lỗi! Tên bạn còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="emailEmpty" layoutX="402.0" layoutY="87.0" text="Lỗi! Email còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="createUsernameEmpty" layoutX="402.0" layoutY="165.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="createPasswordEmpty" layoutX="402.0" layoutY="203.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="phoneEmpty" layoutX="402.0" layoutY="127.0" text="Lỗi! Số điện thoại còn trống!" textFill="#c50202">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

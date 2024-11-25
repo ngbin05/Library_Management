@@ -2,61 +2,56 @@ package org.example.demo;
 
 import com.google.gson.JsonObject;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Region;
 import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BookController {
+
     private Stage stage;
-
-    public void setStage (Stage stage) {
-        this.stage = stage;
-    }
-
-    @FXML
-    private TextField searchTextField;
-    @FXML
-    private Label bookTitleLabel;
-    @FXML
-    private Label authorLabel;
-    @FXML
-    private Label publishedDateLabel;
-    @FXML
-    private Label publisherLabel;
-    @FXML
-    private Label genreLabel;
-    @FXML
-    private ImageView bookImageView;
-    @FXML
-    private Region bookInfoContainer;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Label isbnLabel;
-    @FXML
-    private Label bookError;
-    @FXML
-    private Label addSuccessLabel;
-    @FXML
-    private ProgressIndicator loadingIndicator;
-
     private final GoogleBooksService googleBooksService = new GoogleBooksService();
     private final ExecutorService executorService = Executors.newCachedThreadPool(); // Quản lý luồng
 
     @FXML
+    private Label successLabel;
+
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private Label logLabel;
+
+    @FXML
+    private TextField searchTextField;
+    @FXML
+    private ListView<Book> bookListView; // Sử dụng ListView để hiển thị danh sách sách
+    @FXML
+    private ProgressIndicator loadingIndicator;
+
+    // Đặt stage cho cửa sổ hiện tại
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @FXML
     private void initialize() {
         // Ẩn các thành phần ban đầu
-        resetUI();
+        loadingIndicator.setVisible(false);
+
+        // Set factory cho ListView để hiển thị sách
+        bookListView.setCellFactory(param -> new BookCellFactory());
 
         // Xử lý tìm kiếm khi nhấn Enter
         searchTextField.setOnKeyPressed(event -> {
@@ -66,18 +61,20 @@ public class BookController {
         });
     }
 
+
+    // Phương thức tìm kiếm sách
     @FXML
     private void searchBook() {
         String query = searchTextField.getText();
         if (query != null && !query.isEmpty()) {
-            resetUI(); // Đặt lại UI trước khi tìm kiếm
             loadingIndicator.setVisible(true); // Hiển thị trạng thái đang tải
 
+            // Tìm kiếm sách trong background
             executorService.submit(() -> {
                 try {
                     JsonObject response = googleBooksService.searchBooks(query);
                     Platform.runLater(() -> {
-                        updateBookInfo(response);
+                        updateBookList(response);
                         loadingIndicator.setVisible(false); // Ẩn trạng thái đang tải
                     });
                 } catch (Exception e) {
@@ -88,99 +85,99 @@ public class BookController {
         }
     }
 
-    private void updateBookInfo(JsonObject response) {
+    // Cập nhật danh sách sách vào ListView
+    private void updateBookList(JsonObject response) {
+        List<Book> books = new ArrayList<>();
         if (response != null && response.has("items")) {
-            JsonObject item = response.getAsJsonArray("items").get(0).getAsJsonObject();
-            JsonObject volumeInfo = item.getAsJsonObject("volumeInfo");
+            for (int i = 0; i < response.getAsJsonArray("items").size(); i++) {
+                JsonObject item = response.getAsJsonArray("items").get(i).getAsJsonObject();
+                JsonObject volumeInfo = item.getAsJsonObject("volumeInfo");
 
-            String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : null;
-            String authors = volumeInfo.has("authors") ? volumeInfo.getAsJsonArray("authors").get(0).getAsString() : null;
-            String publisher = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : null;
-            String publishedDate = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : null;
-            String genre = volumeInfo.has("categories") ? volumeInfo.getAsJsonArray("categories").get(0).getAsString() : null;
-            String imageUrl = volumeInfo.has("imageLinks") ? volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString() : null;
-            String isbn = volumeInfo.has("industryIdentifiers") ? volumeInfo.getAsJsonArray("industryIdentifiers").get(0).getAsJsonObject().get("identifier").getAsString() : null;
+                String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "Không có tên sách";
+                String authors = volumeInfo.has("authors") ? volumeInfo.getAsJsonArray("authors").get(0).getAsString() : "Không có tác giả";
+                String publisher = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : "Không có nhà xuất bản";
+                String publishedDate = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : "Không có ngày xuất bản";
+                String genre = volumeInfo.has("categories") ? volumeInfo.getAsJsonArray("categories").get(0).getAsString() : "Không có thể loại";
+                String isbn = volumeInfo.has("industryIdentifiers") ? volumeInfo.getAsJsonArray("industryIdentifiers").get(0).getAsJsonObject().get("identifier").getAsString() : "Không có ISBN";
+                String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "Không có mô tả";  // Lấy mô tả sách
+                String imageUrl = volumeInfo.has("imageLinks") ? volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString() : null;
 
-            setLabel(bookTitleLabel, "Tên sách: ", title);
-            setLabel(authorLabel, "Tác giả: ", authors);
-            setLabel(publisherLabel, "Nhà xuất bản: ", publisher);
-            setLabel(publishedDateLabel, "Ngày xuất bản: ", publishedDate);
-            setLabel(genreLabel, "Thể loại: ", genre);
-            setLabel(isbnLabel, "ISBN: ", isbn);
-            addButton.setVisible(true);
+                // Tải ảnh và chuyển thành byte[]
+                byte[] image = null;
+                if (imageUrl != null) {
+                    image = downloadImage(imageUrl);
+                }
 
-            // Cập nhật ảnh
-            if (imageUrl != null) {
-                bookImageView.setImage(new Image(imageUrl));
-            } else {
-                bookImageView.setImage(new Image(getClass().getResource("/media/no_image.jpg").toExternalForm()));
+                // Tạo đối tượng Book từ thông tin nhận được từ API
+                Book book = new Book(0,title, authors, publisher, publishedDate, genre, 5, isbn, image, description);  // Thêm mô tả vào constructor
+                books.add(book);
             }
 
-            bookInfoContainer.setVisible(true); // Hiển thị vùng chứa thông tin sách
-        } else {
-            resetUI(); // Đặt lại UI nếu không có kết quả
+            // Cập nhật danh sách sách trong ListView
+            bookListView.getItems().setAll(books);
+        }
+    }
+
+
+    public byte[] downloadImage(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            InputStream inputStream = url.openStream();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(ImageIO.read(inputStream), "jpg", byteArrayOutputStream); // Giả sử ảnh là JPG
+            return byteArrayOutputStream.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Nếu có lỗi, trả về null
         }
     }
 
     @FXML
-    private void addBook() {
-        String title = bookTitleLabel.getText().replace("Tên sách: ", "");
-        String author = authorLabel.getText().replace("Tác giả: ", "");
-        String publisher = publisherLabel.getText().replace("Nhà xuất bản: ", "");
-        String publishedDate = publishedDateLabel.getText().replace("Ngày xuất bản: ", "");
-        String genre = genreLabel.getText().replace("Thể loại: ", "");
-        String isbn = isbnLabel.getText().replace("ISBN: ", "");
+    private void handleAddBook(ActionEvent event) {
+        // Lấy sách được chọn từ ListView
+        Book selectedBook = bookListView.getSelectionModel().getSelectedItem();
 
-//        java.sql.Date sqlDate = parsePublishedDate(publishedDate);
-
-        if (Database.isBookExistByIsbn(isbn, title)) {
-            bookError.setVisible(true);
-            addSuccessLabel.setVisible(false);
+        // Kiểm tra nếu có sách được chọn
+        if (selectedBook != null) {
+            if(!(Database.isBookExistByIsbn(selectedBook.getIsbn(), selectedBook.getTitle()))) {
+                // Gọi hàm insertBook để thêm sách vào cơ sở dữ liệu
+                Database.insertBook(
+                        selectedBook.getTitle(),
+                        selectedBook.getAuthor(),
+                        selectedBook.getPublisher(),
+                        selectedBook.getPublishedDate(),
+                        selectedBook.getGenre(),
+                        selectedBook.getQuantity(),
+                        selectedBook.getIsbn(),
+                        selectedBook.getDescription(),  // Truyền mô tả sách
+                        selectedBook.getImage()          // Truyền ảnh sách
+                );
+                resetUI();
+                successLabel.setVisible(true);
+            } else {
+                resetUI();
+                errorLabel.setVisible(true);
+            }
         } else {
-            Database.insertBook(title, author, publisher, publishedDate, genre, 5, isbn);
-            bookError.setVisible(false);
-            addSuccessLabel.setVisible(true);
+            resetUI();
+            logLabel.setVisible(true);
+            // Nếu không có sách nào được chọn, hiển thị thông báo
+            System.out.println("Vui lòng chọn một sách để thêm.");
         }
     }
-
-//    private java.sql.Date parsePublishedDate(String publishedDate) {
-//        if (publishedDate == null || publishedDate.isEmpty()) {
-//            return null;
-//        }
-//        try {
-//            if (publishedDate.length() == 4) {
-//                publishedDate += "-01-01"; // Thêm ngày mặc định
-//            }
-//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//            java.util.Date utilDate = format.parse(publishedDate);
-//            return new java.sql.Date(utilDate.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     private void resetUI() {
-        bookInfoContainer.setVisible(false);
-        bookTitleLabel.setVisible(false);
-        authorLabel.setVisible(false);
-        publishedDateLabel.setVisible(false);
-        publisherLabel.setVisible(false);
-        genreLabel.setVisible(false);
-        isbnLabel.setVisible(false);
-        addButton.setVisible(false);
-        bookError.setVisible(false);
-        addSuccessLabel.setVisible(false);
-        bookImageView.setImage(null); // Làm trống ảnh
-        loadingIndicator.setVisible(false);
+        errorLabel.setVisible(false);
+        successLabel.setVisible(false);
+        logLabel.setVisible(false);
     }
 
-    private void setLabel(Label label, String prefix, String value) {
-        if (value != null && !value.isEmpty()) {
-            label.setText(prefix + value);
-            label.setVisible(true);
-        } else {
-            label.setVisible(false);
-        }
+    @FXML
+    private void close(){
+        stage.close();
     }
+
+
+
+
 }

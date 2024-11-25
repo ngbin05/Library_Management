@@ -37,6 +37,7 @@ public class Menu2Controller {
 
     @FXML
     public void initialize() {
+        pane.setVisible(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             LocalDateTime now = LocalDateTime.now();
