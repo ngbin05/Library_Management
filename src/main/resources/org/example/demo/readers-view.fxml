@@ -36,7 +36,7 @@
       </AnchorPane>
    </bottom>
    <top>
-      <AnchorPane prefHeight="31.0" prefWidth="795.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="39.0" prefWidth="760.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="14.0" layoutY="1.0" prefHeight="45.0" prefWidth="161.0" text="LIST READER" textFill="#141014">
                <font>

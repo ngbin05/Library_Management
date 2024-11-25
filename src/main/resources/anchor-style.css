@@ -1,14 +1,7 @@
 .anchor-pane {
-    -fx-border-color: linear-gradient(to top right, #0d47a1, #B0BEC5);/* Gradient giữa 3 màu xanh dương đậm hơn */
-    -fx-background-color: linear-gradient(to top right, #0d47a1, #B0BEC5);
+    -fx-background-color: #a81a1a;
+    -fx-border-color: #a81a1a; /* Màu viền nâu nhạt */
     -fx-border-width: 2px; /* Độ dày viền nhẹ */
-    -fx-border-radius: 15px; /* Bo góc viền */
-    -fx-background-radius: 15px; /* Bo góc nền */
-}
-.anchor-pane1 {
-    -fx-background-color: linear-gradient(to bottom right, #2196F3, #FFFFFF); /* Gradient từ xanh dương sang trắng */
-    -fx-border-color: linear-gradient(to bottom right, #2196F3, #FFFFFF); /* Gradient từ xanh dương sang trắng */
-    -fx-border-width: 2px; /* Độ dày viền nhẹ */
-    -fx-border-radius: 25px; /* Bo góc viền */
-    -fx-background-radius: 25px; /* Bo góc nền */
+    -fx-border-radius: 35px;
+    -fx-background-radius: 35px;
 }

@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -36,10 +34,6 @@ public class Menu2Controller {
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
-    @FXML
-    public void showBookList() {
-        loadPage("bookList-view.fxml");
-    }
 
     @FXML
     public void initialize() {
@@ -51,7 +45,18 @@ public class Menu2Controller {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
+    
+    private void loadPage(String fxmlFileName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+            ListReaderController controller = loader.getController();
+            pane.getChildren().setAll(root);
+            controller.setStage((Stage) pane.getScene().getWindow());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void logOut() {
@@ -64,26 +69,6 @@ public class Menu2Controller {
             loginController.setStage(stage);
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadPage(String fxmlFileName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
-            if(loader.getController() instanceof ListReaderController) {
-                ListReaderController controller = loader.getController();
-                pane.getChildren().setAll(root);
-                pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                controller.setStage((Stage) pane.getScene().getWindow());
-            }
-            if(loader.getController() instanceof ListBookController) {
-                ListBookController controller = loader.getController();
-                pane.getChildren().setAll(root);
-                controller.setStage((Stage) pane.getScene().getWindow());
-            }
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

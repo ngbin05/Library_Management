@@ -1,11 +1,11 @@
 /* Nút với hiệu ứng hiện đại */
 .button {
-    -fx-background-radius: 25px; /* Bo tròn viền nút */
+    -fx-background-radius: 20; /* Bo tròn viền nút */
     -fx-text-fill: white; /* Màu chữ trắng */
     -fx-font-size: 14px; /* Kích thước chữ */
     -fx-font-weight: bold; /* Đậm chữ */
     -fx-padding: 12 24; /* Khoảng cách xung quanh chữ */
-    -fx-border-radius: 25px; /* Bo tròn viền nút */
+    -fx-border-radius: 20; /* Bo tròn viền nút */
     -fx-background-color: linear-gradient(to right, #A3D8F4, #6BB7D1, #4F9BB1); /* Gradient từ xanh pastel nhạt sang xanh pastel đậm */
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 4); /* Bóng mờ nhẹ xung quanh nút */
     -fx-border-width: 2; /* Độ rộng viền */
