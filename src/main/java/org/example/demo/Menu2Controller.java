@@ -42,6 +42,9 @@ public class Menu2Controller {
     }
 
     @FXML
+    public void showProfile() { loadPage("profile-view.fxml"); }
+
+    @FXML
     public void initialize() {
         pane.setVisible(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -90,6 +93,9 @@ public class Menu2Controller {
                 } else if (controller instanceof ListBookController) {
                     ListBookController listBookController = (ListBookController) controller;
                     listBookController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ProfileController) {
+                    ProfileController profileController = (ProfileController) controller;
+                    profileController.setStage((Stage) pane.getScene().getWindow());
                 }
                 // Thêm các controller khác vào đây nếu cần
             }

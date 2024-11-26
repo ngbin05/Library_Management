@@ -80,7 +80,7 @@
                                 </ImageView>
                             </graphic></Button>
                         <Line endX="120.0" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarProfileButton" stylesheets="@../../../menu2-style.css" text="Profile" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarProfileButton" stylesheets="@../../../menu2-style.css" text="Profile" textFill="WHITE">
                             <font>
                                 <Font name=".VnArial" size="13.0" />
                             </font></Button>

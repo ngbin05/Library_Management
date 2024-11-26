@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class LoginController {
     private Stage primaryStage;
+    public static Account account;
 
     @FXML
     private TextField usernameField;
@@ -47,6 +48,7 @@ public class LoginController {
             errorLabel.setVisible(false);
             usernameEmpty.setVisible(false);
             passwordEmpty.setVisible(false);
+            account = new Account(username, password);
             switchToMainScreen();
         } else {
             errorLabel.setVisible(true);
@@ -144,6 +146,8 @@ public class LoginController {
             createPassword.clear();
         } else {
             Database.registerAccount(fullname, email, phone, username, password);
+            account.setUsername(username);
+            account.setPassword(password);
             switchToMainScreen();
         }
     }

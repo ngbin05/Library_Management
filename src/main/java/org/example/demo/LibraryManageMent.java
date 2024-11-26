@@ -31,6 +31,7 @@ public class LibraryManageMent extends Application {
         // Lấy controller từ FXML và gọi phương thức khởi tạo camera
 //        TestCamera controller = fxmlLoader.getController();
 
+
         primaryStage.show();
     }
 
