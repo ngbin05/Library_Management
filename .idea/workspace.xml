@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LibraryManageMent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ProfileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -198,7 +200,8 @@
       <workItem from="1732549252763" duration="1269000" />
       <workItem from="1732550891606" duration="1705000" />
       <workItem from="1732604608351" duration="621000" />
-      <workItem from="1732631629172" duration="8326000" />
+      <workItem from="1732631629172" duration="10572000" />
+      <workItem from="1732671609342" duration="5652000" />
     </task>
     <servers />
   </component>

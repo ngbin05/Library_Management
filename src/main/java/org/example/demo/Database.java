@@ -384,7 +384,6 @@ public class Database {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Account account = new Account(username, password);
                 return true;
             } else {
                 return false;
@@ -567,6 +566,35 @@ public class Database {
             return false;
         }
     }
+public static Account getAccountByUsername(String username) {
+    String query = "SELECT username, password, avatar FROM accounts WHERE username = ?";
+
+    try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+        // Gán tham số cho câu truy vấn
+        preparedStatement.setString(1, username);
+
+        // Thực hiện truy vấn
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            String userName = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            byte[] avatar = resultSet.getBytes("avatar"); // Lấy dữ liệu ảnh dạng BLOB
+
+            return new Account(userName, password, avatar);
+        } else {
+            System.out.println("Không tìm thấy tài khoản với username: " + username);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+
 
 }
 

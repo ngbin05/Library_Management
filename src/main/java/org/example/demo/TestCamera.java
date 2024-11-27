@@ -124,26 +124,21 @@ public class TestCamera {
     @FXML
     public void back() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("testcam-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-view.fxml"));
             Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
             profileController = fxmlLoader.getController();
             Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
-            Stage addBookStage = new Stage();
-            addBookStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
-            addBookStage.initOwner(stage);
-            addBookStage.initStyle(StageStyle.TRANSPARENT);
-            addReaderScene.setFill(Color.TRANSPARENT);
-            addBookStage.setScene(addReaderScene);
-            profileController.setStage(addBookStage);
+            stage.setScene(addReaderScene);
+            profileController.setStage(stage);
             Platform.runLater(() ->
             {
                 double mainStageX = stage.getX();
                 double mainStageY = stage.getY();
-                addBookStage.show();
+                stage.show();
                 double x = mainStageX + stage.getWidth() - 795;
                 double y = mainStageY + stage.getHeight() - 600;
-                addBookStage.setX(x);
-                addBookStage.setY(y);
+//                addBookStage.setX(x);
+//                addBookStage.setY(y);
             });
 
         } catch (Exception e) {

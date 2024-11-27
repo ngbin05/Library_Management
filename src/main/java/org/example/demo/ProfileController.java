@@ -17,16 +17,24 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class ProfileController {
     private Stage stage;
 
-    @FXML
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private TestCamera testCamera;
+
+    public void setTestCamera(TestCamera testCamera) {
+        this.testCamera = testCamera;
     }
 
     @FXML
@@ -76,7 +84,11 @@ public class ProfileController {
 
     @FXML
     public void initialize() {
-        avatar.setImage(new Image(getClass().getResourceAsStream("/media/man-user-icon.jpg")));
+        if(LoginController.account.getImage() == null) {
+            avatar.setImage(new Image(getClass().getResourceAsStream("/media/man-user-icon.jpg")));
+        } else {
+            avatar.setImage(ImageUtils.byteArrayToImage(LoginController.account.getImage()));
+        }
 
         double radius = Math.min(avatar.getFitWidth(), avatar.getFitHeight()) / 2;
         Circle clip = new Circle(avatar.getFitWidth() / 2, avatar.getFitHeight() / 2, radius);
@@ -95,6 +107,8 @@ public class ProfileController {
         gmailTextField.setEditable(false);
     }
 
+
+
     @FXML
     public void onClickChangeAvatar() {
         FileChooser fileChooser = new FileChooser();
@@ -105,6 +119,7 @@ public class ProfileController {
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             avatar.setImage(image);
+            LoginController.account.setImage(ImageUtils.imageToByteArray(image));
         }
     }
 
@@ -126,12 +141,15 @@ public class ProfileController {
                 return;
             }
 
+
             // Sắp xếp các tệp theo thời gian chỉnh sửa (mới nhất ở đầu)
             Arrays.sort(imageFiles, Comparator.comparingLong(File::lastModified).reversed());
 
             // Lấy tệp ảnh mới nhất
             File latestImage = imageFiles[0];
-            avatar.setImage(new Image(latestImage.toURI().toString()));
+            Image image = new Image(latestImage.toURI().toString());
+            avatar.setImage(image);
+            LoginController.account.setImage(ImageUtils.imageToByteArray(image));
             System.out.println("Đã tải ảnh: " + latestImage.getName());
         }
 
@@ -257,16 +275,15 @@ public class ProfileController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("testcam-view.fxml"));
             Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
-            TestCamera controller = fxmlLoader.getController();
+            testCamera = fxmlLoader.getController();
             Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
             Stage addBookStage = new Stage();
-            addBookStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
             addBookStage.initOwner(stage);
             addBookStage.initStyle(StageStyle.TRANSPARENT);
             addReaderScene.setFill(Color.TRANSPARENT);
             addBookStage.setScene(addReaderScene);
-            controller.setStage(addBookStage);
-            controller.setProfileController(this);
+            testCamera.setStage(addBookStage);
+            testCamera.setProfileController(this);
             Platform.runLater(() ->
             {
                 double mainStageX = stage.getX();

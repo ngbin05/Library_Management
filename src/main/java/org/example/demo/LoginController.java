@@ -48,7 +48,7 @@ public class LoginController {
             errorLabel.setVisible(false);
             usernameEmpty.setVisible(false);
             passwordEmpty.setVisible(false);
-            account = new Account(username, password);
+            account = Database.getAccountByUsername(username);
             switchToMainScreen();
         } else {
             errorLabel.setVisible(true);

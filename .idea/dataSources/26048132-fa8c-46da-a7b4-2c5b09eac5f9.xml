@@ -1009,7 +1009,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="291" parent="1" name="mysql">
       <Grants>user|||mysql.session|localhost|SELECT|G</Grants>
-      <LastIntrospectionLocalTimestamp>2024-11-24.23:52:21</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-27.10:50:25</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="performance_schema">
@@ -1023,7 +1023,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="295" parent="1" name="thuvien">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-11-24.23:52:21</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-27.10:50:25</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="296" parent="1" name="mysql.infoschema">
@@ -3689,189 +3689,193 @@ User</ColNames>
       <Position>6</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <index id="737" parent="338" name="PRIMARY">
+    <column id="737" parent="338" name="avatar">
+      <Position>7</Position>
+      <StoredType>longblob|0s</StoredType>
+    </column>
+    <index id="738" parent="338" name="PRIMARY">
       <ColNames>username</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="738" parent="338" name="email">
+    <index id="739" parent="338" name="email">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="739" parent="338" name="PRIMARY">
+    <key id="740" parent="338" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="740" parent="338" name="email">
+    <key id="741" parent="338" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <column id="741" parent="339" name="id_sach">
-      <AutoIncrement>25</AutoIncrement>
+    <column id="742" parent="339" name="id_sach">
+      <AutoIncrement>32</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="742" parent="339" name="ten_sach">
+    <column id="743" parent="339" name="ten_sach">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="743" parent="339" name="tac_gia">
+    <column id="744" parent="339" name="tac_gia">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="744" parent="339" name="nha_xuatban">
+    <column id="745" parent="339" name="nha_xuatban">
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="745" parent="339" name="ngay_xuatban">
+    <column id="746" parent="339" name="ngay_xuatban">
       <Position>5</Position>
       <StoredType>varchar(12)|0s</StoredType>
     </column>
-    <column id="746" parent="339" name="the_loai">
+    <column id="747" parent="339" name="the_loai">
       <Position>6</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="747" parent="339" name="so_luong">
+    <column id="748" parent="339" name="so_luong">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="748" parent="339" name="isbn">
+    <column id="749" parent="339" name="isbn">
       <Position>8</Position>
       <StoredType>varchar(20)|0s</StoredType>
     </column>
-    <column id="749" parent="339" name="image">
+    <column id="750" parent="339" name="image">
       <Position>9</Position>
       <StoredType>blob|0s</StoredType>
     </column>
-    <column id="750" parent="339" name="description">
+    <column id="751" parent="339" name="description">
       <Position>10</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <index id="751" parent="339" name="PRIMARY">
+    <index id="752" parent="339" name="PRIMARY">
       <ColNames>id_sach</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="752" parent="339" name="isbn">
+    <index id="753" parent="339" name="isbn">
       <ColNames>isbn</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="753" parent="339" name="PRIMARY">
+    <key id="754" parent="339" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="754" parent="339" name="isbn">
+    <key id="755" parent="339" name="isbn">
       <UnderlyingIndexName>isbn</UnderlyingIndexName>
     </key>
-    <column id="755" parent="340" name="borrow_id">
+    <column id="756" parent="340" name="borrow_id">
       <AutoIncrement>1</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="756" parent="340" name="user_id">
+    <column id="757" parent="340" name="user_id">
       <Position>2</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="757" parent="340" name="id_sach">
+    <column id="758" parent="340" name="id_sach">
       <Position>3</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="758" parent="340" name="ngay_muon">
+    <column id="759" parent="340" name="ngay_muon">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>date|0s</StoredType>
     </column>
-    <column id="759" parent="340" name="ngay_tra">
+    <column id="760" parent="340" name="ngay_tra">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>date|0s</StoredType>
     </column>
-    <column id="760" parent="340" name="tinh_trang">
+    <column id="761" parent="340" name="tinh_trang">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>enum(&apos;BORROWING&apos;, &apos;RETURNED&apos;)|0e</StoredType>
     </column>
-    <foreign-key id="761" parent="340" name="user_borrow">
+    <foreign-key id="762" parent="340" name="user_borrow">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>user_id</RefColNames>
       <RefTableName>customers</RefTableName>
     </foreign-key>
-    <foreign-key id="762" parent="340" name="book_borrow">
+    <foreign-key id="763" parent="340" name="book_borrow">
       <ColNames>id_sach</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id_sach</RefColNames>
       <RefTableName>books</RefTableName>
     </foreign-key>
-    <index id="763" parent="340" name="PRIMARY">
+    <index id="764" parent="340" name="PRIMARY">
       <ColNames>borrow_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="764" parent="340" name="user_borrow">
+    <index id="765" parent="340" name="user_borrow">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="765" parent="340" name="book_borrow">
+    <index id="766" parent="340" name="book_borrow">
       <ColNames>id_sach</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="766" parent="340" name="PRIMARY">
+    <key id="767" parent="340" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="767" parent="341" name="user_id">
+    <column id="768" parent="341" name="user_id">
       <AutoIncrement>16</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
     </column>
-    <column id="768" parent="341" name="user_name">
+    <column id="769" parent="341" name="user_name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="769" parent="341" name="phone_number">
+    <column id="770" parent="341" name="phone_number">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="770" parent="341" name="address">
+    <column id="771" parent="341" name="address">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="771" parent="341" name="CCCD">
+    <column id="772" parent="341" name="CCCD">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>varchar(20)|0s</StoredType>
     </column>
-    <index id="772" parent="341" name="PRIMARY">
+    <index id="773" parent="341" name="PRIMARY">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="773" parent="341" name="CCCD">
+    <index id="774" parent="341" name="CCCD">
       <ColNames>CCCD</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="774" parent="341" name="PRIMARY">
+    <key id="775" parent="341" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="775" parent="341" name="CCCD">
+    <key id="776" parent="341" name="CCCD">
       <UnderlyingIndexName>CCCD</UnderlyingIndexName>
     </key>
   </database-model>
