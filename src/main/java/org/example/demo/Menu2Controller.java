@@ -82,7 +82,7 @@ public class Menu2Controller {
             pane.setVisible(true);
             pane.getChildren().clear();
             pane.getChildren().setAll(root);
-            pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
 
             // Xử lý controller
             Object controller = loader.getController();

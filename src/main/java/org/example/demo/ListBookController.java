@@ -1,5 +1,7 @@
 package org.example.demo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +18,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ListBookController {
     private Stage stage;
@@ -56,6 +61,9 @@ public class ListBookController {
     @FXML
     private Rectangle rectangle;
 
+    @FXML
+    private Label dateTimeLabel;
+
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
@@ -76,6 +84,14 @@ public class ListBookController {
                 openBookDetailsWindow(newValue);
             }
         });
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            LocalDateTime now = LocalDateTime.now();
+            dateTimeLabel.setText(now.format(formatter));
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
     }
 
