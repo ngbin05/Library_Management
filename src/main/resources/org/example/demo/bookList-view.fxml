@@ -56,7 +56,8 @@
                                     </image></ImageView>
                             </graphic>
                         </Button>
-                        <Button contentDisplay="RIGHT" layoutX="565.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="97.0" prefWidth="175.0" text="Add more">
+                        <Button contentDisplay="RIGHT" layoutX="565.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBookView" prefHeight="97.0" prefWidth="175.0" text="Add more">
+
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -79,6 +80,7 @@
                         <Font name=".VnArial" size="13.0" />
                     </font>
                 </Label>
+            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
             </children>
         </AnchorPane>
     </children>

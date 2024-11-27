@@ -5,32 +5,66 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="795.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.BookController">
+<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.BookController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff1a" height="551.0" layoutX="7.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="785.0" />
-      <TextField fx:id="searchTextField" layoutX="7.0" layoutY="45.0" onAction="#initialize" prefHeight="35.0" prefWidth="606.0" promptText="Search" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <Button layoutX="612.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="35.0" prefWidth="175.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Search" />
-      <Label fx:id="errorLabel" layoutX="542.0" layoutY="4.0" text="Sách này đã có trong thư viện!" textFill="#d00404" visible="false">
+      <!-- Thanh tìm kiếm -->
+      <TextField fx:id="searchTextField" layoutX="24.0" layoutY="58.0" prefHeight="42.0" prefWidth="520.0" promptText="Search" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="58.0" />
+      <Button layoutX="566.0" layoutY="58.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="42.0" prefWidth="205.0" text="Search" AnchorPane.rightAnchor="27.285714285714334" AnchorPane.topAnchor="58.0">
          <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Label>
-      <Label fx:id="successLabel" layoutX="542.0" layoutY="4.0" text="Thêm sách thành công!" textFill="#00862b" visible="false">
+            <Font size="15.0" />
+         </font>
+      </Button>
+
+      <!-- Label thông báo lỗi -->
+      <Label fx:id="errorLabel" text="Sách này đã có trong thư viện!" textFill="#d00404" visible="false" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ProgressIndicator fx:id="loadingIndicator" layoutX="754.0" layoutY="14.0" prefHeight="20.0" prefWidth="20.0" />
-      <ListView fx:id="bookListView" layoutX="9.0" layoutY="79.0" prefHeight="514.0" prefWidth="778.0" />
-      <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" stylesheets="@../../../CustomerStyle/button-style.css" text="Back" />
-      <Button layoutX="101.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="32.0" prefWidth="131.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Thêm  Sách" />
-      <Label fx:id="logLabel" layoutX="542.0" layoutY="4.0" text="Vui lòng chọn một sách để thêm!" textFill="#008d36" visible="false">
+
+      <!-- Label thông báo thành công -->
+      <Label fx:id="successLabel" text="Thêm sách thành công!" textFill="#00862b" visible="false" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
+
+      <!-- ProgressIndicator -->
+      <ProgressIndicator fx:id="loadingIndicator" layoutX="513.0" layoutY="69.0" prefHeight="20.0" prefWidth="20.0" AnchorPane.rightAnchor="265.42857142857144" AnchorPane.topAnchor="69.0" />
+
+      <!-- Danh sách sách -->
+      <ListView fx:id="bookListView" layoutX="24.0" layoutY="117.0" prefHeight="397.0" prefWidth="748.0" AnchorPane.bottomAnchor="86.42857142857144" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="26.285714285714334" AnchorPane.topAnchor="117.0" />
+
+      <!-- Nút quay lại -->
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#showBookListView" prefHeight="30.0" prefWidth="30.0" text="Back" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="14.0">
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../media/back-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <!-- Nút thêm sách -->
+      <Button layoutX="301.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="35.0" prefWidth="200.0" text="Thêm Sách" AnchorPane.bottomAnchor="39.571428571428555" AnchorPane.leftAnchor="301.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+
+      <!-- Label log -->
+      <Label fx:id="logLabel" text="Vui lòng chọn một sách để thêm!" textFill="#008d36" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="543.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Pane fx:id="pane" layoutX="3.0" prefHeight="600.0" prefWidth="795.0" visible="false" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

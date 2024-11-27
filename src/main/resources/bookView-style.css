@@ -1,0 +1,38 @@
+.list-view {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 7;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #AAAAAA;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10 5 10;
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+    -fx-text-fill: #032d4d;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.text-field:focused {
+    -fx-border-color: #336699;
+    -fx-background-color: #f5f5f5;
+}
+
+.text-field:hover {
+    -fx-border-color: #34495e;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to right, #032d4d, #336699);
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 20, 0.8, 0, 0);
+    -fx-background-color: #34495e;
+}

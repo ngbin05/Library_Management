@@ -1,14 +1,24 @@
 package org.example.demo;
 
 import com.google.gson.JsonObject;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import javax.imageio.ImageIO;
@@ -34,6 +44,9 @@ public class BookController {
     private Label logLabel;
 
     @FXML
+    private Pane pane;
+
+    @FXML
     private TextField searchTextField;
     @FXML
     private ListView<Book> bookListView; // Sử dụng ListView để hiển thị danh sách sách
@@ -49,6 +62,7 @@ public class BookController {
     private void initialize() {
         // Ẩn các thành phần ban đầu
         loadingIndicator.setVisible(false);
+        pane.setVisible(false);
 
         // Set factory cho ListView để hiển thị sách
         bookListView.setCellFactory(param -> new BookCellFactory());
@@ -172,10 +186,38 @@ public class BookController {
         logLabel.setVisible(false);
     }
 
-    @FXML
-    private void close(){
-        stage.close();
+    private void loadPage(String fxmlFileName) {
+        try {
+            // Load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+
+            // Xử lý chuyển cảnh và cấu hình controller
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(root);
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
+            // Xử lý controller
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof ListReaderController) {
+                    BookController bookController = (BookController) controller;
+                    bookController.setStage((Stage) pane.getScene().getWindow());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    @FXML
+    public void showBookListView() { loadPage("bookList-view.fxml"); }
 
 
 

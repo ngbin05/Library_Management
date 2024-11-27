@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -78,11 +79,15 @@ public class Menu2Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
-            // Xử lý chuyển cảnh và cấu hình controller
             pane.setVisible(true);
             pane.getChildren().clear();
             pane.getChildren().setAll(root);
             pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
 
             // Xử lý controller
             Object controller = loader.getController();
