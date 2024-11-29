@@ -5,35 +5,82 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.ListBookController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.ListBookController">
     <children>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
+        <AnchorPane prefHeight="600.0" prefWidth="795.0">
             <children>
-                <TableView fx:id="bookTable" layoutX="4.0" layoutY="116.0" prefHeight="479.0" prefWidth="787.0">
+                <TableView fx:id="bookTable" layoutX="25.0" layoutY="276.0" onSort="#handleSearch" prefHeight="310.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css" AnchorPane.topAnchor="276.0">
                     <columns>
-                        <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="colTitle" prefWidth="307.9999313354492" text="Title" />
-                        <TableColumn fx:id="colAuthor" prefWidth="127.33340454101562" text="Author" />
-                        <TableColumn fx:id="colPublishedDate" prefWidth="144.6666259765625" text="PublishedDate" />
-                        <TableColumn fx:id="colQuantity" prefWidth="61.333251953125" text="Quantity" />
-                        <TableColumn fx:id="colAction" prefWidth="51.3333740234375" text="Action" />
+                        <TableColumn fx:id="colId" prefWidth="48.00003099441528" text="ID" />
+                        <TableColumn fx:id="colTitle" prefWidth="192.00000381469727" text="Title" />
+                        <TableColumn fx:id="colAuthor" prefWidth="172.5714111328125" text="Author" />
+                        <TableColumn fx:id="colPublishedDate" prefWidth="154.28567504882812" text="PublishedDate" />
+                        <TableColumn fx:id="colQuantity" minWidth="0.0" prefWidth="79.428466796875" text="Quantity" />
+                        <TableColumn fx:id="colAction" prefWidth="83.4285888671875" text="Action" />
                     </columns>
                 </TableView>
-                <TextField fx:id="txtTitle" layoutX="2.0" layoutY="74.0" onAction="#handleSearch" prefHeight="40.0" prefWidth="418.0" promptText="Title" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-                <TextField fx:id="txtAuthor" layoutX="420.0" layoutY="74.0" onAction="#handleSearch" prefHeight="40.0" prefWidth="200.0" promptText="Author" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-                <Label layoutX="14.0" layoutY="9.0" prefHeight="62.0" prefWidth="183.0" text="List Book">
+                <Label layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
                     <font>
-                        <Font name="Agency FB Bold" size="50.0" />
+                        <Font name=".VnArial" size="23.0" />
                     </font>
                 </Label>
-                <Button layoutX="614.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="69.0" prefWidth="175.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Add" />
-                <Button layoutX="621.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="159.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Search" />
                 <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#73a9db8c" height="601.0" layoutX="-1.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="795.0" />
+                <Label layoutX="719.0" layoutY="28.0" text="&gt; Books" AnchorPane.bottomAnchor="562.8571428571429" AnchorPane.topAnchor="20.0">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="dateTimeLabel" layoutX="355.0" layoutY="20.0" opacity="0.8" text="Date-time" />
+                <Line endX="429.57147216796875" layoutX="349.0" layoutY="77.0" opacity="0.5" startX="-326.4285583496094" />
+                <Pane layoutX="25.0" layoutY="113.0" prefHeight="120.0" prefWidth="750.0" styleClass="box" stylesheets="@../../../bookList-view-style.css">
+                    <children>
+                        <TextField fx:id="txtTitle" layoutX="9.0" layoutY="8.0" onAction="#handleSearch" prefHeight="43.0" prefWidth="255.0" promptText="Title" />
+                        <TextField fx:id="txtAuthor" layoutX="277.0" layoutY="8.0" onAction="#handleSearch" prefHeight="43.0" prefWidth="255.0" promptText="Author" />
+                        <Button contentDisplay="RIGHT" layoutX="9.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="523.0" text="Search">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="22.0" fitWidth="22.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../media/search.png" />
+                                    </image></ImageView>
+                            </graphic>
+                        </Button>
+                        <Button contentDisplay="RIGHT" layoutX="565.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBookView" prefHeight="97.0" prefWidth="175.0" text="Add more">
+
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.51" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../media/add.png" />
+                                    </image></ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </Pane>
+                <Label layoutX="33.0" layoutY="255.0" opacity="0.8" text="Books List">
+                    <font>
+                        <Font name=".VnArial" size="13.0" />
+                    </font>
+                </Label>
+                <Label layoutX="33.0" layoutY="93.0" opacity="0.8" text="Toolbar">
+                    <font>
+                        <Font name=".VnArial" size="13.0" />
+                    </font>
+                </Label>
+            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
             </children>
         </AnchorPane>
     </children>

@@ -384,7 +384,6 @@ public class Database {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Account account = new Account(username, password);
                 return true;
             } else {
                 return false;

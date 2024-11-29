@@ -2,12 +2,18 @@ package org.example.demo;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.bytedeco.javacv.*;
 
 import java.awt.image.BufferedImage;
@@ -20,7 +26,15 @@ import javax.imageio.ImageIO;
 
 public class TestCamera {
     private Stage stage;
+    private ProfileController profileController;
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setProfileController(ProfileController profileController) {
+        this.profileController = profileController;
+    }
     @FXML
     private Canvas gridCanvas;
 
@@ -108,6 +122,31 @@ public class TestCamera {
     }
 
     @FXML
+    public void back() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-view.fxml"));
+            Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
+            profileController = fxmlLoader.getController();
+            Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
+            stage.setScene(addReaderScene);
+            profileController.setStage(stage);
+            Platform.runLater(() ->
+            {
+                double mainStageX = stage.getX();
+                double mainStageY = stage.getY();
+                stage.show();
+                double x = mainStageX + stage.getWidth() - 795;
+                double y = mainStageY + stage.getHeight() - 600;
+//                addBookStage.setX(x);
+//                addBookStage.setY(y);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void openCameraAndCaptureImage() {
         if (grabber != null && isCameraRunning) {
             try {
@@ -165,6 +204,7 @@ public class TestCamera {
                 String fileName = "avatar-image/image_" + System.currentTimeMillis() + ".png";
                 ImageIO.write(currentCapturedImage, "png", new File(fileName));
                 System.out.println("Ảnh đã lưu: " + fileName);
+                profileController.loadImageFromCamera();
             } catch (IOException e) {
                 e.printStackTrace();
             }

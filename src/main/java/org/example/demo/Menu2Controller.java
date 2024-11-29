@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -34,6 +35,9 @@ public class Menu2Controller {
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
+
+    @FXML
+    public void showProfile() { loadPage("profile-view.fxml"); }
 
     @FXML
     public void initialize() {

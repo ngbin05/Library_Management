@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.TestCamera">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.TestCamera">
    <children>
       <Button fx:id="btn" layoutX="334.0" layoutY="539.0" mnemonicParsing="false" onAction="#openCameraAndCaptureImage" prefHeight="57.0" prefWidth="74.0" text="Capture" />
-      <ImageView fx:id="imageView" fitHeight="480.0" fitWidth="640.0" layoutX="71.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#stopCamera" prefHeight="44.0" prefWidth="52.0" text="Close" />
+      <ImageView fx:id="imageView" fitHeight="480.0" fitWidth="640.0" layoutX="71.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="52.0" text="Close" />
       <Button layoutX="160.0" layoutY="539.0" mnemonicParsing="false" onAction="#startCamera" prefHeight="57.0" prefWidth="89.0" text="Open Camera" />
       <Label fx:id="countDownLabel" layoutX="71.0" layoutY="59.0" onDragDetected="#openCameraAndCaptureImage" text="Label" textFill="#000000ba" visible="false">
          <font>

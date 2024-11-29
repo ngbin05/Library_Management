@@ -34,6 +34,7 @@ public class LibraryManageMent extends Application {
           profileController controller = fxmlLoader.getController();
           controller.setStage(primaryStage);
 
+
         primaryStage.show();
     }
 
