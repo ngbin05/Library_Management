@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import java.io.ByteArrayInputStream;
 
-public class BookCellFactory extends ListCell<Book> {
+public class AddBookCellFactory extends ListCell<Book> {
     @Override
     protected void updateItem(Book book, boolean empty) {
         super.updateItem(book, empty);

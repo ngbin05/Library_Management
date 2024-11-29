@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.BorrowController">
+   <top>
+      <AnchorPane prefHeight="96.0" prefWidth="795.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="nameLabel" layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="491.0" text="Tên" />
+            <Label fx:id="idLabel" layoutX="14.0" layoutY="64.0" prefHeight="17.0" prefWidth="475.0" text="ID" />
+            <Button fx:id="clearButton" layoutX="680.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Xóa toàn bộ" />
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="502.0" prefWidth="795.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="listViewBooks" layoutX="10.0" prefHeight="393.0" prefWidth="775.0" />
+            <Button layoutX="709.0" layoutY="416.0" mnemonicParsing="false" onAction="#borrow" text="Mượn Sách" />
+            <TextField fx:id="borrowDaysField" layoutX="23.0" layoutY="404.0" prefHeight="25.0" prefWidth="52.0" />
+            <Label fx:id="borrowDateLabel" layoutX="102.0" layoutY="408.0" prefHeight="17.0" prefWidth="169.0" text="From:..." />
+            <Label fx:id="returnDateLabel" layoutX="288.0" layoutY="407.0" prefHeight="17.0" prefWidth="185.0" text="To:" />
+            <Label fx:id="borrowSuccessLabel" layoutX="580.0" layoutY="398.0" text="Mượn sách thành công!" textFill="#02aa21">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="unBookErrorLabel" layoutX="580.0" layoutY="400.0" text="Chưa có sách trong giỏ!" textFill="#9a0000">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="unDateErrorLabel" layoutX="580.0" layoutY="400.0" text="Chưa có ngày trả!" textFill="#9a0000">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

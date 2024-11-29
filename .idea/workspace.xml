@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/BookDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BorrowedBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Borrowed.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ListReaderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ListReaderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookDetail-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookDetail-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,13 +87,7 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="Application" factoryName="Application">
-      <module name="demo" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="o" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="LibraryManageMent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
       <option name="MAIN_CLASS_NAME" value="org.example.demo.LibraryManageMent" />
       <module name="demo" />
@@ -101,6 +101,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <module name="demo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -108,7 +114,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.o" />
+        <item itemvalue="Application.LibraryManageMent" />
       </list>
     </recent_temporary>
   </component>
@@ -202,6 +208,10 @@
       <workItem from="1732604608351" duration="621000" />
       <workItem from="1732631629172" duration="10572000" />
       <workItem from="1732671609342" duration="5652000" />
+      <workItem from="1732709059728" duration="954000" />
+      <workItem from="1732779372634" duration="152000" />
+      <workItem from="1732816310499" duration="16838000" />
+      <workItem from="1732837067094" duration="1117000" />
     </task>
     <servers />
   </component>

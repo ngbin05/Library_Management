@@ -11,6 +11,11 @@ import java.io.ByteArrayInputStream;
 
 public class BookDetailsController {
     private Stage stage;
+    private Book book;
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -30,6 +35,16 @@ public class BookDetailsController {
     private Label bookIsbnLabel;
     @FXML
     private ImageView bookImageView;
+    @FXML
+    private Label addSuccessLabel;
+    @FXML
+    private Label addFailureLabel;
+
+    @FXML
+    public void initialize() {
+        addSuccessLabel.setVisible(false);
+        addFailureLabel.setVisible(false);
+    }
 
     public void displayBookDetails(Book book) {
         bookTitleLabel.setText("Tên sách: " + book.getTitle());
@@ -45,6 +60,18 @@ public class BookDetailsController {
             bookImageView.setImage(image);
         } else {
             bookImageView.setImage(new Image(getClass().getResourceAsStream("/media/no_image.png")));
+        }
+    }
+
+    @FXML
+    private void addBookToCart() {
+        boolean flag = BorrowController.addBookIfNotInCart(book);
+        if (flag == true) {
+            addSuccessLabel.setVisible(true);
+            addFailureLabel.setVisible(false);
+        } else {
+            addSuccessLabel.setVisible(false);
+            addFailureLabel.setVisible(true);
         }
     }
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
+<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
     <children>
         <VBox layoutX="10.857142857142858" layoutY="10.285714285714286" prefHeight="678.0" prefWidth="178.0" style="-fx-background-color: WHITE;" styleClass="vbox" stylesheets="@../../../menu2-style.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
             <children>
@@ -35,7 +35,7 @@
                 </VBox>
                 <VBox prefHeight="657.0" prefWidth="182.0" styleClass="sideBar" stylesheets="@../../../menu2-style.css">
                     <children>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Dashboard">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showDashBoard" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Dashboard">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -68,7 +68,7 @@
                                     </image>
                                 </ImageView>
                             </graphic></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="System">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showBorrowMenu" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="System">
                             <font>
                                 <Font name=".VnArial" size="13.0" />
                             </font>

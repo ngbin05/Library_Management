@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Database {
@@ -593,6 +595,124 @@ public static Account getAccountByUsername(String username) {
     }
     return null;
 }
+
+    public static boolean insertBorrowRecord(int userId, List<Integer> bookIds, Date borrowDate, Date returnDate) {
+        String borrowQuery = "INSERT INTO borrow (user_id, ngay_muon, ngay_tra, tinh_trang) VALUES (?, ?, ?, ?)";
+        String borrowBooksQuery = "INSERT INTO borrow_books (borrow_id, book_id) VALUES (?, ?)";
+        String checkQuantityQuery = "SELECT so_luong FROM books WHERE id_sach = ?";
+        String updateQuantityQuery = "UPDATE books SET so_luong = so_luong - 1 WHERE id_sach = ?";
+        Connection connection = connect();
+        try {
+            // Bắt đầu giao dịch để đảm bảo tính nhất quán
+            connection.setAutoCommit(false);
+
+            // Chèn bản ghi vào bảng borrow
+            PreparedStatement borrowStatement = connection.prepareStatement(borrowQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+            borrowStatement.setInt(1, userId);
+            borrowStatement.setDate(2, borrowDate);
+            borrowStatement.setDate(3, returnDate);
+            borrowStatement.setString(4, "BORROWING");
+
+            int rowsAffected = borrowStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                connection.rollback();
+                return false; // Không thể chèn lượt mượn
+            }
+
+            // Lấy borrow_id vừa chèn vào
+            int borrowId = -1;
+            try (var generatedKeys = borrowStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    borrowId = generatedKeys.getInt(1);
+                }
+            }
+
+            // Kiểm tra và cập nhật số lượng sách trong bảng books
+            try (PreparedStatement checkStmt =connection.prepareStatement(checkQuantityQuery)) {
+                for (int bookId : bookIds) {
+                    checkStmt.setInt(1, bookId);
+                    ResultSet rs = checkStmt.executeQuery();
+
+                    if (rs.next()) {
+                        int quantity = rs.getInt("so_luong");
+                        if (quantity > 0) {
+                            // Giảm số lượng sách đi 1
+                            try (PreparedStatement updateStmt = connection.prepareStatement(updateQuantityQuery)) {
+                                updateStmt.setInt(1, bookId);
+                                updateStmt.executeUpdate();
+                            }
+                        } else {
+                            // Nếu không còn sách để mượn, rollback giao dịch
+                            connection.rollback();
+                            return false; // Trả về false nếu không có sách để mượn
+                        }
+                    }
+                }
+            }
+
+            // Chèn các cuốn sách mượn vào bảng borrow_books
+            try (PreparedStatement borrowBooksStatement = connection.prepareStatement(borrowBooksQuery)) {
+                for (int bookId : bookIds) {
+                    borrowBooksStatement.setInt(1, borrowId);
+                    borrowBooksStatement.setInt(2, bookId);
+                    borrowBooksStatement.addBatch(); // Thêm vào batch
+                }
+                borrowBooksStatement.executeBatch(); // Thực thi batch
+            }
+
+            // Cam kết giao dịch
+            connection.commit();
+            return true;
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback(); // Quay lại nếu có lỗi
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Đặt lại chế độ auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static List<Borrowed> getAllBorrowData() throws SQLException {
+        List<Borrowed> borrowList = new ArrayList<>();
+        String query = "SELECT borrow.borrow_id, borrow.user_id, borrow.ngay_muon, borrow.ngay_tra, borrow.tinh_trang, " +
+                "GROUP_CONCAT(books.ten_sach SEPARATOR '\n') AS book_titles " + // Đảm bảo dùng \n để phân tách các tên sách
+                "FROM borrow " +
+                "JOIN borrow_books ON borrow.borrow_id = borrow_books.borrow_id " +
+                "JOIN books ON borrow_books.book_id = books.id_sach " +
+                "GROUP BY borrow.borrow_id";
+
+        try (PreparedStatement statement = connect().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int borrowId = resultSet.getInt("borrow_id");
+                int userId = resultSet.getInt("user_id");
+                String borrowDate = resultSet.getString("ngay_muon");
+                String returnDate = resultSet.getString("ngay_tra");
+                String status = resultSet.getString("tinh_trang");
+                String bookTitlesString = resultSet.getString("book_titles");
+
+                // Tách chuỗi book_titles thành danh sách tên sách bằng dấu \n
+                List<String> bookTitles = Arrays.asList(bookTitlesString.split("\n")); // Dùng \n làm phân tách
+
+                Borrowed borrow = new Borrowed(borrowId, userId, bookTitles, borrowDate, returnDate, status);
+                borrowList.add(borrow);
+            }
+        }
+        return borrowList;
+    }
+
+
+
 
 
 

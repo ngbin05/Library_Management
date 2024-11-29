@@ -46,6 +46,12 @@ public class Menu2Controller {
     public void showProfile() { loadPage("profile-view.fxml"); }
 
     @FXML
+    public void showBorrowMenu() { loadPage("borrow-view.fxml"); }
+
+    @FXML
+    public void showDashBoard() { loadPage("dashboard-view.fxml"); }
+
+    @FXML
     public void initialize() {
         pane.setVisible(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -101,6 +107,12 @@ public class Menu2Controller {
                 } else if (controller instanceof ProfileController) {
                     ProfileController profileController = (ProfileController) controller;
                     profileController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof BorrowController) {
+                    BorrowController borrowController = (BorrowController) controller;
+                    borrowController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ManageBorrowingController) {
+                    ManageBorrowingController manageBorrowingController = (ManageBorrowingController) controller;
+                    manageBorrowingController.setStage((Stage) pane.getScene().getWindow());
                 }
                 // Thêm các controller khác vào đây nếu cần
             }
