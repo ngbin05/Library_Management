@@ -76,13 +76,7 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration default="true" type="Application" factoryName="Application">
-      <module name="demo" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="o" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="LibraryManageMent" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
       <option name="MAIN_CLASS_NAME" value="org.example.demo.LibraryManageMent" />
       <module name="demo" />
@@ -111,7 +105,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.o" />
+        <item itemvalue="Application.LibraryManageMent" />
       </list>
     </recent_temporary>
   </component>

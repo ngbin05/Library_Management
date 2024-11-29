@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -163,19 +165,32 @@ public class ListReaderController {
     private void addButtonToTable() {
         colAction.setCellFactory(param -> new TableCell<>() {
             private final Button btnDelete = new Button("Xóa");
+            private final Button btnBorrow = new Button("Mượn");
 
             {
 
+                // Nút Xóa
                 Image trashIcon = new Image(getClass().getResourceAsStream("/media/trash.png"));
-                ImageView imageView = new ImageView(trashIcon);
-                imageView.setFitWidth(20);
-                imageView.setFitHeight(20);
-
-                btnDelete.setGraphic(imageView);
+                ImageView trashImageView = new ImageView(trashIcon);
+                trashImageView.setFitWidth(20);
+                trashImageView.setFitHeight(20);
+                btnDelete.setGraphic(trashImageView);
                 btnDelete.getStylesheets().add((getClass().getResource("/CustomerStyle/deleteButton-style.css")).toExternalForm());
                 btnDelete.setOnAction(event -> {
                     Customer customer = getTableView().getItems().get(getIndex());
                     handleDeleteCustomer(customer);
+                });
+
+                // Nút Mượn
+                Image borrowIcon = new Image(getClass().getResourceAsStream("/media/borrow-icon.png"));
+                ImageView borrowImageView = new ImageView(borrowIcon);
+                borrowImageView.setFitWidth(20);
+                borrowImageView.setFitHeight(20);
+                btnBorrow.setGraphic(borrowImageView);
+                btnBorrow.getStylesheets().add((getClass().getResource("/CustomerStyle/deleteButton-style.css")).toExternalForm());
+                btnBorrow.setOnAction(event -> {
+                    Customer customer = getTableView().getItems().get(getIndex());
+                    handleBorrowCustomer(customer);  // Bạn sẽ cần định nghĩa hàm này
                 });
             }
 
@@ -185,11 +200,13 @@ public class ListReaderController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(btnDelete);
+                    HBox buttonBox = new HBox(10, btnDelete, btnBorrow);  // Đặt các nút trong một HBox
+                    setGraphic(buttonBox);  // Hiển thị các nút trong mỗi ô của cột Action
                 }
             }
         });
     }
+
 
     private void handleDeleteCustomer(Customer customer) {
         if (customer != null) {
@@ -216,7 +233,39 @@ public class ListReaderController {
         }
     }
 
+    private void handleBorrowCustomer(Customer customer) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("borrow-view.fxml"));
+            Parent parent = fxmlLoader.load();  // Load FXML cho cửa sổ chi tiết sách
+            BorrowController controller = fxmlLoader.getController();
+            Scene borrowScene = new Scene(parent);
+            Stage borrowStage = new Stage();
+//            borrowStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
+            borrowStage.initOwner(stage);
+            borrowScene.setFill(Color.TRANSPARENT);
+            borrowStage.initStyle(StageStyle.TRANSPARENT);
+            controller.setStage(borrowStage);
+            Platform.runLater(() ->
+            {
+                double mainStageX = stage.getX();
+                double mainStageY = stage.getY();
+                borrowStage.show();
+                double x = mainStageX + stage.getWidth() - 795;
+                double y = mainStageY + stage.getHeight() - 600;
+                borrowStage.setX(x);
+                borrowStage.setY(y);
+            });
 
+            // Hiển thị thông tin chi tiết sách
+            controller.setIdLabel(customer.getId());
+            controller.setNameLabel(customer.getName());
+
+            borrowStage.setScene(borrowScene);
+            borrowStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

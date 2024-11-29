@@ -40,6 +40,12 @@ public class Menu2Controller {
     public void showProfile() { loadPage("profile-view.fxml"); }
 
     @FXML
+    public void showBorrowMenu() { loadPage("borrow-view.fxml"); }
+
+    @FXML
+    public void showDashBoard() { loadPage("dashboard-view.fxml"); }
+
+    @FXML
     public void initialize() {
         pane.setVisible(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

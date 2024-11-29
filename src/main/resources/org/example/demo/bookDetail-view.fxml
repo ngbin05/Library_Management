@@ -4,9 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -37,74 +34,17 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Button layoutX="26.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleClose" stylesheets="@../../../CustomerStyle/button-style.css" text="Back" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="465.0" layoutX="26.0" layoutY="36.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="300.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="465.0" layoutX="326.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" width="19.0">
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.006711409395973154">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.10469525836197958">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.19731816445681238">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.29586129753914997">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.39278114257652635">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.4876821083647078">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.5890216620287008">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.6888334151797892">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.7941834451901565">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.9082774049217001">
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Rectangle>
+      <Button layoutX="669.0" layoutY="542.0" mnemonicParsing="false" onAction="#addBookToCart" stylesheets="@../../../CustomerStyle/button-style.css" text="Add To Cart" />
+      <Label fx:id="addSuccessLabel" layoutX="652.0" layoutY="518.0" text="Đã thêm sách vào giỏ!" textFill="#009805">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="555.0" layoutY="509.0" />
+      <Label fx:id="addFailureLabel" layoutX="654.0" layoutY="518.0" text="Sách đã có trong giỏ!" textFill="#b82707">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

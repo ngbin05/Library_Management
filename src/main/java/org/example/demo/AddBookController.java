@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class BookController {
+public class AddBookController {
 
     private Stage stage;
     private final GoogleBooksService googleBooksService = new GoogleBooksService();
@@ -65,7 +65,7 @@ public class BookController {
         pane.setVisible(false);
 
         // Set factory cho ListView để hiển thị sách
-        bookListView.setCellFactory(param -> new BookCellFactory());
+        bookListView.setCellFactory(param -> new AddBookCellFactory());
 
         // Xử lý tìm kiếm khi nhấn Enter
         searchTextField.setOnKeyPressed(event -> {
@@ -207,8 +207,8 @@ public class BookController {
             Object controller = loader.getController();
             if (controller != null) {
                 if (controller instanceof ListReaderController) {
-                    BookController bookController = (BookController) controller;
-                    bookController.setStage((Stage) pane.getScene().getWindow());
+                    AddBookController addBookController = (AddBookController) controller;
+                    addBookController.setStage((Stage) pane.getScene().getWindow());
                 }
             }
         } catch (IOException e) {

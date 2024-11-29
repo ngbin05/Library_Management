@@ -139,6 +139,7 @@ public class ListBookController {
 
             // Hiển thị thông tin chi tiết sách
             controller.displayBookDetails(book);
+            controller.setBook(book);
 
             bookDetailsStage.setScene(bookDetailsScene);
             bookDetailsStage.show();
@@ -308,8 +309,8 @@ public class ListBookController {
             Object controller = loader.getController();
             if (controller != null) {
                 if (controller instanceof ListReaderController) {
-                    BookController bookController = (BookController) controller;
-                    bookController.setStage((Stage) pane.getScene().getWindow());
+                    AddBookController addBookController = (AddBookController) controller;
+                    addBookController.setStage((Stage) pane.getScene().getWindow());
                 }
             }
         } catch (IOException e) {
