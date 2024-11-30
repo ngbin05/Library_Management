@@ -88,9 +88,12 @@ public class ListBookController {
         addButtonToTable();
         loadBookData();
 
-        bookTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                openBookDetailsWindow(newValue);
+        bookTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+                if (selectedBook != null) {
+                    openBookDetailsWindow(selectedBook);
+                }
             }
         });
 
@@ -117,36 +120,29 @@ public class ListBookController {
     private void openBookDetailsWindow(Book book) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookDetail-view.fxml"));
-            Parent bookDetailsParent = fxmlLoader.load();  // Load FXML cho cửa sổ chi tiết sách
-            BookDetailsController controller = fxmlLoader.getController();
-            Scene bookDetailsScene = new Scene(bookDetailsParent);
-            Stage bookDetailsStage = new Stage();
-            bookDetailsStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
-            bookDetailsStage.initOwner(stage);
-            bookDetailsScene.setFill(Color.TRANSPARENT);
-            bookDetailsStage.initStyle(StageStyle.TRANSPARENT);
-            controller.setStage(bookDetailsStage);
-            Platform.runLater(() ->
-            {
-                double mainStageX = stage.getX();
-                double mainStageY = stage.getY();
-                bookDetailsStage.show();
-                double x = mainStageX + stage.getWidth() - rectangle.getWidth();
-                double y = mainStageY + stage.getHeight() - rectangle.getHeight();
-                bookDetailsStage.setX(x);
-                bookDetailsStage.setY(y);
-            });
+            Parent bookDetailsParent = fxmlLoader.load();
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(bookDetailsParent);
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
 
-            // Hiển thị thông tin chi tiết sách
-            controller.displayBookDetails(book);
-            controller.setBook(book);
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), bookDetailsParent);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
 
-            bookDetailsStage.setScene(bookDetailsScene);
-            bookDetailsStage.show();
+            Object controller = fxmlLoader.getController();
+            if (controller instanceof BookDetailsController) {
+                BookDetailsController bookDetailsController = (BookDetailsController) controller;
+                bookDetailsController.setStage((Stage) pane.getScene().getWindow());
+                bookDetailsController.displayBookDetails(book);
+                bookDetailsController.setBook(book);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void addButtonToTable() {
         colAction.setCellFactory(param -> new TableCell<>() {

@@ -1,0 +1,17 @@
+.pane {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 7;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.button {
+    -fx-background-color: linear-gradient(to right, #032d4d, #336699);
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(two-pass-box, #AAAAAA, 5, 0, 0, 4);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 20, 0.8, 0, 0);
+    -fx-background-color: #34495e;
+}
