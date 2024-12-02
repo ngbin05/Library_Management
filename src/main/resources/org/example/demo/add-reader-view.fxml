@@ -7,25 +7,33 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddReaderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="557.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddReaderController">
    <children>
-      <Label layoutX="230.0" layoutY="14.0" text="Add Reader">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="287.0" layoutX="14.0" layoutY="61.0" smooth="false" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" styleClass="list-view" width="525.0" />
+      <TextField fx:id="nameField" layoutX="68.0" layoutY="73.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="Name" stylesheets="@../../../CustomerStyle/text-field-style.css" />
+      <TextField fx:id="phoneField" layoutX="68.0" layoutY="122.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="Phone" stylesheets="@../../../CustomerStyle/text-field-style.css" />
+      <TextField fx:id="addressField" layoutX="68.0" layoutY="170.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="Address" stylesheets="@../../../CustomerStyle/text-field-style.css" />
+      <TextField fx:id="cccdField" layoutX="70.0" layoutY="217.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="CCCD" stylesheets="@../../../CustomerStyle/text-field-style.css" />
+      <Label fx:id="errorCreate" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Khách hàng đã tồn tại!" textFill="#be0000" />
+      <Label fx:id="nameEmpty" layoutX="232.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Tên còn trống!" textFill="#be0000" />
+      <Label fx:id="phoneEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Số điện thoại còn trống!" textFill="#be0000" />
+      <Label fx:id="cccdEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Số căn cước còn trống!" textFill="#be0000" />
+      <Label fx:id="addressEmpty" layoutX="222.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Địa chỉ còn trống!" textFill="#be0000" />
+      <Label fx:id="successLabel" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Đăng ký thành công!" textFill="#00961a" />
+      <Label layoutX="215.0" layoutY="26.0" opacity="0.81" text="Add Reader">
          <font>
-            <Font name="Agency FB" size="39.0" />
+            <Font name=".VnArial Bold" size="22.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0ebf5" height="287.0" layoutX="14.0" layoutY="61.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
-      <TextField fx:id="nameField" layoutX="71.0" layoutY="112.0" onAction="#handleCreate" prefHeight="25.0" prefWidth="417.0" promptText="Name" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <TextField fx:id="phoneField" layoutX="70.0" layoutY="147.0" onAction="#handleCreate" prefHeight="25.0" prefWidth="417.0" promptText="Phone" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <TextField fx:id="addressField" layoutX="70.0" layoutY="181.0" onAction="#handleCreate" prefHeight="25.0" prefWidth="417.0" promptText="Address" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <TextField fx:id="cccdField" layoutX="70.0" layoutY="217.0" onAction="#handleCreate" prefHeight="25.0" prefWidth="417.0" promptText="CCCD" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <Button layoutX="20.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="32.0" prefWidth="59.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Hủy" />
-      <Button layoutX="71.0" layoutY="286.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="417.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Đăng Ký" />
-      <Label fx:id="errorCreate" layoutX="71.0" layoutY="254.0" prefHeight="17.0" prefWidth="417.0" text="Khách hàng đã tồn tại!" textFill="#be0000" />
-      <Label fx:id="nameEmpty" layoutX="71.0" layoutY="254.0" prefHeight="17.0" prefWidth="417.0" text="Tên còn trống!" textFill="#be0000" />
-      <Label fx:id="phoneEmpty" layoutX="71.0" layoutY="253.0" prefHeight="17.0" prefWidth="417.0" text="Số điện thoại còn trống!" textFill="#be0000" />
-      <Label fx:id="cccdEmpty" layoutX="71.0" layoutY="254.0" prefHeight="17.0" prefWidth="417.0" text="Số căn cước còn trống!" textFill="#be0000" />
-      <Label fx:id="addressEmpty" layoutX="71.0" layoutY="254.0" prefHeight="17.0" prefWidth="417.0" text="Địa chỉ còn trống!" textFill="#be0000" />
-      <Label fx:id="successLabel" layoutX="71.0" layoutY="253.0" prefHeight="17.0" prefWidth="417.0" text="Đăng ký thành công!" textFill="#00961a" />
+      <Button layoutX="68.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="42.0" prefWidth="180.0" text="Exit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="305.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="42.0" prefWidth="180.0" text="Add">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

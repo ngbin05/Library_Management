@@ -1,5 +1,7 @@
 package org.example.demo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,8 +20,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ListReaderController {
     private Stage stage;
@@ -62,6 +68,10 @@ public class ListReaderController {
     @FXML
     private Rectangle rectangle;
 
+    @FXML
+    private Label dateTimeLabel;
+
+
     // ObservableList chứa danh sách khách hàng
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -77,6 +87,14 @@ public class ListReaderController {
 
         addButtonToTable();
         loadCustomerData();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            LocalDateTime now = LocalDateTime.now();
+            dateTimeLabel.setText(now.format(formatter));
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         btnAdd.setOnAction(event -> handleAddReader());
     }
@@ -105,8 +123,8 @@ public class ListReaderController {
             Stage addReaderStage = new Stage();
             addReaderStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
             addReaderStage.initOwner(stage);
+            addReaderScene.setFill(Color.TRANSPARENT);
             addReaderStage.initStyle(StageStyle.TRANSPARENT);
-            rectangle.setVisible(true);
             addReaderStage.setScene(addReaderScene);
             controller.setStage(addReaderStage);
             Platform.runLater(() ->
@@ -116,13 +134,12 @@ public class ListReaderController {
             double mainStageWidth = stage.getWidth();
             double mainStageHeight = stage.getHeight();
             addReaderStage.show();
-            double x = mainStageX + (mainStageWidth - addReaderStage.getWidth()) / 2;
+            double x = mainStageX + 315;
             double y = mainStageY + (mainStageHeight - addReaderStage.getHeight()) / 2;
             addReaderStage.setX(x);
             addReaderStage.setY(y);
 
 
-            addReaderStage.setOnHidden(e -> rectangle.setVisible(false));
             });
 
         } catch (Exception e) {
