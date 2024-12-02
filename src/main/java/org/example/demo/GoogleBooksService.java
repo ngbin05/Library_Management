@@ -25,7 +25,7 @@ public class GoogleBooksService {
                 HttpGet request = new HttpGet(url);
                 try (CloseableHttpResponse response = httpClient.execute(request)) {
                     // Đọc phản hồi từ API và chuyển thành chuỗi JSON
-                    String jsonResponse = EntityUtils.toString(httpClient.execute(request).getEntity());
+                    String jsonResponse = EntityUtils.toString(response.getEntity());
                     JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
                     return jsonObject;
                 }
@@ -35,4 +35,5 @@ public class GoogleBooksService {
             return null;  // Trả về null nếu có lỗi xảy ra
         }
     }
+
 }

@@ -20,6 +20,7 @@ module org.example.demo {
     requires org.bytedeco.librealsense;
 
 
+
     opens org.example.demo to javafx.fxml;
     exports org.example.demo;
 }

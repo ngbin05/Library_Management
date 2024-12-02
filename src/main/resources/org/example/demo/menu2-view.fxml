@@ -35,7 +35,7 @@
                 </VBox>
                 <VBox prefHeight="657.0" prefWidth="182.0" styleClass="sideBar" stylesheets="@../../../menu2-style.css">
                     <children>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showDashBoard" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Dashboard">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Dashboard">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -216,15 +216,15 @@
             <Font name=".VnArial" size="13.0" />
          </font>
       </Label>
-      <TableView layoutX="225.0" layoutY="333.0" prefHeight="252.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../menu2-style.css">
-        <columns>
-          <TableColumn prefWidth="58.28570556640625" text="ID" />
-          <TableColumn prefWidth="148.5714111328125" text="Name" />
-            <TableColumn prefWidth="152.00003051757812" text="Book Name" />
-            <TableColumn minWidth="0.0" prefWidth="77.142822265625" text="Book ID" />
-            <TableColumn prefWidth="151.42852783203125" text="Loan Date" />
-            <TableColumn prefWidth="164.5714111328125" text="Expiry Date" />
-        </columns>
+      <TableView fx:id="borrowTableView" layoutX="226.0" layoutY="327.0" prefHeight="252.0" prefWidth="750.0">
+         <columns>
+            <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
+            <TableColumn fx:id="userNameColumn" prefWidth="75.0" text="User Name" />
+            <TableColumn fx:id="bookTitlesColumn" prefWidth="297.99993896484375" text="Book " />
+            <TableColumn fx:id="borrowDateColumn" prefWidth="106.666748046875" text="Ngay Muon" />
+            <TableColumn fx:id="returnDateColumn" prefWidth="106.666748046875" text="Ngay Tra" />
+            <TableColumn fx:id="statusColumn" prefWidth="96.66668701171875" text="Status" />
+         </columns>
       </TableView>
       <Pane fx:id="pane" layoutX="201.0" layoutY="-3.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.topAnchor="0.0" />
     </children>

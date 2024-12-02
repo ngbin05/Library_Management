@@ -3,22 +3,31 @@ package org.example.demo;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Menu2Controller {
     private Stage stage;
@@ -48,8 +57,31 @@ public class Menu2Controller {
     @FXML
     public void showBorrowMenu() { loadPage("borrow-view.fxml"); }
 
+
     @FXML
-    public void showDashBoard() { loadPage("dashboard-view.fxml"); }
+    private TableView<Borrowed> borrowTableView;
+
+    @FXML
+    private TableColumn<Borrowed, Integer> userIdColumn;
+
+    @FXML
+    private TableColumn<Borrowed, Integer> userNameColumn;
+
+    @FXML
+    private TableColumn<Borrowed, String> bookTitlesColumn; // Cột cho tên các cuốn sách
+
+    @FXML
+    private TableColumn<Borrowed, String> borrowDateColumn;
+
+    @FXML
+    private TableColumn<Borrowed, String> returnDateColumn;
+
+    @FXML
+    private TableColumn<Borrowed, String> statusColumn;
+
+    // ObservableList chứa các đối tượng Borrowed
+    private ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize() {
@@ -61,6 +93,66 @@ public class Menu2Controller {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+
+
+        try {
+            Database.updateOverdueStatus();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Kết nối với CSDL và lấy dữ liệu
+        loadBorrowData();
+
+        // Cấu hình các cột trong TableView
+        userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("user_name"));
+        borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
+        returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
+        bookTitlesColumn.setCellFactory(column -> {
+            return new TableCell<>() {
+                private final Text text = new Text();
+
+                {
+                    text.setWrappingWidth(300); // Ensure the text wraps within the given width
+                    text.setStyle("-fx-text-alignment: justify;"); // Align text to justify (optional)
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setGraphic(null); // No content if empty
+                    } else {
+                        // Get the current row's Borrowed object
+                        Borrowed borrowed = getTableView().getItems().get(getIndex());
+                        List<String> bookTitles = borrowed.getBookTitles();
+
+                        // Format the list of book titles with numbering
+                        StringBuilder formattedTitles = new StringBuilder();
+                        for (int i = 0; i < bookTitles.size(); i++) {
+                            formattedTitles.append(i + 1).append(". ").append(bookTitles.get(i)).append("\n");
+                        }
+
+                        // Update the Text object with the formatted titles
+                        text.setText(formattedTitles.toString().trim()); // Optional: remove extra newline at the end
+                        setGraphic(text); // Set the Text as the graphic for the TableCell
+                    }
+                }
+            };
+        });
+
+
+        // Đưa danh sách vào TableView
+        borrowTableView.setItems(borrowList);
+        borrowTableView.setFixedCellSize(-1); // Cho phép tự động điều chỉnh chiều cao dòng
+
+
+
     }
 
 
@@ -110,9 +202,6 @@ public class Menu2Controller {
                 } else if (controller instanceof BorrowController) {
                     BorrowController borrowController = (BorrowController) controller;
                     borrowController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof ManageBorrowingController) {
-                    ManageBorrowingController manageBorrowingController = (ManageBorrowingController) controller;
-                    manageBorrowingController.setStage((Stage) pane.getScene().getWindow());
                 }
                 // Thêm các controller khác vào đây nếu cần
             }
@@ -120,6 +209,22 @@ public class Menu2Controller {
             e.printStackTrace();
         }
     }
+
+    // Hàm để lấy dữ liệu từ cơ sở dữ liệu
+    private void loadBorrowData() {
+        try {
+            // Gọi phương thức lấy tất cả các lượt mượn từ cơ sở dữ liệu
+            List<Borrowed> borrowDataList = Database.getAllBorrowData();
+
+            // Thêm vào ObservableList để hiển thị trên TableView
+            this.borrowList.clear();
+            this.borrowList.addAll(borrowDataList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
 

@@ -481,33 +481,33 @@ public class Database {
         }
     }
 
-    public static String getFullName() {
-        String userName = null;
-        String query = "SELECT full_name FROM accounts LIMIT 1";
+    public static String getFullName(String userName) {
+        String fullName = null;
+        String query = "SELECT full_name FROM accounts WHERE username = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            if (resultSet.next()) {
-                userName = resultSet.getString("full_name");
+        try (PreparedStatement statement = connect().prepareStatement(query)) {
+            statement.setString(1, userName); // Set the user_name parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    fullName = resultSet.getString("full_name");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return userName;
+        return fullName;
     }
 
-    public static String getPhoneNumber() {
+    public static String getPhoneNumber(String userName) {
         String phoneNumber = null;
-        String query = "SELECT phone_number FROM accounts LIMIT 1";
+        String query = "SELECT phone_number FROM accounts WHERE username = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            if (resultSet.next()) {
-                phoneNumber = resultSet.getString("phone_number");
+        try (PreparedStatement statement = connect().prepareStatement(query)) {
+            statement.setString(1, userName); // Set the user_name parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    phoneNumber = resultSet.getString("phone_number");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -515,22 +515,23 @@ public class Database {
         return phoneNumber;
     }
 
-    public static String getEmail() {
-        String gmail = null;
-        String query = "SELECT email FROM accounts LIMIT 1";
+    public static String getEmail(String userName) {
+        String email = null;
+        String query = "SELECT email FROM accounts WHERE username = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            if (resultSet.next()) {
-                gmail = resultSet.getString("email");
+        try (PreparedStatement statement = connect().prepareStatement(query)) {
+            statement.setString(1, userName); // Set the user_name parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    email = resultSet.getString("email");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return gmail;
+        return email;
     }
+
 
 //    public static String getAddress() {
 //        String address = null;
@@ -683,11 +684,12 @@ public static Account getAccountByUsername(String username) {
 
     public static List<Borrowed> getAllBorrowData() throws SQLException {
         List<Borrowed> borrowList = new ArrayList<>();
-        String query = "SELECT borrow.borrow_id, borrow.user_id, borrow.ngay_muon, borrow.ngay_tra, borrow.tinh_trang, " +
-                "GROUP_CONCAT(books.ten_sach SEPARATOR '\n') AS book_titles " + // Đảm bảo dùng \n để phân tách các tên sách
+        String query = "SELECT borrow.borrow_id, borrow.user_id, customers.user_name, borrow.ngay_muon, borrow.ngay_tra, borrow.tinh_trang, " +
+                "GROUP_CONCAT(books.ten_sach SEPARATOR '\n') AS book_titles " +
                 "FROM borrow " +
                 "JOIN borrow_books ON borrow.borrow_id = borrow_books.borrow_id " +
                 "JOIN books ON borrow_books.book_id = books.id_sach " +
+                "JOIN customers ON borrow.user_id = customers.user_id " +
                 "GROUP BY borrow.borrow_id";
 
         try (PreparedStatement statement = connect().prepareStatement(query);
@@ -696,20 +698,38 @@ public static Account getAccountByUsername(String username) {
             while (resultSet.next()) {
                 int borrowId = resultSet.getInt("borrow_id");
                 int userId = resultSet.getInt("user_id");
+                String userName = resultSet.getString("user_name"); // Get the user_name from the result set
                 String borrowDate = resultSet.getString("ngay_muon");
                 String returnDate = resultSet.getString("ngay_tra");
                 String status = resultSet.getString("tinh_trang");
                 String bookTitlesString = resultSet.getString("book_titles");
 
-                // Tách chuỗi book_titles thành danh sách tên sách bằng dấu \n
-                List<String> bookTitles = Arrays.asList(bookTitlesString.split("\n")); // Dùng \n làm phân tách
+                // Check and split the book_titles string into a list
+                List<String> bookTitles = bookTitlesString != null && !bookTitlesString.isEmpty()
+                        ? Arrays.asList(bookTitlesString.split("\n"))
+                        : new ArrayList<>(); // Return empty list if book_titles is empty
 
-                Borrowed borrow = new Borrowed(borrowId, userId, bookTitles, borrowDate, returnDate, status);
+                // Create a Borrowed object with the new user_name field
+                Borrowed borrow = new Borrowed(borrowId, userId, userName, bookTitles, borrowDate, returnDate, status);
+
+                // Add the object to the result list
                 borrowList.add(borrow);
             }
         }
         return borrowList;
     }
+
+
+    public static void updateOverdueStatus() throws SQLException {
+        String query = "UPDATE borrow " +
+                "SET tinh_trang = 'OVERDUE' " +
+                "WHERE tinh_trang = 'BORROWING' AND ngay_tra < CURDATE()";
+        try (PreparedStatement statement = connect().prepareStatement(query)) {
+            statement.executeUpdate();
+        }
+    }
+
+
 
 
 

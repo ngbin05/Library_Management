@@ -210,7 +210,7 @@ public class ProfileController {
     // Phương thức lấy dữ liệu từ cơ sở dữ liệu và gán vào TextField
     private void loadUserName() {
         // Lấy tên người dùng từ Database
-        String userName = Database.getFullName();
+        String userName = Database.getFullName(LoginController.account.getUsername());
 
         // Nếu có dữ liệu, gán vào TextField
         if (userName != null) {
@@ -220,7 +220,7 @@ public class ProfileController {
 
     private void loadPhoneNumber() {
         // Lấy tên người dùng từ Database
-        String phoneNumber = Database.getPhoneNumber();
+        String phoneNumber = Database.getPhoneNumber(LoginController.account.getUsername());
 
         // Nếu có dữ liệu, gán vào TextField
         if (phoneNumber != null) {
@@ -230,7 +230,8 @@ public class ProfileController {
 
     private void loadGmail() {
         // Lấy tên người dùng từ Database
-        String gmail = Database.getEmail();
+        String gmail = Database.getEmail(LoginController.account.getUsername()
+        );
 
         // Nếu có dữ liệu, gán vào TextField
         if (gmail != null) {

@@ -23,6 +23,7 @@ public class Book {
         this.quantity = quantity;
         this.isbn = isbn;
         this.image = image;
+        this.description = description;
     }
 
     // Getter và Setter cho tất cả các trường

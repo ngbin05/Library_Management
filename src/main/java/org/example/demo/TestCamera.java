@@ -3,10 +3,12 @@ package org.example.demo;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +46,27 @@ public class TestCamera {
     @FXML
     private ImageView imageView;
 
+    @FXML
+    private Button zoomInButton;
+
+    @FXML
+    private Button zoomOutButton;
+
+    @FXML
+    private Button rotateButton;
+
+    @FXML
+    private Button flipButton;
+
+    @FXML
+    private Button retakeButton;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Label successTakenLabel;
+
     private FrameGrabber grabber;
     private boolean isCameraRunning = false;
     private boolean isPhotoCaptured = false;
@@ -52,12 +75,20 @@ public class TestCamera {
     @FXML
     public void initialize() {
         stage = new Stage();
+            resetUI();
+        imageView.setStyle("-fx-background-color: #000000; " +
+                "-fx-padding: 10; " +
+                "-fx-border-color: #000000; " +
+                "-fx-border-width: 3; " +
+                "-fx-border-radius: 10; " +
+                "-fx-background-radius: 10; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0);");
         // Khởi tạo camera và bắt đầu lấy khung hình ngay khi ứng dụng chạ
         imageView.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> drawGridOverlay());
         drawGridOverlay();
+        startCamera();
     }
 
-    @FXML
     public void startCamera() {
         // Mở camera và bắt đầu lấy frame liên tục
         imageView.setVisible(true);
@@ -68,7 +99,7 @@ public class TestCamera {
                 isCameraRunning = true;
                 gridCanvas.setVisible(true);
 
-                // Liên tục lấy frame từ camera và cập nhật lên ImageView
+                // Liên tục lấy frame từ camera và cập nhật lên ImageViewret
                 while (isCameraRunning) {
                     if (isPhotoCaptured) {
                         break;  // Nếu đã chụp ảnh, dừng lấy frame từ camera
@@ -99,13 +130,13 @@ public class TestCamera {
 
     @FXML
     public void retakePhoto() {
+            resetUI();
             isPhotoCaptured = false; // Reset trạng thái đã chụp ảnh
             imageView.setImage(null); // Xóa ảnh đã chụp
             startCamera();
     }
 
 
-    @FXML
     public void stopCamera() {
         try {
             if (grabber != null) {
@@ -124,6 +155,7 @@ public class TestCamera {
     @FXML
     public void back() {
         try {
+            stopCamera();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-view.fxml"));
             Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
             profileController = fxmlLoader.getController();
@@ -147,7 +179,7 @@ public class TestCamera {
     }
 
     @FXML
-    public void openCameraAndCaptureImage() {
+    public void captureImage() {
         if (grabber != null && isCameraRunning) {
             try {
                 // Đếm ngược thời gian trước khi chụp ảnh
@@ -182,6 +214,12 @@ public class TestCamera {
                                     isPhotoCaptured = true;
                                     currentCapturedImage = bufferedImage; // Lưu ảnh vào biến tạm
                                     Platform.runLater(() -> imageView.setImage(image));
+                                    zoomInButton.setVisible(true);
+                                    zoomOutButton.setVisible(true);
+                                    retakeButton.setVisible(true);
+                                    saveButton.setVisible(true);
+                                    rotateButton.setVisible(true);
+                                    flipButton.setVisible(true);
                                 }
                             }
                         }
@@ -204,6 +242,7 @@ public class TestCamera {
                 String fileName = "avatar-image/image_" + System.currentTimeMillis() + ".png";
                 ImageIO.write(currentCapturedImage, "png", new File(fileName));
                 System.out.println("Ảnh đã lưu: " + fileName);
+                successTakenLabel.setVisible(true);
                 profileController.loadImageFromCamera();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -368,15 +407,58 @@ public class TestCamera {
 
     @FXML
     public void zoomInImage() {
-        imageView.setScaleX(imageView.getScaleX() * 1.2);
-        imageView.setScaleY(imageView.getScaleY() * 1.2);
+        zoomImage(1.2); // Phóng to 20%
     }
 
     @FXML
     public void zoomOutImage() {
-        imageView.setScaleX(imageView.getScaleX() / 1.2);
-        imageView.setScaleY(imageView.getScaleY() / 1.2);
+        zoomImage(1 / 1.2); // Thu nhỏ 20%
     }
+
+    private void zoomImage(double zoomFactor) {
+        if (imageView.getImage() == null) return; // Đảm bảo có ảnh trong ImageView
+
+        // Lấy viewport hiện tại hoặc tạo mới nếu chưa có
+        Rectangle2D viewport = imageView.getViewport();
+        if (viewport == null) {
+            viewport = new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
+        }
+
+        // Tính toán kích thước mới của viewport
+        double newWidth = viewport.getWidth() / zoomFactor;
+        double newHeight = viewport.getHeight() / zoomFactor;
+
+        // Tính toán vị trí mới để viewport vẫn giữ nguyên tâm
+        double centerX = viewport.getMinX() + viewport.getWidth() / 2;
+        double centerY = viewport.getMinY() + viewport.getHeight() / 2;
+        double newMinX = centerX - newWidth / 2;
+        double newMinY = centerY - newHeight / 2;
+
+        // Đảm bảo không vượt quá biên của ảnh
+        newMinX = Math.max(newMinX, 0);
+        newMinY = Math.max(newMinY, 0);
+        if (newMinX + newWidth > imageView.getImage().getWidth()) {
+            newMinX = imageView.getImage().getWidth() - newWidth;
+        }
+        if (newMinY + newHeight > imageView.getImage().getHeight()) {
+            newMinY = imageView.getImage().getHeight() - newHeight;
+        }
+
+        // Cập nhật viewport
+        imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
+    }
+
+    public void resetUI() {
+        successTakenLabel.setVisible(false);
+        zoomInButton.setVisible(false);
+        zoomOutButton.setVisible(false);
+        retakeButton.setVisible(false);
+        saveButton.setVisible(false);
+        rotateButton.setVisible(false);
+        flipButton.setVisible(false);
+
+    }
+
 
 
 

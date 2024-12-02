@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddBookController">
+<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddBookController">
    <children>
       <!-- Thanh tìm kiếm -->
       <TextField fx:id="searchTextField" layoutX="24.0" layoutY="58.0" prefHeight="42.0" prefWidth="520.0" promptText="Search" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="58.0" />
@@ -23,6 +23,11 @@
 
       <!-- Label thông báo lỗi -->
       <Label fx:id="errorLabel" text="Sách này đã có trong thư viện!" textFill="#d00404" visible="false" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="searchFailLabel" layoutX="10.0" layoutY="10.0" text="Không có kết quả tìm kiếm!" textFill="#c70a00" visible="false" AnchorPane.rightAnchor="27.3333333333334" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

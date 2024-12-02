@@ -5,21 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3904e6-f042-4897-ab98-17c195c63820" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/26048132-fa8c-46da-a7b4-2c5b09eac5f9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookCellFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookCellFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookCellFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/AddBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BookDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/BookDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/BorrowedBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Borrowed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Borrowed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Borrowed.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ListBookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ListReaderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/ListReaderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/GoogleBooksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/GoogleBooksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/ManageBorrowingController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/Menu2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/demo/TestCamera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/book-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookDetail-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/bookDetail-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/dashboard-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/login-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/menu2-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/demo/testcam-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +35,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -212,6 +218,12 @@
       <workItem from="1732779372634" duration="152000" />
       <workItem from="1732816310499" duration="16838000" />
       <workItem from="1732837067094" duration="1117000" />
+      <workItem from="1732894040004" duration="3518000" />
+      <workItem from="1732907173649" duration="501000" />
+      <workItem from="1732984288406" duration="7000" />
+      <workItem from="1732995873273" duration="8749000" />
+      <workItem from="1733109706116" duration="3387000" />
+      <workItem from="1733121126540" duration="4010000" />
     </task>
     <servers />
   </component>
