@@ -55,6 +55,7 @@ public class BorrowController {
     @FXML
     private Label borrowSuccessLabel;
 
+
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // Phương thức khởi tạo (initialize) cho Controller
@@ -224,6 +225,13 @@ public class BorrowController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate borrowLocalDate = LocalDate.parse(borrowDate, formatter);
         LocalDate returnLocalDate = LocalDate.parse(returnDate, formatter);
+
+        if (returnLocalDate.isBefore(borrowLocalDate)) {
+            unDateErrorLabel.setVisible(true);
+            unBookErrorLabel.setVisible(false);
+            borrowSuccessLabel.setVisible(false);
+            return;
+        }
 
         // Chuyển đổi thành Date
         java.sql.Date sqlBorrowDate = java.sql.Date.valueOf(borrowLocalDate);

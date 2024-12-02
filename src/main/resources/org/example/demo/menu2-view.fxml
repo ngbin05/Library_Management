@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
+<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
     <children>
         <VBox layoutX="10.857142857142858" layoutY="10.285714285714286" prefHeight="678.0" prefWidth="178.0" style="-fx-background-color: WHITE;" styleClass="vbox" stylesheets="@../../../menu2-style.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
             <children>
@@ -68,7 +68,7 @@
                                     </image>
                                 </ImageView>
                             </graphic></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showBorrowMenu" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="System">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="System">
                             <font>
                                 <Font name=".VnArial" size="13.0" />
                             </font>
@@ -218,12 +218,13 @@
       </Label>
       <TableView fx:id="borrowTableView" layoutX="226.0" layoutY="327.0" prefHeight="252.0" prefWidth="750.0">
          <columns>
-            <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="User ID" />
-            <TableColumn fx:id="userNameColumn" prefWidth="75.0" text="User Name" />
-            <TableColumn fx:id="bookTitlesColumn" prefWidth="297.99993896484375" text="Book " />
-            <TableColumn fx:id="borrowDateColumn" prefWidth="106.666748046875" text="Ngay Muon" />
-            <TableColumn fx:id="returnDateColumn" prefWidth="106.666748046875" text="Ngay Tra" />
-            <TableColumn fx:id="statusColumn" prefWidth="96.66668701171875" text="Status" />
+            <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="User ID" />
+            <TableColumn fx:id="userNameColumn" prefWidth="233.33331298828125" text="User Name" />
+            <TableColumn fx:id="bookCountColumn" prefWidth="125.33334350585938" text="Số Lượng" />
+            <TableColumn fx:id="borrowDateColumn" prefWidth="100.66668701171875" text="Ngay Muon" />
+            <TableColumn fx:id="returnDateColumn" prefWidth="98.6666259765625" text="Ngay Tra" />
+            <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="77.333251953125" text="Status" />
+            <TableColumn fx:id="actionColumn" maxWidth="110.6666259765625" prefWidth="56.666748046875" text="Action" />
          </columns>
       </TableView>
       <Pane fx:id="pane" layoutX="201.0" layoutY="-3.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.topAnchor="0.0" />

@@ -3,6 +3,7 @@ package org.example.demo;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -77,7 +78,7 @@ public class Menu2Controller {
     private TableColumn<Borrowed, Integer> userNameColumn;
 
     @FXML
-    private TableColumn<Borrowed, String> bookTitlesColumn; // Cột cho tên các cuốn sách
+    private TableColumn<Borrowed, Integer> bookCountColumn; // Cột cho tên các cuốn sách
 
     @FXML
     private TableColumn<Borrowed, String> borrowDateColumn;
@@ -87,6 +88,11 @@ public class Menu2Controller {
 
     @FXML
     private TableColumn<Borrowed, String> statusColumn;
+
+    @FXML
+    private TableColumn<Borrowed, Void> actionColumn;
+
+
 
     // ObservableList chứa các đối tượng Borrowed
     private ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
@@ -120,39 +126,53 @@ public class Menu2Controller {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
-        bookTitlesColumn.setCellFactory(column -> {
-            return new TableCell<>() {
-                private final Text text = new Text();
+        bookCountColumn.setCellValueFactory(param -> {
+            Borrowed borrowed = param.getValue();
+            return new javafx.beans.property.SimpleIntegerProperty(borrowed.getBooks().size()).asObject();
+        });
 
-                {
-                    text.setWrappingWidth(300); // Ensure the text wraps within the given width
-                    text.setStyle("-fx-text-alignment: justify;"); // Align text to justify (optional)
-                }
+        actionColumn.setCellFactory(column -> {
+            return new TableCell<Borrowed, Void>() {
+                private final javafx.scene.control.Button returnButton = new javafx.scene.control.Button("Trả sách");
+                private final javafx.scene.control.Label checkMarkLabel = new javafx.scene.control.Label("✔");
 
                 @Override
-                protected void updateItem(String item, boolean empty) {
+                protected void updateItem(Void item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    if (empty || item == null) {
-                        setGraphic(null); // No content if empty
+                    if (empty) {
+                        setGraphic(null); // Không hiển thị gì nếu ô trống
                     } else {
-                        // Get the current row's Borrowed object
                         Borrowed borrowed = getTableView().getItems().get(getIndex());
-                        List<String> bookTitles = borrowed.getBookTitles();
 
-                        // Format the list of book titles with numbering
-                        StringBuilder formattedTitles = new StringBuilder();
-                        for (int i = 0; i < bookTitles.size(); i++) {
-                            formattedTitles.append(i + 1).append(". ").append(bookTitles.get(i)).append("\n");
+                        // So sánh chuỗi bằng phương thức equals()
+                        if ("RETURNED".equals(borrowed.getStatus())) {
+                            returnButton.setVisible(false);
+                            checkMarkLabel.setVisible(true);
+                            setGraphic(checkMarkLabel); // Hiển thị dấu tích xanh
+                        } else {
+                            returnButton.setVisible(true);
+                            checkMarkLabel.setVisible(false);
+                            setGraphic(returnButton); // Hiển thị nút "Trả sách"
+
+                            // Thiết lập sự kiện cho nút "Trả sách"
+                            returnButton.setOnAction(event -> {
+                                boolean isReturned = handleReturnBook(borrowed); // Gọi hàm xử lý trả sách
+                                if (isReturned) {
+                                    // Sau khi trả sách thành công, thay đổi nút "Trả sách" thành dấu tích xanh
+                                    returnButton.setVisible(false); // Ẩn nút "Trả sách"
+                                    checkMarkLabel.setVisible(true); // Hiển thị dấu tích xanh
+                                    borrowed.setStatus("RETURNED"); // Cập nhật trạng thái của đối tượng Borrowed
+                                    // Cập nhật lại TableView sau khi thay đổi trạng thái
+                                    borrowTableView.refresh();
+                                }
+                            });
                         }
-
-                        // Update the Text object with the formatted titles
-                        text.setText(formattedTitles.toString().trim()); // Optional: remove extra newline at the end
-                        setGraphic(text); // Set the Text as the graphic for the TableCell
                     }
                 }
             };
         });
+
 
         // Đưa danh sách vào TableView
         borrowTableView.setItems(borrowList);
@@ -238,6 +258,34 @@ public class Menu2Controller {
             e.printStackTrace();
         }
     }
+
+    private boolean handleReturnBook(Borrowed borrowed) {
+        try {
+            boolean confirmed = ConfirmDialog.show("Xác nhận", "Xác nhận trả sách?");
+            if (!confirmed) {
+                return false;  // Nếu không xác nhận, trả về false
+            }
+
+            // Trả sách vào cơ sở dữ liệu
+            boolean isReturned = Database.returnBook(borrowed.getBorrowId(), borrowed.getBooks());
+            if (isReturned) {
+                System.out.println("Trả sách thành công cho Borrow ID: " + borrowed.getBorrowId());
+                // Cập nhật lại dữ liệu sau khi trả sách
+                loadBorrowData();
+                borrowTableView.refresh(); // Cập nhật TableView để hiển thị sự thay đổi
+                return true; // Trả về true nếu trả sách thành công
+            } else {
+                System.out.println("Trả sách thất bại!");
+                return false; // Trả về false nếu trả sách thất bại
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có ngoại lệ xảy ra
+        }
+    }
+
+
+
 
 
 }

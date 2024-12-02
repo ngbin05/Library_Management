@@ -13,7 +13,7 @@ public class Book {
     private byte[] image; // Trường ảnh dưới dạng byte[]
 
     // Constructor
-    public Book(int id,String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, byte[] image, String description) {
+    public Book(int id, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, byte[] image, String description) {
         this.id = id;
         this.title = title;
         this.author = author;

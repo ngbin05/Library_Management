@@ -1,20 +1,21 @@
 package org.example.demo;
+
 import java.util.List;
 
 public class Borrowed {
     private int borrowId;
     private int userId;
     private String user_name;
-    private List<String> bookTitles; // List chứa tên các cuốn sách
+    private List<Book> books; // List chứa các đối tượng Book
     private String borrowDate;
     private String returnDate;
     private String status;
 
-    public Borrowed(int borrowId, int userId,String user_name, List<String> bookTitles, String borrowDate, String returnDate, String status) {
+    public Borrowed(int borrowId, int userId, String user_name, List<Book> books, String borrowDate, String returnDate, String status) {
         this.borrowId = borrowId;
         this.userId = userId;
         this.user_name = user_name;
-        this.bookTitles = bookTitles;
+        this.books = books;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.status = status;
@@ -45,12 +46,12 @@ public class Borrowed {
         this.user_name = user_name;
     }
 
-    public List<String> getBookTitles() {
-        return bookTitles;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setBookTitles(List<String> bookTitles) {
-        this.bookTitles = bookTitles;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public String getBorrowDate() {
