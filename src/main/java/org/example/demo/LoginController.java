@@ -224,19 +224,19 @@ public class LoginController {
     public void setStage(Stage stage) {
         this.primaryStage = stage;
     }
-        private void switchToMainScreen () {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu2-view.fxml"));
-                Scene mainScene = new Scene(loader.load());
-                mainScene.setFill(Color.TRANSPARENT);
-                primaryStage.setScene(mainScene);
-                Menu2Controller homeController = loader.getController();
-                homeController.setStage(primaryStage);
-                primaryStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void switchToMainScreen () {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu2-view.fxml"));
+            Scene mainScene = new Scene(loader.load());
+            mainScene.setFill(Color.TRANSPARENT);
+            primaryStage.setScene(mainScene);
+            Menu2Controller homeController = loader.getController();
+            homeController.setStage(primaryStage);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
     public void goToForgotPassword() {
         try {
@@ -274,4 +274,3 @@ public class LoginController {
         Platform.exit(); // Đóng toàn bộ ứng dụng
     }
 }
-

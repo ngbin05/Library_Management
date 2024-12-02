@@ -76,7 +76,7 @@ public class Database {
             pstmt.setString(5, theloai);
             pstmt.setInt(6, quantity);
             pstmt.setString(7, isbn);
-             // Thêm mô tả sách vào cơ sở dữ liệu
+            // Thêm mô tả sách vào cơ sở dữ liệu
 
             // Nếu có ảnh, lưu ảnh vào cơ sở dữ liệu dưới dạng BLOB
             if (image != null) {
@@ -412,10 +412,10 @@ public class Database {
     }
 
     public static void registerAccount(String fullname,
-                                          String email,
-                                          String phone,
-                                          String username,
-                                          String password
+                                       String email,
+                                       String phone,
+                                       String username,
+                                       String password
     ) {
         String query = "INSERT INTO Accounts (username, full_name, email, phone_number, password) VALUES (?, ?, ?, ?, ?)";
 
@@ -569,33 +569,33 @@ public class Database {
             return false;
         }
     }
-public static Account getAccountByUsername(String username) {
-    String query = "SELECT username, password, avatar FROM accounts WHERE username = ?";
+    public static Account getAccountByUsername(String username) {
+        String query = "SELECT username, password, avatar FROM accounts WHERE username = ?";
 
-    try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-        // Gán tham số cho câu truy vấn
-        preparedStatement.setString(1, username);
+            // Gán tham số cho câu truy vấn
+            preparedStatement.setString(1, username);
 
-        // Thực hiện truy vấn
-        ResultSet resultSet = preparedStatement.executeQuery();
+            // Thực hiện truy vấn
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        if (resultSet.next()) {
-            String userName = resultSet.getString("username");
-            String password = resultSet.getString("password");
-            byte[] avatar = resultSet.getBytes("avatar"); // Lấy dữ liệu ảnh dạng BLOB
+            if (resultSet.next()) {
+                String userName = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                byte[] avatar = resultSet.getBytes("avatar"); // Lấy dữ liệu ảnh dạng BLOB
 
-            return new Account(userName, password, avatar);
-        } else {
-            System.out.println("Không tìm thấy tài khoản với username: " + username);
+                return new Account(userName, password, avatar);
+            } else {
+                System.out.println("Không tìm thấy tài khoản với username: " + username);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
 
     public static boolean checkEmailExists(String email) {
         // Câu truy vấn kiểm tra sự tồn tại của username
@@ -893,4 +893,3 @@ public static Account getAccountByUsername(String username) {
 
 
 }
-

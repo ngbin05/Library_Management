@@ -112,9 +112,10 @@ public class ProfileController {
     @FXML
     public void onClickChangeAvatar() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", ".jpg", ".png", ".gif", ".bmp"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+                "Image Files", "*.jpg", "*.png", "*.gif", "*.bmp"));
 
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        File selectedFile = fileChooser.showOpenDialog(avatar.getScene().getWindow());
 
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
@@ -124,34 +125,34 @@ public class ProfileController {
     }
 
     @FXML
-        public void loadImageFromCamera() {
-            File folder = new File("avatar-image");
+    public void loadImageFromCamera() {
+        File folder = new File("avatar-image");
 
-            if (!folder.exists() || !folder.isDirectory()) {
-                System.out.println("Thư mục không tồn tại hoặc không phải thư mục.");
-                return;
-            }
-
-            // Lấy danh sách các tệp trong thư mục và lọc ra các tệp ảnh
-            File[] imageFiles = folder.listFiles(file -> file.isFile() &&
-                    (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")));
-
-            if (imageFiles == null || imageFiles.length == 0) {
-                System.out.println("Không tìm thấy ảnh nào trong thư mục.");
-                return;
-            }
-
-
-            // Sắp xếp các tệp theo thời gian chỉnh sửa (mới nhất ở đầu)
-            Arrays.sort(imageFiles, Comparator.comparingLong(File::lastModified).reversed());
-
-            // Lấy tệp ảnh mới nhất
-            File latestImage = imageFiles[0];
-            Image image = new Image(latestImage.toURI().toString());
-            avatar.setImage(image);
-            LoginController.account.setImage(ImageUtils.imageToByteArray(image));
-            System.out.println("Đã tải ảnh: " + latestImage.getName());
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Thư mục không tồn tại hoặc không phải thư mục.");
+            return;
         }
+
+        // Lấy danh sách các tệp trong thư mục và lọc ra các tệp ảnh
+        File[] imageFiles = folder.listFiles(file -> file.isFile() &&
+                (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")));
+
+        if (imageFiles == null || imageFiles.length == 0) {
+            System.out.println("Không tìm thấy ảnh nào trong thư mục.");
+            return;
+        }
+
+
+        // Sắp xếp các tệp theo thời gian chỉnh sửa (mới nhất ở đầu)
+        Arrays.sort(imageFiles, Comparator.comparingLong(File::lastModified).reversed());
+
+        // Lấy tệp ảnh mới nhất
+        File latestImage = imageFiles[0];
+        Image image = new Image(latestImage.toURI().toString());
+        avatar.setImage(image);
+        LoginController.account.setImage(ImageUtils.imageToByteArray(image));
+        System.out.println("Đã tải ảnh: " + latestImage.getName());
+    }
 
 
     @FXML
@@ -301,4 +302,3 @@ public class ProfileController {
         }
     }
 }
-

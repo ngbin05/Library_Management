@@ -7,15 +7,18 @@ public class Borrowed {
     private int userId;
     private String user_name;
     private List<Book> books; // List chứa các đối tượng Book
+
     private String borrowDate;
     private String returnDate;
     private String status;
+
 
     public Borrowed(int borrowId, int userId, String user_name, List<Book> books, String borrowDate, String returnDate, String status) {
         this.borrowId = borrowId;
         this.userId = userId;
         this.user_name = user_name;
         this.books = books;
+
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.status = status;
@@ -40,6 +43,7 @@ public class Borrowed {
 
     public String getUser_name() {
         return user_name;
+
     }
 
     public void setUser_name(String user_name) {

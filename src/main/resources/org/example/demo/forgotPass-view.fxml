@@ -36,8 +36,9 @@
         </AnchorPane>
         <Button layoutX="578.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOut" text="Exit" />
     </children>
-   <styleClass>
-      <String fx:value="anchor-pane" />
-      <String fx:value="anchor-pane1" />
-   </styleClass>
+    <styleClass>
+        <String fx:value="anchor-pane" />
+        <String fx:value="anchor-pane1" />
+    </styleClass>
 </AnchorPane>
+
