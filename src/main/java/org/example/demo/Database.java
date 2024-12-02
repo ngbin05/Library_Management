@@ -718,8 +718,7 @@ public static Account getAccountByUsername(String username) {
         }
         return borrowList;
     }
-
-
+    
     public static void updateOverdueStatus() throws SQLException {
         String query = "UPDATE borrow " +
                 "SET tinh_trang = 'OVERDUE' " +
@@ -728,13 +727,98 @@ public static Account getAccountByUsername(String username) {
             statement.executeUpdate();
         }
     }
+    
+    
+    public static boolean checkEmailExists(String email) {
+        // Câu truy vấn kiểm tra sự tồn tại của username
+        String sql = "SELECT 1 FROM accounts WHERE email = ?";
+    
+        // Kiểm tra nếu email là null hoặc rỗng
+        if (email == null || email.trim().isEmpty()) {
+            return false; // Tài khoản không hợp lệ
+        }
 
+        try (Connection conn = connect(); // Kết nối tới cơ sở dữ liệu
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            // Gán giá trị email vào câu truy vấn
+            pstmt.setString(1, email.trim());
 
+            // Thực thi truy vấn
+            ResultSet rs = pstmt.executeQuery();
 
+            // Nếu có dòng dữ liệu trả về, tài khoản tồn tại
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println("Error checking email: " + e.getMessage());
+            return false; // Nếu có lỗi xảy ra, mặc định trả về false
+        }
+    }
 
+    public static boolean updatenewPass(String email, String newPassword) {
+        // Câu lệnh SQL để cập nhật mật khẩu
+        String queryUpdate = "UPDATE accounts SET password = ? WHERE email = ?";
 
+        try (Connection conn = Database.connect(); // Kết nối đến database
+             PreparedStatement updateStmt = conn.prepareStatement(queryUpdate)) {
 
+            // Gán tham số vào câu lệnh SQL
+            updateStmt.setString(1, newPassword);
+            updateStmt.setString(2, email);
 
+            // Thực thi câu lệnh
+            int rowsUpdated = updateStmt.executeUpdate();
+            // Kiểm tra xem có dòng nào được cập nhật hay không
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thay đổi mật khẩu: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static int countUsers() {
+        String query = "SELECT COUNT(user_id) FROM customers";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
+
+    public static int countBooks() {
+        String query = "SELECT COUNT(id_sach) FROM books";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
+
+    public static int countBooksBorrow() {
+        String query = "SELECT COUNT(Borrow_book_id) FROM borrow_books";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
 }
 

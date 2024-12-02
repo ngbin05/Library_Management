@@ -43,6 +43,15 @@ public class Menu2Controller {
     private Label dateTimeLabel;
 
     @FXML
+    private Label readersCount;
+
+    @FXML
+    private Label booksCount;
+
+    @FXML
+    private Label booksBorrowCount;
+
+    @FXML
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
@@ -95,7 +104,6 @@ public class Menu2Controller {
         timeline.play();
 
 
-
         try {
             Database.updateOverdueStatus();
         } catch (SQLException e) {
@@ -146,12 +154,19 @@ public class Menu2Controller {
             };
         });
 
-
         // Đưa danh sách vào TableView
         borrowTableView.setItems(borrowList);
         borrowTableView.setFixedCellSize(-1); // Cho phép tự động điều chỉnh chiều cao dòng
 
 
+        int userCount = Database.countUsers();
+        readersCount.setText(String.valueOf(userCount));
+
+        int bookCount = Database.countBooks();
+        booksCount.setText(String.valueOf(bookCount));
+
+        int bookBorrowCount = Database.countBooksBorrow();
+        booksBorrowCount.setText(String.valueOf(bookBorrowCount));
 
     }
 
@@ -223,7 +238,6 @@ public class Menu2Controller {
             e.printStackTrace();
         }
     }
-
 
 
 }

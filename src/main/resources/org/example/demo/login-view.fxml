@@ -16,11 +16,12 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<StackPane style="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
+<StackPane style="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
          <children>
             <AnchorPane layoutX="2.0" prefHeight="161.0" prefWidth="625.0" styleClass="anchor-pane" stylesheets="@../../../anchor-style.css">
+
                <children>
                   <Label layoutX="220.0" layoutY="20.0" prefHeight="71.0" prefWidth="386.0" text="LIBRARY MANAGEMENT">
                      <font>
@@ -73,7 +74,7 @@
                         <Image url="@../../../media/books.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="20.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="29.0" prefWidth="77.0" stylesheets="@../../../button-style.css" text="Exit">
+                  <Button layoutX="10.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="40.0" prefWidth="75.0" stylesheets="@../../../button-style.css" text="Exit">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
@@ -81,10 +82,10 @@
                </children>
             </AnchorPane>
             <TabPane layoutX="1.0" layoutY="107.0" prefHeight="395.0" prefWidth="625.0" stylesheets="@../../../tabpane-style.css" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab closable="false" text="Sign In">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="623.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
+               <tabs>
+                  <Tab closable="false" text="Sign In">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="395.0" prefWidth="623.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
                            <children>
                               <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="316.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -115,7 +116,6 @@
                                     <Font size="13.0" />
                                  </font>
                               </PasswordField>
-                              <Label layoutX="140.0" layoutY="170.0" styleClass="forgot-password" stylesheets="@../../../forgotpass-style.css" text="Forgot password?" />
                               <Label fx:id="errorLabel" layoutX="152.0" layoutY="206.0" onDragDetected="#initialize" text="Lỗi! Sai tài khoản hoặc tên dăng nhập!" textFill="#db0000">
                                  <font>
                                     <Font name="Arial Bold" size="13.0" />
@@ -131,13 +131,18 @@
                                     <Font name="Arial Bold" size="13.0" />
                                  </font>
                               </Label>
+                              <Button layoutX="174.0" layoutY="162.0" mnemonicParsing="false" onAction="#goToForgotPassword" prefHeight="46.0" prefWidth="178.0" stylesheets="@../../../ForgotPassBut-style.css" text="Forgot password?">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Sign Up">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="593.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
+                     </content>
+                  </Tab>
+                  <Tab text="Sign Up">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="593.0" styleClass="anchor-pane1" stylesheets="@../../../anchor-style.css">
                            <children>
                               <Label layoutX="125.0" layoutY="45.0" stylesheets="@../../../font-style.css" text="Your Name" />
                               <Label layoutX="124.0" layoutY="84.0" stylesheets="@../../../font-style.css" text="      Email    " />
@@ -202,9 +207,9 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
+                     </content>
+                  </Tab>
+               </tabs>
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
