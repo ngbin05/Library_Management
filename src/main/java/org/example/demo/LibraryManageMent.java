@@ -15,7 +15,6 @@ import java.sql.Connection;
 public class LibraryManageMent extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -27,12 +26,10 @@ public class LibraryManageMent extends Application {
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/media/icon-library.png")));
         primaryStage.setTitle("Library Management");
-//        ListBookController listBookController = fxmlLoader.getController();
-//        listBookController.setStage(primaryStage);
-//        LoginController controller = fxmlLoader.getController();
-//        controller.setStage(primaryStage);
-          profileController controller = fxmlLoader.getController();
-          controller.setStage(primaryStage);
+        LoginController controller = fxmlLoader.getController();
+        controller.setStage(primaryStage);
+        // Lấy controller từ FXML và gọi phương thức khởi tạo camera
+//        TestCamera controller = fxmlLoader.getController();
 
 
         primaryStage.show();

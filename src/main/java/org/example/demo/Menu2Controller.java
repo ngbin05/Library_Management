@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -32,8 +34,21 @@ public class Menu2Controller {
     private Label dateTimeLabel;
 
     @FXML
+    private Label readersCount;
+
+    @FXML
+    private Label booksCount;
+
+    @FXML
+    private Label booksBorrowCount;
+
+    @FXML
     public void showReaderList(){
         loadPage("readers-view.fxml");
+    }
+    @FXML
+    public void showBookList() {
+        loadPage("bookList-view.fxml");
     }
 
     @FXML
@@ -55,19 +70,17 @@ public class Menu2Controller {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        int userCount = Database.countUsers();
+        readersCount.setText(String.valueOf(userCount));
+
+        int bookCount = Database.countBooks();
+        booksCount.setText(String.valueOf(bookCount));
+
+        int bookBorrowCount = Database.countBooksBorrow();
+        booksBorrowCount.setText(String.valueOf(bookBorrowCount));
     }
-    
-    private void loadPage(String fxmlFileName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
-            ListReaderController controller = loader.getController();
-            pane.getChildren().setAll(root);
-            controller.setStage((Stage) pane.getScene().getWindow());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @FXML
     private void logOut() {
@@ -80,6 +93,48 @@ public class Menu2Controller {
             loginController.setStage(stage);
             stage.show();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadPage(String fxmlFileName) {
+        try {
+            // Load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(root);
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
+            // Xử lý controller
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof ListReaderController) {
+                    ListReaderController listReaderController = (ListReaderController) controller;
+                    listReaderController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ListBookController) {
+                    ListBookController listBookController = (ListBookController) controller;
+                    listBookController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ProfileController) {
+                    ProfileController profileController = (ProfileController) controller;
+                    profileController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof BorrowController) {
+                    BorrowController borrowController = (BorrowController) controller;
+                    borrowController.setStage((Stage) pane.getScene().getWindow());
+                } else if (controller instanceof ManageBorrowingController) {
+                    ManageBorrowingController manageBorrowingController = (ManageBorrowingController) controller;
+                    manageBorrowingController.setStage((Stage) pane.getScene().getWindow());
+                }
+                // Thêm các controller khác vào đây nếu cần
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -25,7 +25,7 @@ public class Book {
         this.image = image;
     }
 
-    // Getters and setters
+    // Getter và Setter cho tất cả các trường
     public int getId() {
         return id;
     }

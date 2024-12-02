@@ -1,4 +1,6 @@
 package org.example.demo;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController {
     private Stage primaryStage;
@@ -234,5 +238,41 @@ public class LoginController {
                 e.printStackTrace();
             }
         }
+
+    public void goToForgotPassword() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPass-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Tạo một cửa sổ mới (Stage mới)
+            Stage forgotPassStage = new Stage();
+            forgotPassStage.setScene(scene);
+            forgotPassStage.setTitle("Forgot Password");
+
+            // Ẩn thanh công cụ trên cùng
+            forgotPassStage.initStyle(StageStyle.UNDECORATED);
+
+            // Không thiết lập kiểu modal để cửa sổ chính không bị khóa
+            // forgotPassStage.initModality(Modality.NONE);
+
+            // Đưa Stage vào controller nếu cần
+            ForgotPassController fgPassController = loader.getController();
+            fgPassController.setStage(forgotPassStage);
+
+            forgotPassStage.setY(338);
+            forgotPassStage.setX(648);
+
+            // Hiển thị cửa sổ mới
+            forgotPassStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void handleExitButton(ActionEvent event) {
+        Platform.exit(); // Đóng toàn bộ ứng dụng
+    }
 }
 

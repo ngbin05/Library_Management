@@ -1,0 +1,24 @@
+/* Nút vô hình */
+.button {
+    -fx-background-radius: 25px; /* Bo tròn nút */
+    -fx-text-fill: black; /* Màu chữ */
+    -fx-font-size: 14px; /* Kích thước chữ */
+    -fx-font-weight: bold; /* Chữ đậm */
+    -fx-padding: 12 24; /* Khoảng cách bên trong nút */
+    -fx-border-radius: 25px; /* Bo tròn viền */
+    -fx-background-color: transparent; /* Nền trong suốt */
+    -fx-border-color: transparent; /* Viền trong suốt */
+    -fx-border-width: 1; /* Độ rộng viền */
+    -fx-transition: transform 0.3s ease, background-color 0.5s ease, box-shadow 0.4s ease, -fx-border-color 0.3s ease; /* Hiệu ứng chuyển */
+}
+
+/* Hiệu ứng khi hover */
+.button:hover {
+    -fx-text-fill: #007BFF; /* Đổi màu chữ khi hover */
+    -fx-cursor: hand; /* Thay đổi con trỏ khi hover */
+}
+
+/* Hiệu ứng khi nhấn */
+.button:pressed {
+    -fx-text-fill: gray; /* Đổi màu chữ khi nhấn */
+}

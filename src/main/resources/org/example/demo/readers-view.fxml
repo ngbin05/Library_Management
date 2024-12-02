@@ -28,20 +28,7 @@
                   <TableColumn fx:id="colAction" prefWidth="85.7142333984375" text="Action" />
                </columns>
             </TableView>
-            <Button cache="true" layoutX="274.0" layoutY="-151.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="161.0" prefWidth="211.0" stylesheets="@../../../CustomerStyle/button-style.css" text="Search" textFill="#004782" />
-            <Button fx:id="btnAdd" layoutX="82.0" layoutY="-239.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="629.0" stylesheets="@../../../CustomerStyle/button-style.css" text="+ Add Reader" />
-            <TextField fx:id="txtSearchName" layoutX="203.0" layoutY="-192.0" onAction="#handleSearch" promptText="Name" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-            <TextField fx:id="txtSearchCCCD" layoutX="584.0" layoutY="-192.0" onAction="#handleSearch" promptText="CCCD" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-            <TextField fx:id="txtSearchPhone" layoutX="402.0" layoutY="-192.0" onAction="#handleSearch" promptText="SDT" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-            <TextField fx:id="txtSearchID" layoutX="17.0" layoutY="-192.0" onAction="#handleSearch" promptText="ID" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#20619d96" height="450.0" layoutY="-151.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="760.0" />
-         </children>
-      </AnchorPane>
-   </bottom>
-   <top>
-      <AnchorPane prefHeight="39.0" prefWidth="760.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="14.0" layoutY="1.0" prefHeight="45.0" prefWidth="161.0" text="LIST READER" textFill="#141014">
+            <Label layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
                <font>
                   <Font name=".VnArial" size="23.0" />
                </font>

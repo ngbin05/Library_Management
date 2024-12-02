@@ -435,8 +435,11 @@ public class Database {
         }
     }
 
+
+
+
     public static boolean changePassword(String username, String oldPassword, String newPassword) {
-        String querySelect = "SELECT password FROM Accounts WHERE username = ?";
+        String querySelect = "SELECT password FROM accounts WHERE username = ?";
         String queryUpdate = "UPDATE accounts SET password = ? WHERE username = ?";
 
         try (Connection conn = Database.connect();
@@ -478,16 +481,16 @@ public class Database {
         }
     }
 
-    public static String getUserName() {
+    public static String getFullName() {
         String userName = null;
-        String query = "SELECT user_name FROM information_admin LIMIT 1";
+        String query = "SELECT full_name FROM accounts LIMIT 1";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
             if (resultSet.next()) {
-                userName = resultSet.getString("user_name");
+                userName = resultSet.getString("full_name");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -497,7 +500,7 @@ public class Database {
 
     public static String getPhoneNumber() {
         String phoneNumber = null;
-        String query = "SELECT phone_number FROM information_admin LIMIT 1";
+        String query = "SELECT phone_number FROM accounts LIMIT 1";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement();
@@ -512,16 +515,16 @@ public class Database {
         return phoneNumber;
     }
 
-    public static String getGmail() {
+    public static String getEmail() {
         String gmail = null;
-        String query = "SELECT gmail FROM information_admin LIMIT 1";
+        String query = "SELECT email FROM accounts LIMIT 1";
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
             if (resultSet.next()) {
-                gmail = resultSet.getString("gmail");
+                gmail = resultSet.getString("email");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -529,34 +532,34 @@ public class Database {
         return gmail;
     }
 
-    public static String getAddress() {
-        String address = null;
-        String query = "SELECT address FROM information_admin LIMIT 1";
+//    public static String getAddress() {
+//        String address = null;
+//        String query = "SELECT address FROM accounts LIMIT 1";
+//
+//        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//             Statement statement = connection.createStatement();
+//             ResultSet resultSet = statement.executeQuery(query)) {
+//
+//            if (resultSet.next()) {
+//                address = resultSet.getString("address");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return address;
+//    }
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            if (resultSet.next()) {
-                address = resultSet.getString("address");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return address;
-    }
-
-    public static boolean updateUserInformation(String user_name, String phoneNumber, String gmail, String address, String user_id) {
-        String sql = "UPDATE information_admin SET user_name = ?, phone_number = ?, gmail = ?, address = ? WHERE user_id = ?";
+    public static boolean updateUserInformation(String full_name, String phoneNumber, String email, String user_name) {
+        String sql = "UPDATE accounts SET full_name = ?, phone_number = ?, email = ? WHERE username = ?";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, user_name);
+            pstmt.setString(1, full_name);
             pstmt.setString(2, phoneNumber);
-            pstmt.setString(3, gmail);
-            pstmt.setString(4, address);
-            pstmt.setString(5, user_id);
+            pstmt.setString(3, email);
+//            pstmt.setString(4, address);
+            pstmt.setString(4, user_name);
 
             int rowsUpdated = pstmt.executeUpdate();
             return rowsUpdated > 0; // Trả về true nếu cập nhật thành công
@@ -565,6 +568,239 @@ public class Database {
             return false;
         }
     }
+public static Account getAccountByUsername(String username) {
+    String query = "SELECT username, password, avatar FROM accounts WHERE username = ?";
 
+    try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+        // Gán tham số cho câu truy vấn
+        preparedStatement.setString(1, username);
+
+        // Thực hiện truy vấn
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            String userName = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            byte[] avatar = resultSet.getBytes("avatar"); // Lấy dữ liệu ảnh dạng BLOB
+
+            return new Account(userName, password, avatar);
+        } else {
+            System.out.println("Không tìm thấy tài khoản với username: " + username);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+    public static boolean insertBorrowRecord(int userId, List<Integer> bookIds, Date borrowDate, Date returnDate) {
+        String borrowQuery = "INSERT INTO borrow (user_id, ngay_muon, ngay_tra, tinh_trang) VALUES (?, ?, ?, ?)";
+        String borrowBooksQuery = "INSERT INTO borrow_books (borrow_id, book_id) VALUES (?, ?)";
+        String checkQuantityQuery = "SELECT so_luong FROM books WHERE id_sach = ?";
+        String updateQuantityQuery = "UPDATE books SET so_luong = so_luong - 1 WHERE id_sach = ?";
+        Connection connection = connect();
+        try {
+            // Bắt đầu giao dịch để đảm bảo tính nhất quán
+            connection.setAutoCommit(false);
+
+            // Chèn bản ghi vào bảng borrow
+            PreparedStatement borrowStatement = connection.prepareStatement(borrowQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+            borrowStatement.setInt(1, userId);
+            borrowStatement.setDate(2, borrowDate);
+            borrowStatement.setDate(3, returnDate);
+            borrowStatement.setString(4, "BORROWING");
+
+            int rowsAffected = borrowStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                connection.rollback();
+                return false; // Không thể chèn lượt mượn
+            }
+
+            // Lấy borrow_id vừa chèn vào
+            int borrowId = -1;
+            try (var generatedKeys = borrowStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    borrowId = generatedKeys.getInt(1);
+                }
+            }
+
+            // Kiểm tra và cập nhật số lượng sách trong bảng books
+            try (PreparedStatement checkStmt =connection.prepareStatement(checkQuantityQuery)) {
+                for (int bookId : bookIds) {
+                    checkStmt.setInt(1, bookId);
+                    ResultSet rs = checkStmt.executeQuery();
+
+                    if (rs.next()) {
+                        int quantity = rs.getInt("so_luong");
+                        if (quantity > 0) {
+                            // Giảm số lượng sách đi 1
+                            try (PreparedStatement updateStmt = connection.prepareStatement(updateQuantityQuery)) {
+                                updateStmt.setInt(1, bookId);
+                                updateStmt.executeUpdate();
+                            }
+                        } else {
+                            // Nếu không còn sách để mượn, rollback giao dịch
+                            connection.rollback();
+                            return false; // Trả về false nếu không có sách để mượn
+                        }
+                    }
+                }
+            }
+
+            // Chèn các cuốn sách mượn vào bảng borrow_books
+            try (PreparedStatement borrowBooksStatement = connection.prepareStatement(borrowBooksQuery)) {
+                for (int bookId : bookIds) {
+                    borrowBooksStatement.setInt(1, borrowId);
+                    borrowBooksStatement.setInt(2, bookId);
+                    borrowBooksStatement.addBatch(); // Thêm vào batch
+                }
+                borrowBooksStatement.executeBatch(); // Thực thi batch
+            }
+
+            // Cam kết giao dịch
+            connection.commit();
+            return true;
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback(); // Quay lại nếu có lỗi
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Đặt lại chế độ auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static List<Borrowed> getAllBorrowData() throws SQLException {
+        List<Borrowed> borrowList = new ArrayList<>();
+        String query = "SELECT borrow.borrow_id, borrow.user_id, borrow.ngay_muon, borrow.ngay_tra, borrow.tinh_trang, " +
+                "GROUP_CONCAT(books.ten_sach SEPARATOR '\n') AS book_titles " + // Đảm bảo dùng \n để phân tách các tên sách
+                "FROM borrow " +
+                "JOIN borrow_books ON borrow.borrow_id = borrow_books.borrow_id " +
+                "JOIN books ON borrow_books.book_id = books.id_sach " +
+                "GROUP BY borrow.borrow_id";
+
+        try (PreparedStatement statement = connect().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int borrowId = resultSet.getInt("borrow_id");
+                int userId = resultSet.getInt("user_id");
+                String borrowDate = resultSet.getString("ngay_muon");
+                String returnDate = resultSet.getString("ngay_tra");
+                String status = resultSet.getString("tinh_trang");
+                String bookTitlesString = resultSet.getString("book_titles");
+
+                // Tách chuỗi book_titles thành danh sách tên sách bằng dấu \n
+                List<String> bookTitles = Arrays.asList(bookTitlesString.split("\n")); // Dùng \n làm phân tách
+
+                Borrowed borrow = new Borrowed(borrowId, userId, bookTitles, borrowDate, returnDate, status);
+                borrowList.add(borrow);
+            }
+        }
+        return borrowList;
+    }
+
+    public static boolean checkEmailExists(String email) {
+        // Câu truy vấn kiểm tra sự tồn tại của username
+        String sql = "SELECT 1 FROM accounts WHERE email = ?";
+
+        // Kiểm tra nếu email là null hoặc rỗng
+        if (email == null || email.trim().isEmpty()) {
+            return false; // Tài khoản không hợp lệ
+        }
+
+        try (Connection conn = connect(); // Kết nối tới cơ sở dữ liệu
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Gán giá trị email vào câu truy vấn
+            pstmt.setString(1, email.trim());
+
+            // Thực thi truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Nếu có dòng dữ liệu trả về, tài khoản tồn tại
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println("Error checking email: " + e.getMessage());
+            return false; // Nếu có lỗi xảy ra, mặc định trả về false
+        }
+    }
+
+    public static boolean updatenewPass(String email, String newPassword) {
+        // Câu lệnh SQL để cập nhật mật khẩu
+        String queryUpdate = "UPDATE accounts SET password = ? WHERE email = ?";
+
+        try (Connection conn = Database.connect(); // Kết nối đến database
+             PreparedStatement updateStmt = conn.prepareStatement(queryUpdate)) {
+
+            // Gán tham số vào câu lệnh SQL
+            updateStmt.setString(1, newPassword);
+            updateStmt.setString(2, email);
+
+            // Thực thi câu lệnh
+            int rowsUpdated = updateStmt.executeUpdate();
+            // Kiểm tra xem có dòng nào được cập nhật hay không
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thay đổi mật khẩu: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static int countUsers() {
+        String query = "SELECT COUNT(user_id) FROM customers";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
+
+    public static int countBooks() {
+        String query = "SELECT COUNT(id_sach) FROM books";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
+
+    public static int countBooksBorrow() {
+        String query = "SELECT COUNT(Borrow_book_id) FROM borrow_books";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) { // Nếu có kết quả
+                return rs.getInt(1); // Lấy giá trị COUNT
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
 }
 

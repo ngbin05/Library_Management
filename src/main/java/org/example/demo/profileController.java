@@ -1,26 +1,40 @@
 package org.example.demo;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Comparator;
 
-public class profileController {
-
-    @FXML
+public class ProfileController {
     private Stage stage;
 
-    @FXML
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private TestCamera testCamera;
+
+    public void setTestCamera(TestCamera testCamera) {
+        this.testCamera = testCamera;
     }
 
     @FXML
@@ -54,9 +68,6 @@ public class profileController {
     private TextField gmailTextField;
 
     @FXML
-    private TextField adressTextField;
-
-    @FXML
     private AnchorPane changeInf;
 
     @FXML
@@ -69,23 +80,79 @@ public class profileController {
     private TextField txtGmail;
 
     @FXML
-    private TextField txtAddress;
-
-    @FXML
     private Label lblChangeInf;
 
     @FXML
-    public void onClickChangeAvatar(ActionEvent e) {
+    public void initialize() {
+        if(LoginController.account.getImage() == null) {
+            avatar.setImage(new Image(getClass().getResourceAsStream("/media/man-user-icon.jpg")));
+        } else {
+            avatar.setImage(ImageUtils.byteArrayToImage(LoginController.account.getImage()));
+        }
+
+        double radius = Math.min(avatar.getFitWidth(), avatar.getFitHeight()) / 2;
+        Circle clip = new Circle(avatar.getFitWidth() / 2, avatar.getFitHeight() / 2, radius);
+        clip.setStroke(Color.BLACK);
+        clip.setStrokeWidth(3);
+
+        // Áp dụng clip vào ImageView
+        avatar.setClip(clip);
+        loadUserName();
+        loadPhoneNumber();
+        loadGmail();
+//        loadAddress();
+
+        userNameTextField.setEditable(false);
+        phoneNumberTextField.setEditable(false);
+        gmailTextField.setEditable(false);
+    }
+
+
+
+    @FXML
+    public void onClickChangeAvatar() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.gif", "*.bmp"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", ".jpg", ".png", ".gif", ".bmp"));
 
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             avatar.setImage(image);
+            LoginController.account.setImage(ImageUtils.imageToByteArray(image));
         }
     }
+
+    @FXML
+        public void loadImageFromCamera() {
+            File folder = new File("avatar-image");
+
+            if (!folder.exists() || !folder.isDirectory()) {
+                System.out.println("Thư mục không tồn tại hoặc không phải thư mục.");
+                return;
+            }
+
+            // Lấy danh sách các tệp trong thư mục và lọc ra các tệp ảnh
+            File[] imageFiles = folder.listFiles(file -> file.isFile() &&
+                    (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")));
+
+            if (imageFiles == null || imageFiles.length == 0) {
+                System.out.println("Không tìm thấy ảnh nào trong thư mục.");
+                return;
+            }
+
+
+            // Sắp xếp các tệp theo thời gian chỉnh sửa (mới nhất ở đầu)
+            Arrays.sort(imageFiles, Comparator.comparingLong(File::lastModified).reversed());
+
+            // Lấy tệp ảnh mới nhất
+            File latestImage = imageFiles[0];
+            Image image = new Image(latestImage.toURI().toString());
+            avatar.setImage(image);
+            LoginController.account.setImage(ImageUtils.imageToByteArray(image));
+            System.out.println("Đã tải ảnh: " + latestImage.getName());
+        }
+
 
     @FXML
     public void onClickButtonChangePass(ActionEvent e) {
@@ -138,24 +205,12 @@ public class profileController {
         }
     }
 
-    @FXML
-    public void initialize() {
-        // Gọi hàm để lấy tên người dùng từ cơ sở dữ liệu và gán vào TextField
-        loadUserName();
-        loadPhoneNumber();
-        loadGmail();
-        loadAddress();
 
-        userNameTextField.setEditable(false);
-        phoneNumberTextField.setEditable(false);
-        gmailTextField.setEditable(false);
-        adressTextField.setEditable(false);
-    }
 
     // Phương thức lấy dữ liệu từ cơ sở dữ liệu và gán vào TextField
     private void loadUserName() {
         // Lấy tên người dùng từ Database
-        String userName = Database.getUserName();
+        String userName = Database.getFullName();
 
         // Nếu có dữ liệu, gán vào TextField
         if (userName != null) {
@@ -175,21 +230,11 @@ public class profileController {
 
     private void loadGmail() {
         // Lấy tên người dùng từ Database
-        String gmail = Database.getGmail();
+        String gmail = Database.getEmail();
 
         // Nếu có dữ liệu, gán vào TextField
         if (gmail != null) {
             gmailTextField.setText(gmail); // Gán giá trị vào TextField
-        }
-    }
-
-    private void loadAddress() {
-        // Lấy tên người dùng từ Database
-        String address = Database.getAddress();
-
-        // Nếu có dữ liệu, gán vào TextField
-        if (address != null) {
-            adressTextField.setText(address); // Gán giá trị vào TextField
         }
     }
 
@@ -203,14 +248,13 @@ public class profileController {
         String name = txtName.getText();
         String phoneNumber = txtPhoneNumber.getText();
         String gmail = txtGmail.getText();
-        String address = txtAddress.getText();
 
-        if (name.isEmpty() || phoneNumber.isEmpty() || gmail.isEmpty() || address.isEmpty()) {
+        if (name.isEmpty() || phoneNumber.isEmpty() || gmail.isEmpty()) {
             lblChangeInf.setText("Please fill in all fields!");
             return;
         }
 
-        boolean isInfoUpdated = Database.updateUserInformation(name, phoneNumber, gmail, address, String.valueOf(1));
+        boolean isInfoUpdated = Database.updateUserInformation(name, phoneNumber, gmail, LoginController.account.getUsername());
 
         if (isInfoUpdated) {
             lblChangeInf.setStyle("-fx-text-fill: green;");
@@ -218,7 +262,6 @@ public class profileController {
             loadUserName(); // Optionally reload the values
             loadPhoneNumber();
             loadGmail();
-            loadAddress();
         } else {
             lblChangeInf.setStyle("-fx-text-fill: red;");
             lblChangeInf.setText("Failed to update information.");
@@ -226,6 +269,35 @@ public class profileController {
         txtName.clear();
         txtPhoneNumber.clear();
         txtGmail.clear();
-        txtAddress.clear();
+    }
+
+    public void switchToCamera() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("testcam-view.fxml"));
+            Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
+            testCamera = fxmlLoader.getController();
+            Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
+            Stage addBookStage = new Stage();
+            addBookStage.initOwner(stage);
+            addBookStage.initStyle(StageStyle.TRANSPARENT);
+            addReaderScene.setFill(Color.TRANSPARENT);
+            addBookStage.setScene(addReaderScene);
+            testCamera.setStage(addBookStage);
+            testCamera.setProfileController(this);
+            Platform.runLater(() ->
+            {
+                double mainStageX = stage.getX();
+                double mainStageY = stage.getY();
+                addBookStage.show();
+                double x = mainStageX + stage.getWidth() - 795;
+                double y = mainStageY + stage.getHeight() - 600;
+                addBookStage.setX(x);
+                addBookStage.setY(y);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
+
