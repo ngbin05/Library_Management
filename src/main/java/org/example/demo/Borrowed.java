@@ -4,14 +4,16 @@ import java.util.List;
 public class Borrowed {
     private int borrowId;
     private int userId;
+    private String user_name;
     private List<String> bookTitles; // List chứa tên các cuốn sách
     private String borrowDate;
     private String returnDate;
     private String status;
 
-    public Borrowed(int borrowId, int userId, List<String> bookTitles, String borrowDate, String returnDate, String status) {
+    public Borrowed(int borrowId, int userId,String user_name, List<String> bookTitles, String borrowDate, String returnDate, String status) {
         this.borrowId = borrowId;
         this.userId = userId;
+        this.user_name = user_name;
         this.bookTitles = bookTitles;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
@@ -33,6 +35,14 @@ public class Borrowed {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public List<String> getBookTitles() {

@@ -71,7 +71,7 @@ public class BookDetailsController {
             Image image = new Image(new ByteArrayInputStream(book.getImage()));
             bookImageView.setImage(image);
         } else {
-            bookImageView.setImage(new Image(getClass().getResourceAsStream("/media/no_image.png")));
+            bookImageView.setImage(new Image(getClass().getResourceAsStream("/media/no_image.jpg")));
         }
     }
 
