@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,98 +12,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
-    <children>
-        <VBox layoutX="10.857142857142858" layoutY="10.285714285714286" prefHeight="678.0" prefWidth="178.0" style="-fx-background-color: WHITE;" styleClass="vbox" stylesheets="@../../../menu2-style.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
-            <children>
-                <VBox prefHeight="67.0" prefWidth="135.0">
-                    <children>
-                        <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" prefHeight="69.0" prefWidth="177.0" text="HBD LIBRARY" textFill="#032d4d">
-                            <graphic>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../media/online-library.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name=".VnArial Narrow Bold" size="18.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
-                <VBox prefHeight="657.0" prefWidth="182.0" styleClass="sideBar" stylesheets="@../../../menu2-style.css">
-                    <children>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showDashBoard" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Dashboard">
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../media/speedometer.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                     <font>
-                        <Font name=".VnArial" size="13.0" />
-                     </font></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showReaderList" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Readers">
-                            <font>
-                                <Font name=".VnArial" size="13.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../media/reader.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showBookList" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Books">
-                            <font>
-                                <Font name=".VnArial" size="13.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../media/bookManage.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic></Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showCartView" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarSystemButton" stylesheets="@../../../menu2-style.css" text="Cart">
-                            <font>
-                                <Font name=".VnArial" size="13.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../media/shopping-cart.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic></Button>
-                        <Line endX="120.0" />
-                        <Button mnemonicParsing="false" onAction="#showProfile" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarProfileButton" stylesheets="@../../../menu2-style.css" text="Profile" textFill="WHITE">
-                            <font>
-                                <Font name=".VnArial" size="13.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" onAction="#logOut" prefHeight="35.0" prefWidth="120.0" styleClass="sidebarProfileButton" stylesheets="@../../../menu2-style.css" text="Log Out" textFill="WHITE">
-                            <font>
-                                <Font name=".VnArial" size="13.0" />
-                            </font></Button>
-                    </children>
-                </VBox>
-                <VBox prefHeight="200.0" prefWidth="142.0" />
-            </children>
-        </VBox>
+<AnchorPane minHeight="600.0" minWidth="795.0" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
+   <children>
       <Label layoutX="236.0" layoutY="32.0" />
-      <Label layoutX="899.0" layoutY="20.0" text="&gt; Dashboard">
+      <Label layoutX="701.0" layoutY="25.0" text="&gt; Dashboard">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="hi" layoutX="217.0" layoutY="20.0" text="Hi, Duc">
+      <Label fx:id="hi" layoutX="18.0" layoutY="20.0" text="Hi, Duc">
          <font>
             <Font name=".VnArial" size="23.0" />
          </font>
       </Label>
-      <HBox layoutX="223.0" layoutY="106.0" prefHeight="180.0" prefWidth="750.0" styleClass="TotalLayout" stylesheets="@../../../menu2-style.css">
+      <HBox layoutX="22.0" layoutY="108.0" prefHeight="180.0" prefWidth="750.0" styleClass="TotalLayout" stylesheets="@../../../menu2-style.css">
          <children>
             <AnchorPane onMouseClicked="#showReaderList" prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
                <children>
@@ -150,7 +71,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="76.0" fitWidth="73.0" layoutX="161.0" layoutY="14.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="76.0" fitWidth="73.0" layoutX="161.0" layoutY="14.0" onDragDetected="#showBookList" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../media/bookTotal.png" />
                      </image>
@@ -170,7 +91,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane onMouseClicked="#showCartView" prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
+            <AnchorPane prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
                <children>
                   <Label fx:id="booksBorrowCount" layoutX="14.0" layoutY="14.0" text="50" textFill="WHITE">
                      <font>
@@ -204,19 +125,19 @@
             </AnchorPane>
          </children>
       </HBox>
-      <Line endX="429.57147216796875" layoutX="547.0" layoutY="75.0" opacity="0.5" startX="-326.4285583496094" />
-      <Label layoutX="236.0" layoutY="85.0" opacity="0.7" text="General">
+      <Line endX="429.57147216796875" layoutX="345.0" layoutY="75.0" opacity="0.5" startX="-326.4285583496094" />
+      <Label layoutX="32.0" layoutY="85.0" opacity="0.7" text="General">
          <font>
             <Font name=".VnArial" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="dateTimeLabel" layoutX="536.0" layoutY="21.0" opacity="0.8" text="Date-time" />
-      <Label layoutX="236.0" layoutY="308.0" opacity="0.8" text="Recent Loan List">
+      <Label fx:id="dateTimeLabel" layoutX="334.0" layoutY="25.0" opacity="0.8" text="Date-time" />
+      <Label layoutX="29.0" layoutY="308.0" opacity="0.8" text="Recent Loan List">
          <font>
             <Font name=".VnArial" size="13.0" />
          </font>
       </Label>
-      <TableView fx:id="borrowTableView" layoutX="226.0" layoutY="327.0" prefHeight="252.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../menu2-style.css">
+      <TableView fx:id="borrowTableView" layoutX="22.0" layoutY="334.0" prefHeight="252.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../menu2-style.css">
          <columns>
             <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="UID" />
             <TableColumn fx:id="userNameColumn" prefWidth="183.99993896484375" text="User Name" />
@@ -227,6 +148,6 @@
             <TableColumn fx:id="actionColumn" maxWidth="110.6666259765625" prefWidth="74.857177734375" text="Action" />
          </columns>
       </TableView>
-      <Pane fx:id="pane" layoutX="201.0" layoutY="-3.0" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../../menu2-style.css" visible="false" AnchorPane.topAnchor="0.0" />
-    </children>
+      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
 </AnchorPane>

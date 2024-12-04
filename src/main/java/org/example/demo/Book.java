@@ -26,6 +26,9 @@ public class Book {
         this.description = description;
     }
 
+    public Book(int bookId, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, String description) {
+    }
+
     // Getter và Setter cho tất cả các trường
     public int getId() {
         return id;

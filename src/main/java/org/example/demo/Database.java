@@ -8,17 +8,19 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+import static java.sql.DriverManager.getConnection;
+
 public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
 
-    private static final String PASSWORD = "Binh2352005@";
+    private static final String PASSWORD = "123ABCabc";
 
 
     public static Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = getConnection(URL, USER, PASSWORD);
             System.out.println("Database connection established.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -101,7 +103,7 @@ public class Database {
 
         String query = "SELECT * FROM books";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = getConnection(URL, USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -134,7 +136,7 @@ public class Database {
 
     public static void deleteBook(int bookId) throws SQLException {
         String sql = "DELETE FROM books WHERE id_sach = ?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, bookId);
             stmt.executeUpdate();
@@ -197,7 +199,7 @@ public class Database {
 
     public static boolean isUserExists(String cccd) {
         String checkQuery = "SELECT COUNT(*) FROM readers WHERE cccd = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = getConnection(URL, USER, PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(checkQuery)) {
 
             preparedStatement.setString(1, cccd);
@@ -238,7 +240,7 @@ public class Database {
 
         String query = "SELECT * FROM customers";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = getConnection(URL, USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -315,7 +317,7 @@ public class Database {
 
     public static void deleteCustomer(int customerId) throws SQLException {
         String sql = "DELETE FROM customers WHERE user_id = ?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
             stmt.executeUpdate();
@@ -572,7 +574,7 @@ public class Database {
     public static Account getAccountByUsername(String username) {
         String query = "SELECT username, password, avatar FROM accounts WHERE username = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = getConnection(URL, USER, PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             // Gán tham số cho câu truy vấn
@@ -890,6 +892,66 @@ public class Database {
             }
         }
     }
+
+
+    public static ObservableList<Borrowed> getLoanByMultipleSearchTerms(String borrowID, String userID, String loanDate, String status) throws SQLException {
+        ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM Borrow WHERE 1=1"; // Điều kiện mặc định để thêm các điều kiện khác
+        if (!borrowID.isEmpty()) {
+            sql += " AND BorrowID LIKE ?";
+        }
+        if (!userID.isEmpty()) {
+            sql += " AND UserName LIKE ?";
+        }
+        if (!loanDate.isEmpty()) {
+            sql += " AND LoanDate LIKE ?";
+        }
+        if (!status.isEmpty()) {
+            sql += " AND Status LIKE ?";
+        }
+
+        // Sử dụng hàm connect() của bạn để lấy kết nối
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Gán giá trị cho các tham số
+            int paramIndex = 1;
+            if (!borrowID.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + borrowID + "%");
+            }
+            if (!userID.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + userID + "%");
+            }
+            if (!loanDate.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + loanDate + "%");
+            }
+            if (!status.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + status + "%");
+            }
+
+            // Thực hiện truy vấn và xử lý kết quả
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Borrowed borrow = new Borrowed(
+                            rs.getString("UID"),
+                            rs.getString("UserName"),
+                            rs.getInt("SoLuong"),
+                            rs.getDate("NgayMuon"),
+                            rs.getDate("NgayTra"),
+                            rs.getString("Status")
+                    );
+                    borrowList.add(borrow);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching borrow records: " + e.getMessage());
+            throw e;
+        }
+
+        return borrowList;
+    }
+
 
 
 }

@@ -53,6 +53,9 @@ public class Menu2Controller {
     private Label booksBorrowCount;
 
     @FXML
+    private Label hi;
+
+    @FXML
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
@@ -66,6 +69,12 @@ public class Menu2Controller {
 
     @FXML
     public void showBorrowMenu() { loadPage("borrow-view.fxml"); }
+
+    @FXML
+    public void showDashBoard() { loadPage("dashboard-view.fxml"); }
+
+    @FXML
+    public void showCartView() { loadPage("cart-view.fxml"); }
 
 
     @FXML
@@ -101,6 +110,7 @@ public class Menu2Controller {
     @FXML
     public void initialize() {
         pane.setVisible(false);
+        sayHi();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             LocalDateTime now = LocalDateTime.now();
@@ -188,6 +198,13 @@ public class Menu2Controller {
         int bookBorrowCount = Database.countBooksBorrow();
         booksBorrowCount.setText(String.valueOf(bookBorrowCount));
 
+    }
+
+    private void sayHi() {
+        String userName = Database.getFullName(LoginController.account.getUsername());
+        if (userName != null) {
+            hi.setText("Hi, " + userName);
+        }
     }
 
 
@@ -283,10 +300,5 @@ public class Menu2Controller {
             return false; // Trả về false nếu có ngoại lệ xảy ra
         }
     }
-
-
-
-
-
 }
 

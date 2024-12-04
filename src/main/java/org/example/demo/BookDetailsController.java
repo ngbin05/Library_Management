@@ -77,7 +77,7 @@ public class BookDetailsController {
 
     @FXML
     private void addBookToCart() {
-        boolean flag = BorrowController.addBookIfNotInCart(book);
+        boolean flag = CartController.addBookIfNotInCart(book);
         if (flag == true) {
             addSuccessLabel.setVisible(true);
             addFailureLabel.setVisible(false);
@@ -110,4 +110,7 @@ public class BookDetailsController {
     @FXML
     private void handleClose() {loadPage("bookList-view.fxml");
     }
+
+    @FXML
+    private void goToCart() {loadPage("cart-view.fxml");}
 }
