@@ -5,43 +5,78 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.BorrowController">
-   <top>
-      <AnchorPane prefHeight="96.0" prefWidth="795.0" BorderPane.alignment="CENTER">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.BorrowController">
+   <children>
+      <AnchorPane layoutY="-7.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="nameLabel" layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="491.0" text="Tên" />
-            <Label fx:id="idLabel" layoutX="14.0" layoutY="64.0" prefHeight="17.0" prefWidth="475.0" text="ID" />
-            <Button fx:id="clearButton" layoutX="680.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Xóa toàn bộ" />
+            <Button layoutX="312.0" layoutY="507.0" mnemonicParsing="false" onAction="#borrow" prefHeight="45.0" prefWidth="170.0" text="Borrow">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="borrowDaysField" layoutX="23.0" layoutY="510.0" prefHeight="40.0" prefWidth="55.0" />
+            <Label fx:id="borrowDateLabel" layoutX="87.0" layoutY="510.0" prefHeight="17.0" prefWidth="169.0" text="From:...">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="returnDateLabel" layoutX="87.0" layoutY="530.0" prefHeight="17.0" prefWidth="185.0" text="To:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="borrowSuccessLabel" layoutX="308.0" layoutY="556.0" text="Borrowing books successfully!" textFill="#02aa21">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="unBookErrorLabel" layoutX="304.0" layoutY="556.0" text="Need to have books in your cart!" textFill="#9a0000">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="unDateErrorLabel" layoutX="24.0" layoutY="556.0" text="Invalid date!" textFill="#9a0000">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Pane layoutX="22.0" layoutY="139.0" prefHeight="335.0" prefWidth="750.0" styleClass="box" stylesheets="@../../../bookList-view-style.css">
+               <children>
+                  <ListView fx:id="listViewBooks" layoutX="20.0" layoutY="18.0" prefHeight="300.0" prefWidth="710.0" />
+               </children>
+            </Pane>
+            <Label fx:id="idLabel" layoutX="26.0" layoutY="74.0" prefHeight="17.0" prefWidth="475.0" text="ID:">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameLabel" layoutX="26.0" layoutY="100.0" prefHeight="17.0" prefWidth="491.0" text="Tên:">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Button layoutX="632.0" layoutY="510.0" mnemonicParsing="false" onAction="#showCartView" prefHeight="40.0" prefWidth="140.0" text="Back to cart">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="47.0" text="Back" />
+            <Label layoutX="274.0" layoutY="23.0" text="Transaction Card" textFill="#074a7b">
+               <font>
+                  <Font name=".VnArial Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="716.0" layoutY="116.0" opacity="0.8" text="Cart">
+               <font>
+                  <Font name=".VnArial" size="17.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-   </top>
-   <bottom>
-      <AnchorPane prefHeight="502.0" prefWidth="795.0" BorderPane.alignment="CENTER">
-         <children>
-            <ListView fx:id="listViewBooks" layoutX="10.0" prefHeight="393.0" prefWidth="775.0" />
-            <Button layoutX="709.0" layoutY="416.0" mnemonicParsing="false" onAction="#borrow" text="Mượn Sách" />
-            <TextField fx:id="borrowDaysField" layoutX="23.0" layoutY="404.0" prefHeight="25.0" prefWidth="52.0" />
-            <Label fx:id="borrowDateLabel" layoutX="102.0" layoutY="408.0" prefHeight="17.0" prefWidth="169.0" text="From:..." />
-            <Label fx:id="returnDateLabel" layoutX="288.0" layoutY="407.0" prefHeight="17.0" prefWidth="185.0" text="To:" />
-            <Label fx:id="borrowSuccessLabel" layoutX="580.0" layoutY="398.0" text="Mượn sách thành công!" textFill="#02aa21">
-               <font>
-                  <Font name="Arial Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="unBookErrorLabel" layoutX="580.0" layoutY="400.0" text="Chưa có sách trong giỏ!" textFill="#9a0000">
-               <font>
-                  <Font name="Arial Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="unDateErrorLabel" layoutX="580.0" layoutY="400.0" text="Ngày không hợp lệ!" textFill="#9a0000">
-               <font>
-                  <Font name="Arial Bold" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </bottom>
-</BorderPane>
+      <Pane fx:id="pane" prefHeight="600.0" prefWidth="795.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

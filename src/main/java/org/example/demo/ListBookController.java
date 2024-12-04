@@ -72,10 +72,14 @@ public class ListBookController {
     @FXML
     private Pane pane;
 
+    @FXML
+    private Label hi;
+
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
+        sayHi();
         rectangle.setVisible(false);
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -106,6 +110,14 @@ public class ListBookController {
         timeline.play();
 
     }
+
+    private void sayHi() {
+        String userName = Database.getFullName(LoginController.account.getUsername());
+        if (userName != null) {
+            hi.setText("Hi, " + userName);
+        }
+    }
+
 
     private void loadBookData() {
         try {

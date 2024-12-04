@@ -28,7 +28,7 @@
                         <TableColumn fx:id="colAction" prefWidth="83.4285888671875" text="Action" />
                     </columns>
                 </TableView>
-                <Label layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
+                <Label fx:id="hi" layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
                     <font>
                         <Font name=".VnArial" size="23.0" />
                     </font>
@@ -80,7 +80,14 @@
                         <Font name=".VnArial" size="13.0" />
                     </font>
                 </Label>
-            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
+            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+               <children>
+                  <Label layoutX="445.0" layoutY="251.0" opacity="0.5" text="*Double click to view books detail and add books to cart!">
+                     <font>
+                        <Font name=".VnArial" size="13.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
             </children>
         </AnchorPane>
     </children>

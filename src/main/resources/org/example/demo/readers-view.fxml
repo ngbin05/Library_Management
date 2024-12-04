@@ -18,17 +18,17 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="795.0">
          <children>
-            <TableView fx:id="customerTable" layoutX="25.0" layoutY="276.0" prefHeight="310.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css" AnchorPane.topAnchor="276.0">
+            <TableView fx:id="customerTable" layoutX="33.0" layoutY="276.0" prefHeight="310.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css" AnchorPane.topAnchor="276.0">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="48.00003099441528" text="ID" />
-                  <TableColumn fx:id="colName" prefWidth="154.85718536376953" text="Name" />
-                  <TableColumn fx:id="colPhone" prefWidth="130.28570556640625" text="Phone" />
-                  <TableColumn fx:id="colAddress" prefWidth="159.42849731445312" text="Address" />
-                  <TableColumn fx:id="colCCCD" minWidth="0.0" prefWidth="156.00006103515625" text="CCCD" />
-                  <TableColumn fx:id="colAction" prefWidth="85.7142333984375" text="Action" />
+                  <TableColumn fx:id="colName" prefWidth="165.14289093017578" text="Name" />
+                  <TableColumn fx:id="colPhone" prefWidth="140.5714111328125" text="Phone" />
+                  <TableColumn fx:id="colAddress" prefWidth="161.14285278320312" text="Address" />
+                  <TableColumn fx:id="colCCCD" minWidth="0.0" prefWidth="169.7142333984375" text="CCCD" />
+                  <TableColumn fx:id="colAction" prefWidth="44.5714111328125" text="Action" />
                </columns>
             </TableView>
-            <Label layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
+            <Label fx:id="hi" layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
                <font>
                   <Font name=".VnArial" size="23.0" />
                </font>

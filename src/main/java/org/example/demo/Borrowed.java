@@ -1,12 +1,14 @@
 package org.example.demo;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Borrowed {
     private int borrowId;
     private int userId;
     private String user_name;
-    private List<Book> books; // List chứa các đối tượng Book
+    private List<Book> books = new ArrayList<>()    ; // List chứa các đối tượng Book
 
     private String borrowDate;
     private String returnDate;
@@ -21,6 +23,22 @@ public class Borrowed {
 
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
+        this.status = status;
+    }
+
+    public Borrowed(int borrowId, int userId, Date ngayMuon, Date ngayTra, String tinhTrang) {
+        this.borrowId = borrowId;
+        this.userId = userId;
+        this.user_name = user_name;
+        this.borrowDate = ngayMuon.toString();
+        this.returnDate = ngayTra.toString();
+    }
+
+    public Borrowed(String uid, String userName, int soLuong, Date ngayMuon, Date ngayTra, String status) {
+        this.userId = userId;
+        this.user_name = userName;
+        this.borrowDate = ngayMuon.toString();
+        this.returnDate = ngayTra.toString();
         this.status = status;
     }
 

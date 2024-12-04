@@ -71,6 +71,9 @@ public class ListReaderController {
     @FXML
     private Label dateTimeLabel;
 
+    @FXML
+    private Label hi;
+
 
     // ObservableList chứa danh sách khách hàng
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -87,6 +90,7 @@ public class ListReaderController {
 
         addButtonToTable();
         loadCustomerData();
+        sayHi();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -98,6 +102,14 @@ public class ListReaderController {
 
         btnAdd.setOnAction(event -> handleAddReader());
     }
+
+    private void sayHi() {
+        String userName = Database.getFullName(LoginController.account.getUsername());
+        if (userName != null) {
+            hi.setText("Hi, " + userName);
+        }
+    }
+
 
     private void loadCustomerData() {
         try {
@@ -182,7 +194,6 @@ public class ListReaderController {
     private void addButtonToTable() {
         colAction.setCellFactory(param -> new TableCell<>() {
             private final Button btnDelete = new Button("Xóa");
-            private final Button btnBorrow = new Button("Mượn");
 
             {
 
@@ -197,18 +208,6 @@ public class ListReaderController {
                     Customer customer = getTableView().getItems().get(getIndex());
                     handleDeleteCustomer(customer);
                 });
-
-                // Nút Mượn
-                Image borrowIcon = new Image(getClass().getResourceAsStream("/media/borrow-icon.png"));
-                ImageView borrowImageView = new ImageView(borrowIcon);
-                borrowImageView.setFitWidth(20);
-                borrowImageView.setFitHeight(20);
-                btnBorrow.setGraphic(borrowImageView);
-                btnBorrow.getStylesheets().add((getClass().getResource("/CustomerStyle/deleteButton-style.css")).toExternalForm());
-                btnBorrow.setOnAction(event -> {
-                    Customer customer = getTableView().getItems().get(getIndex());
-                    handleBorrowCustomer(customer);  // Bạn sẽ cần định nghĩa hàm này
-                });
             }
 
             @Override
@@ -217,7 +216,7 @@ public class ListReaderController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox buttonBox = new HBox(10, btnDelete, btnBorrow);  // Đặt các nút trong một HBox
+                    HBox buttonBox = new HBox(10, btnDelete);  // Đặt các nút trong một HBox
                     setGraphic(buttonBox);  // Hiển thị các nút trong mỗi ô của cột Action
                 }
             }
