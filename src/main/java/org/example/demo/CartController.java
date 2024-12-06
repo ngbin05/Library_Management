@@ -337,4 +337,36 @@ public class CartController {
     }
 
 
+
+    @FXML
+    private void handleSearchBorrowRecords() {
+        // Lấy thông tin từ các TextField
+        String borrowId = txtSearchID.getText().trim();
+        String userName = txtSearchUserName.getText().trim();
+        String loanDate = txtSearchLoanDate.getText().trim();
+        String status = txtSearchStatus.getText().trim();
+
+        try {
+            ObservableList<Borrowed> searchResults;
+
+            // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
+            if (borrowId.isEmpty() && userName.isEmpty() && loanDate.isEmpty() && status.isEmpty()) {
+                // Gọi hàm getAllBorrowData để lấy toàn bộ dữ liệu
+                searchResults = FXCollections.observableArrayList(Database.getAllBorrowData());
+            } else {
+                // Gọi hàm tìm kiếm với các tham số
+                searchResults = Database.searchBorrowRecords(borrowId, userName, loanDate, status);
+            }
+
+            // Cập nhật TableView với kết quả tìm kiếm
+            borrowTableView.setItems(searchResults);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
 }

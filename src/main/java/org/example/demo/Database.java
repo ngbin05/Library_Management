@@ -14,7 +14,7 @@ public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
 
-    private static final String PASSWORD = "123ABCabc";
+    private static final String PASSWORD = "Binh2352005@";
 
 
     public static Connection connect() {
@@ -894,34 +894,39 @@ public class Database {
     }
 
 
-    public static ObservableList<Borrowed> getLoanByMultipleSearchTerms(String borrowID, String userID, String loanDate, String status) throws SQLException {
+
+    public static ObservableList<Borrowed> searchBorrowRecords(String borrowId, String userName, String loanDate, String status) throws SQLException {
         ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM Borrow WHERE 1=1"; // Điều kiện mặc định để thêm các điều kiện khác
-        if (!borrowID.isEmpty()) {
-            sql += " AND BorrowID LIKE ?";
+        String sql = "SELECT borrow.borrow_id, borrow.user_id, customers.user_name, borrow.ngay_muon, borrow.ngay_tra, borrow.tinh_trang " +
+                "FROM borrow " +
+                "JOIN customers ON borrow.user_id = customers.user_id " +
+                "WHERE 1=1"; // Điều kiện mặc định để thêm các điều kiện khác
+
+        // Thêm điều kiện dựa trên thông tin nhập từ người dùng
+        if (!borrowId.isEmpty()) {
+            sql += " AND borrow.borrow_id LIKE ?";
         }
-        if (!userID.isEmpty()) {
-            sql += " AND UserName LIKE ?";
+        if (!userName.isEmpty()) {
+            sql += " AND customers.user_name LIKE ?";
         }
         if (!loanDate.isEmpty()) {
-            sql += " AND LoanDate LIKE ?";
+            sql += " AND borrow.ngay_muon LIKE ?";
         }
         if (!status.isEmpty()) {
-            sql += " AND Status LIKE ?";
+            sql += " AND borrow.tinh_trang LIKE ?";
         }
 
-        // Sử dụng hàm connect() của bạn để lấy kết nối
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Gán giá trị cho các tham số
+            // Gán giá trị cho các tham số truy vấn
             int paramIndex = 1;
-            if (!borrowID.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + borrowID + "%");
+            if (!borrowId.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + borrowId + "%");
             }
-            if (!userID.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + userID + "%");
+            if (!userName.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + userName + "%");
             }
             if (!loanDate.isEmpty()) {
                 stmt.setString(paramIndex++, "%" + loanDate + "%");
@@ -930,22 +935,23 @@ public class Database {
                 stmt.setString(paramIndex++, "%" + status + "%");
             }
 
-            // Thực hiện truy vấn và xử lý kết quả
+            // Thực hiện truy vấn
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Borrowed borrow = new Borrowed(
-                            rs.getString("UID"),
-                            rs.getString("UserName"),
-                            rs.getInt("SoLuong"),
-                            rs.getDate("NgayMuon"),
-                            rs.getDate("NgayTra"),
-                            rs.getString("Status")
+                            rs.getInt("borrow_id"),
+                            rs.getInt("user_id"),
+                            rs.getString("user_name"),
+                            new ArrayList<>(),
+                            rs.getString("ngay_muon"),
+                            rs.getString("ngay_tra"),
+                            rs.getString("tinh_trang")
                     );
                     borrowList.add(borrow);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error fetching borrow records: " + e.getMessage());
+            System.out.println("Error searching borrow records: " + e.getMessage());
             throw e;
         }
 

@@ -1,21 +1,30 @@
 package org.example.demo;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class LoginController {
     private Stage primaryStage;
     public static Account account = new Account();
+
+    @FXML
+    private Pane pane;
 
     @FXML
     private TextField usernameField;
@@ -155,6 +164,8 @@ public class LoginController {
 
     @FXML
     private void initialize() {
+        pane.setVisible(false);
+
         errorLabel.setVisible(false);
         errorCreate.setVisible(false);
         usernameEmpty.setVisible(false);
@@ -227,45 +238,47 @@ public class LoginController {
     private void switchToMainScreen () {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu2-view.fxml"));
-            Scene mainScene = new Scene(loader.load());
+            Parent root = loader.load();
+            Scene mainScene = new Scene(root);
             mainScene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(mainScene);
             Menu2Controller homeController = loader.getController();
             homeController.setStage(primaryStage);
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root );
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
     public void goToForgotPassword() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPass-view.fxml"));
-            Scene scene = new Scene(loader.load());
+            try {
+                // Load FXML
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPass-view.fxml"));
+                Parent root = loader.load();
 
-            // Tạo một cửa sổ mới (Stage mới)
-            Stage forgotPassStage = new Stage();
-            forgotPassStage.setScene(scene);
-            forgotPassStage.setTitle("Forgot Password");
+                pane.setVisible(true);
+                pane.getChildren().clear();
+                pane.getChildren().setAll(root);
+                pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
 
-            // Ẩn thanh công cụ trên cùng
-            forgotPassStage.initStyle(StageStyle.UNDECORATED);
+                FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+                fadeTransition.setFromValue(0.0);
+                fadeTransition.setToValue(1.0);
+                fadeTransition.play();
 
-            // Không thiết lập kiểu modal để cửa sổ chính không bị khóa
-            // forgotPassStage.initModality(Modality.NONE);
+                ForgotPassController fgPassController = loader.getController();
+                fgPassController.setStage((Stage) pane.getScene().getWindow());
 
-            // Đưa Stage vào controller nếu cần
-            ForgotPassController fgPassController = loader.getController();
-            fgPassController.setStage(forgotPassStage);
-
-            forgotPassStage.setY(338);
-            forgotPassStage.setX(648-108);
-
-            // Hiển thị cửa sổ mới
-            forgotPassStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
 
