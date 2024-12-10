@@ -14,7 +14,7 @@ public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
 
-    private static final String PASSWORD = "123ABCabc";
+    private static final String PASSWORD = "Binh2352005@";
 
 
     public static Connection connect() {
@@ -677,7 +677,7 @@ public class Database {
     }
 
     public static int countBooksBorrow() {
-        String query = "SELECT COUNT(Borrow_book_id) FROM borrow_books";
+        String query = "SELECT COUNT(bb.borrow_book_id) FROM borrow_books bb JOIN borrow br ON bb.borrow_id = br.borrow_id WHERE br.tinh_trang = 'BORROWING';";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {

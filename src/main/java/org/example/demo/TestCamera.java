@@ -106,13 +106,6 @@ public class TestCamera {
         new Thread(() -> {
             try {
                 grabber = new OpenCVFrameGrabber(0); // 0 là ID của camera mặc định
-                if (grabber == null) {
-                    Platform.runLater(() -> {
-                        showError("Không tìm thấy thiết bị camera. Vui lòng kết nối lại.");
-                    });
-                    Thread.sleep(2000); // Chờ 2 giây trước khi thử lại
-                    continue;
-                }
                 grabber.start();
                 isCameraRunning = true;
                 gridCanvas.setVisible(true);

@@ -217,14 +217,7 @@ public class Menu2Controller {
         borrowTableView.setFixedCellSize(-1); // Cho phép tự động điều chỉnh chiều cao dòng
 
 
-        int userCount = Database.countUsers();
-        readersCount.setText(String.valueOf(userCount));
-
-        int bookCount = Database.countBooks();
-        booksCount.setText(String.valueOf(bookCount));
-
-        int bookBorrowCount = Database.countBooksBorrow();
-        booksBorrowCount.setText(String.valueOf(bookBorrowCount));
+        showInforLabel();
 
     }
 
@@ -318,6 +311,7 @@ public class Menu2Controller {
                 // Cập nhật lại dữ liệu sau khi trả sách
                 loadBorrowData();
                 borrowTableView.refresh(); // Cập nhật TableView để hiển thị sự thay đổi
+                showInforLabel();
                 return true; // Trả về true nếu trả sách thành công
             } else {
                 System.out.println("Trả sách thất bại!");
@@ -327,6 +321,17 @@ public class Menu2Controller {
             e.printStackTrace();
             return false; // Trả về false nếu có ngoại lệ xảy ra
         }
+    }
+
+    void showInforLabel(){
+        int userCount = Database.countUsers();
+        readersCount.setText(String.valueOf(userCount));
+
+        int bookCount = Database.countBooks();
+        booksCount.setText(String.valueOf(bookCount));
+
+        int bookBorrowCount = Database.countBooksBorrow();
+        booksBorrowCount.setText(String.valueOf(bookBorrowCount));
     }
 }
 
