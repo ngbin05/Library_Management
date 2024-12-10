@@ -307,20 +307,6 @@ public class CartController {
             return false; // Trả về false nếu có ngoại lệ xảy ra
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void loadPage(String fxmlFileName) {
         try {
             // Load FXML
