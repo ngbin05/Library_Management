@@ -14,12 +14,12 @@
       <TextField fx:id="phoneField" layoutX="68.0" layoutY="122.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="Phone" stylesheets="@../../../CustomerStyle/text-field-style.css" />
       <TextField fx:id="addressField" layoutX="68.0" layoutY="170.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="Address" stylesheets="@../../../CustomerStyle/text-field-style.css" />
       <TextField fx:id="cccdField" layoutX="70.0" layoutY="217.0" onAction="#handleCreate" prefHeight="34.0" prefWidth="417.0" promptText="CCCD" stylesheets="@../../../CustomerStyle/text-field-style.css" />
-      <Label fx:id="errorCreate" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Khách hàng đã tồn tại!" textFill="#be0000" />
-      <Label fx:id="nameEmpty" layoutX="232.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Tên còn trống!" textFill="#be0000" />
-      <Label fx:id="phoneEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Số điện thoại còn trống!" textFill="#be0000" />
-      <Label fx:id="cccdEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Số căn cước còn trống!" textFill="#be0000" />
-      <Label fx:id="addressEmpty" layoutX="222.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Địa chỉ còn trống!" textFill="#be0000" />
-      <Label fx:id="successLabel" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Đăng ký thành công!" textFill="#00961a" />
+      <Label fx:id="errorCreate" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Reader already exist!" textFill="#be0000" />
+      <Label fx:id="nameEmpty" layoutX="232.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Name is empty!" textFill="#be0000" />
+      <Label fx:id="phoneEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Phone is empty!" textFill="#be0000" />
+      <Label fx:id="cccdEmpty" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="CCCD is empty!" textFill="#be0000" />
+      <Label fx:id="addressEmpty" layoutX="222.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Address is empty!" textFill="#be0000" />
+      <Label fx:id="successLabel" layoutX="215.0" layoutY="324.0" prefHeight="17.0" prefWidth="417.0" text="Successfully!" textFill="#00961a" />
       <Label layoutX="215.0" layoutY="26.0" opacity="0.81" text="Add Reader">
          <font>
             <Font name=".VnArial Bold" size="22.0" />

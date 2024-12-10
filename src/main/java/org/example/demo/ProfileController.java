@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +11,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.util.Arrays;
@@ -79,19 +84,29 @@ public class ProfileController {
     private Label lblChangeInf;
 
     @FXML
+    private Label infChanged;
+
+    @FXML
+    private Label passwordChanged;
+
+    @FXML
+    private Pane pane;
+
+    @FXML
+    public void openCamera(){
+        loadPage("testcam-view.fxml");
+    }
+
+    @FXML
     public void initialize() {
         if(LoginController.account.getImage() == null) {
             avatar.setImage(new Image(getClass().getResourceAsStream("/media/man-user-icon.jpg")));
         } else {
             avatar.setImage(ImageUtils.byteArrayToImage(LoginController.account.getImage()));
         }
-
+        avatar.setPreserveRatio(true);
         double radius = Math.min(avatar.getFitWidth(), avatar.getFitHeight()) / 2;
         Circle clip = new Circle(avatar.getFitWidth() / 2, avatar.getFitHeight() / 2, radius);
-        clip.setStroke(Color.BLACK);
-        clip.setStrokeWidth(3);
-
-        // Áp dụng clip vào ImageView
         avatar.setClip(clip);
         loadUserName();
         loadPhoneNumber();
@@ -101,6 +116,8 @@ public class ProfileController {
         userNameTextField.setEditable(false);
         phoneNumberTextField.setEditable(false);
         gmailTextField.setEditable(false);
+        lblChangeInf.setVisible(false);
+        lblChangePass.setVisible(false);
     }
 
 
@@ -125,7 +142,7 @@ public class ProfileController {
         File folder = new File("avatar-image");
 
         if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("Thư mục không tồn tại hoặc không phải thư mục.");
+            System.out.println("Folders that don't exist or aren't folders!");
             return;
         }
 
@@ -134,7 +151,7 @@ public class ProfileController {
                 (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")));
 
         if (imageFiles == null || imageFiles.length == 0) {
-            System.out.println("Không tìm thấy ảnh nào trong thư mục.");
+            System.out.println("No photos found in the folder!");
             return;
         }
 
@@ -147,7 +164,7 @@ public class ProfileController {
         Image image = new Image(latestImage.toURI().toString());
         avatar.setImage(image);
         LoginController.account.setImage(ImageUtils.imageToByteArray(image));
-        System.out.println("Đã tải ảnh: " + latestImage.getName());
+        System.out.println("Photos Downloaded: " + latestImage.getName());
     }
 
 
@@ -165,7 +182,8 @@ public class ProfileController {
 
         // Kiểm tra dữ liệu đầu vào
         if (username.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            lblChangePass.setText("Vui lòng nhập đầy đủ thông tin!");
+            lblChangePass.setVisible(true);
+            lblChangePass.setText("Please enter complete information!");
             txtUsername.clear();
             txtOldPassword.clear();
             txtNewPassword.clear();
@@ -174,7 +192,8 @@ public class ProfileController {
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            lblChangePass.setText("Mật khẩu mới không khớp!");
+            lblChangePass.setVisible(true);
+            lblChangePass.setText("The new password doesn't match!");
             txtUsername.clear();
             txtOldPassword.clear();
             txtNewPassword.clear();
@@ -186,14 +205,17 @@ public class ProfileController {
         boolean isPasswordChanged = Database.changePassword(username, oldPassword, newPassword);
 
         if (isPasswordChanged) {
-            lblChangePass.setStyle("-fx-text-fill: green;"); // Đổi màu chữ sang xanh lá
+            lblChangePass.setVisible(true);
+            lblChangePass.setStyle("-fx-text-fill: green;");
             lblChangePass.setText("Password changed successfully!");
             txtUsername.clear();
             txtOldPassword.clear();
             txtNewPassword.clear();
             txtConfirmPassword.clear();
+
         } else {
-            lblChangePass.setStyle("-fx-text-fill: red;"); // Đổi màu chữ sang xanh lá
+            lblChangePass.setVisible(true);
+            lblChangePass.setStyle("-fx-text-fill: red;");
             lblChangePass.setText("Password changed failed!");
             txtUsername.clear();
             txtOldPassword.clear();
@@ -248,6 +270,7 @@ public class ProfileController {
         String gmail = txtGmail.getText();
 
         if (name.isEmpty() || phoneNumber.isEmpty() || gmail.isEmpty()) {
+            lblChangeInf.setVisible(true);
             lblChangeInf.setText("Please fill in all fields!");
             return;
         }
@@ -255,45 +278,48 @@ public class ProfileController {
         boolean isInfoUpdated = Database.updateUserInformation(name, phoneNumber, gmail, LoginController.account.getUsername());
 
         if (isInfoUpdated) {
+            lblChangeInf.setVisible(true);
             lblChangeInf.setStyle("-fx-text-fill: green;");
             lblChangeInf.setText("Information updated successfully!");
             loadUserName(); // Optionally reload the values
             loadPhoneNumber();
             loadGmail();
         } else {
+            lblChangeInf.setVisible(true);
             lblChangeInf.setStyle("-fx-text-fill: red;");
             lblChangeInf.setText("Failed to update information.");
         }
         txtName.clear();
         txtPhoneNumber.clear();
         txtGmail.clear();
+
     }
 
-    public void switchToCamera() {
+    private void loadPage(String fxmlFileName) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("testcam-view.fxml"));
-            Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
-            testCamera = fxmlLoader.getController();
-            Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
-            Stage addBookStage = new Stage();
-            addBookStage.initOwner(stage);
-            addBookStage.initStyle(StageStyle.TRANSPARENT);
-            addReaderScene.setFill(Color.TRANSPARENT);
-            addBookStage.setScene(addReaderScene);
-            testCamera.setStage(addBookStage);
-            testCamera.setProfileController(this);
-            Platform.runLater(() ->
-            {
-                double mainStageX = stage.getX();
-                double mainStageY = stage.getY();
-                addBookStage.show();
-                double x = mainStageX + stage.getWidth() - 795;
-                double y = mainStageY + stage.getHeight() - 600;
-                addBookStage.setX(x);
-                addBookStage.setY(y);
-            });
+            // Load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
 
-        } catch (Exception e) {
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(root);
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
+            // Xử lý controller
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof TestCamera) {
+                    TestCamera testCameraController = (TestCamera) controller;
+                    testCameraController.setStage((Stage) pane.getScene().getWindow());
+                    testCameraController.setProfileController(this);
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

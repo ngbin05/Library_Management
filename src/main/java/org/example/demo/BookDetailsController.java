@@ -59,11 +59,11 @@ public class BookDetailsController {
     }
 
     public void displayBookDetails(Book book) {
-        bookTitleLabel.setText("Tên sách: " + book.getTitle());
-        bookAuthorLabel.setText("Tác giả: " + book.getAuthor());
-        bookGenreLabel.setText("Thể loại: " + book.getGenre());
-        bookPublishedDateLabel.setText("Ngày xuất bản: " + book.getPublishedDate());
-        bookDescriptionLabel.setText("Mô tả: " + book.getDescription());
+        bookTitleLabel.setText("Book name: " + book.getTitle());
+        bookAuthorLabel.setText("Author: " + book.getAuthor());
+        bookGenreLabel.setText("Category: " + book.getGenre());
+        bookPublishedDateLabel.setText("Publication Date: " + book.getPublishedDate());
+        bookDescriptionLabel.setText("Description: " + book.getDescription());
         bookIsbnLabel.setText("ISBN: " + book.getIsbn());
 
         // Hiển thị ảnh (nếu có)

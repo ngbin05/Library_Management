@@ -193,7 +193,7 @@ public class ListReaderController {
 
     private void addButtonToTable() {
         colAction.setCellFactory(param -> new TableCell<>() {
-            private final Button btnDelete = new Button("Xóa");
+            private final Button btnDelete = new Button("Detele");
 
             {
 
@@ -227,8 +227,8 @@ public class ListReaderController {
     private void handleDeleteCustomer(Customer customer) {
         if (customer != null) {
             try {
-                boolean confirmed = ConfirmDialog.show("Xác nhận xóa",
-                        "Bạn có chắc chắn muốn xóa người đọc này?");
+                boolean confirmed = ConfirmDialog.show("Confirm",
+                        "Are you sure you want to delete this reader?");
                 if (!confirmed) {
                     return;
                 }
@@ -242,7 +242,7 @@ public class ListReaderController {
                 // Cập nhật lại bảng
                 customerTable.setItems(customerList);
 
-                System.out.println("Người đọc đã bị xóa: " + customer.getName());
+                System.out.println("Reader removed:" + customer.getName());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

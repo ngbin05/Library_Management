@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddBookController">
+<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookView-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddBookController">
    <children>
       <!-- Thanh tìm kiếm -->
       <TextField fx:id="searchTextField" layoutX="24.0" layoutY="58.0" prefHeight="42.0" prefWidth="520.0" promptText="Search" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="58.0" />
@@ -58,7 +58,7 @@
       </Button>
 
       <!-- Nút thêm sách -->
-      <Button layoutX="301.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="35.0" prefWidth="200.0" text="Thêm Sách" AnchorPane.bottomAnchor="39.571428571428555" AnchorPane.leftAnchor="301.0">
+      <Button layoutX="301.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleAddBook" prefHeight="35.0" prefWidth="200.0" text="Add book" AnchorPane.bottomAnchor="39.571428571428555" AnchorPane.leftAnchor="301.0">
          <font>
             <Font size="14.0" />
          </font>

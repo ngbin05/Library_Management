@@ -22,10 +22,10 @@
                     <columns>
                         <TableColumn fx:id="colId" prefWidth="48.00003099441528" text="ID" />
                         <TableColumn fx:id="colTitle" prefWidth="192.00000381469727" text="Title" />
-                        <TableColumn fx:id="colAuthor" prefWidth="172.5714111328125" text="Author" />
-                        <TableColumn fx:id="colPublishedDate" prefWidth="154.28567504882812" text="PublishedDate" />
-                        <TableColumn fx:id="colQuantity" minWidth="0.0" prefWidth="79.428466796875" text="Quantity" />
-                        <TableColumn fx:id="colAction" prefWidth="83.4285888671875" text="Action" />
+                        <TableColumn fx:id="colAuthor" prefWidth="189.71435546875" text="Author" />
+                        <TableColumn fx:id="colPublishedDate" prefWidth="169.14285278320312" text="PublishedDate" />
+                        <TableColumn fx:id="colQuantity" minWidth="0.0" prefWidth="82.28564453125" text="Quantity" />
+                        <TableColumn fx:id="colAction" prefWidth="47.4285888671875" text="Action" />
                     </columns>
                 </TableView>
                 <Label fx:id="hi" layoutX="27.0" layoutY="6.0" prefHeight="62.0" prefWidth="183.0" text="Hi, Duc" AnchorPane.bottomAnchor="552.5714285714286" AnchorPane.topAnchor="20.0">
@@ -80,14 +80,12 @@
                         <Font name=".VnArial" size="13.0" />
                     </font>
                 </Label>
-            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
-               <children>
-                  <Label layoutX="445.0" layoutY="251.0" opacity="0.5" text="*Double click to view books detail and add books to cart!">
-                     <font>
-                        <Font name=".VnArial" size="13.0" />
-                     </font>
-                  </Label>
-               </children></Pane>
+            <Label layoutX="444.0" layoutY="254.0" opacity="0.5" text="*Double click to view books detail and add books to cart!">
+               <font>
+                  <Font name=".VnArial" size="13.0" />
+               </font>
+            </Label>
+            <Pane fx:id="pane" layoutX="309.0" layoutY="155.0" prefHeight="600.0" prefWidth="795.0" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
             </children>
         </AnchorPane>
     </children>

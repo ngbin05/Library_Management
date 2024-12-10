@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.CartController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.CartController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="795.0">
          <children>
@@ -22,11 +22,11 @@
                <children>
                   <TableView fx:id="borrowTableView" layoutY="49.0" prefHeight="230.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../menu2-style.css">
                      <columns>
-                        <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="UID" />
+                        <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="ID" />
                         <TableColumn fx:id="userNameColumn" prefWidth="183.99993896484375" text="User Name" />
                         <TableColumn fx:id="bookCountColumn" prefWidth="66.857177734375" text="Quantity" />
-                        <TableColumn fx:id="borrowDateColumn" prefWidth="130.85711669921875" text="Loan date" />
-                        <TableColumn fx:id="returnDateColumn" prefWidth="128.0" text="Expiry date" />
+                        <TableColumn fx:id="borrowDateColumn" prefWidth="130.85711669921875" text="BorrowedDate" />
+                        <TableColumn fx:id="returnDateColumn" prefWidth="128.0" text="ExpiryDate" />
                         <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="99.4285888671875" text="Status" />
                         <TableColumn fx:id="actionColumn" maxWidth="110.6666259765625" prefWidth="74.857177734375" text="Action" />
                      </columns>
@@ -45,11 +45,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtSearchLoanDate" layoutX="322.0" layoutY="14.0" onAction="#handleSearchBorrowRecords" prefHeight="30.0" prefWidth="190.0" promptText="Loan date" />
+                  <TextField fx:id="txtSearchLoanDate" layoutX="322.0" layoutY="14.0" onAction="#handleSearchBorrowRecords" prefHeight="30.0" prefWidth="190.0" promptText="BorrowedDate" />
                   <TextField fx:id="txtSearchStatus" layoutX="527.0" layoutY="14.0" onAction="#handleSearchBorrowRecords" prefHeight="30.0" prefWidth="90.0" promptText="Status" />
                </children>
             </Pane>
-            <Label layoutX="25.0" layoutY="285.0" opacity="0.8" text="Loan list">
+            <Label layoutX="25.0" layoutY="285.0" opacity="0.8" text="Transaction list">
                <font>
                   <Font name=".VnArial" size="13.0" />
                </font>
