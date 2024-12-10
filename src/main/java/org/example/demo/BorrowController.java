@@ -158,10 +158,10 @@ public class BorrowController {
                 }
 
                 details.getChildren().setAll(
-                        new Text("Tên: " + book.getTitle()),
-                        new Text("Tác giả: " + book.getAuthor()),
-                        new Text("Nhà xuất bản: " + book.getPublisher()),
-                        new Text("Ngày xuất bản: " + book.getPublishedDate())
+                        new Text("Name: " + book.getTitle()),
+                        new Text("Author: " + book.getAuthor()),
+                        new Text("Publisher: " + book.getPublisher()),
+                        new Text("Publication Date: " + book.getPublishedDate())
                 );
 
                 setGraphic(content);

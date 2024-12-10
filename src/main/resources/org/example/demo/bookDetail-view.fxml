@@ -31,22 +31,22 @@
                </font>
             </Label>
             <ImageView fx:id="bookImageView" fitHeight="320.0" fitWidth="220.0" layoutX="22.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="bookTitleLabel" layoutX="22.0" layoutY="7.0" prefWidth="650.0" text="Name:" wrapText="true">
+            <Label fx:id="bookTitleLabel" alignment="TOP_LEFT" layoutX="22.0" layoutY="7.0" prefHeight="50.0" prefWidth="650.0" text="Name:" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="bookAuthorLabel" layoutX="310.0" layoutY="58.0" prefWidth="370.0" text="Author:" wrapText="true">
+            <Label fx:id="bookAuthorLabel" layoutX="310.0" layoutY="61.0" prefWidth="370.0" text="Author:" wrapText="true">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="bookGenreLabel" layoutX="311.0" layoutY="103.0" prefWidth="370.0" text="Categories:" wrapText="true">
+            <Label fx:id="bookGenreLabel" layoutX="311.0" layoutY="104.0" prefWidth="370.0" text="Categories:" wrapText="true">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="bookPublishedDateLabel" layoutX="311.0" layoutY="143.0" prefWidth="365.0" text="Publication Date:" wrapText="true">
+            <Label fx:id="bookPublishedDateLabel" layoutX="311.0" layoutY="145.0" prefWidth="365.0" text="Publication Date:" wrapText="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

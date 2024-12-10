@@ -89,7 +89,7 @@
                             <font>
                                 <Font name=".VnArial" size="13.0" />
                             </font></Button>
-                  <Button fx:id="exitButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#initialize" styleClass="sidebarSystemButton" text="Exit">
+                  <Button fx:id="exitButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#initialize" prefHeight="30.0" prefWidth="58.0" styleClass="sidebarSystemButton" text="Exit">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -227,18 +227,18 @@
          </font>
       </Label>
       <Label fx:id="dateTimeLabel" layoutX="536.0" layoutY="21.0" opacity="0.8" text="Date-time" />
-      <Label layoutX="236.0" layoutY="308.0" opacity="0.8" text="Recent Loan List">
+      <Label layoutX="236.0" layoutY="308.0" opacity="0.8" text="Recent Transaction List">
          <font>
             <Font name=".VnArial" size="13.0" />
          </font>
       </Label>
       <TableView fx:id="borrowTableView" layoutX="226.0" layoutY="327.0" prefHeight="252.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css">
          <columns>
-            <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="UID" />
+            <TableColumn fx:id="userIdColumn" prefWidth="45.33332824707031" text="ID" />
             <TableColumn fx:id="userNameColumn" prefWidth="183.99993896484375" text="User Name" />
-            <TableColumn fx:id="bookCountColumn" prefWidth="66.857177734375" text="Số Lượng" />
-            <TableColumn fx:id="borrowDateColumn" prefWidth="130.85711669921875" text="Ngay Muon" />
-            <TableColumn fx:id="returnDateColumn" prefWidth="128.0" text="Ngay Tra" />
+            <TableColumn fx:id="bookCountColumn" prefWidth="66.857177734375" text="Quantity" />
+            <TableColumn fx:id="borrowDateColumn" prefWidth="130.85711669921875" text="BorrowedDate" />
+            <TableColumn fx:id="returnDateColumn" prefWidth="128.0" text="ExpiryDate" />
             <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="99.4285888671875" text="Status" />
             <TableColumn fx:id="actionColumn" maxWidth="110.6666259765625" prefWidth="74.857177734375" text="Action" />
          </columns>

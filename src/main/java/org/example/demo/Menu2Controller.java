@@ -122,7 +122,7 @@ public class Menu2Controller {
         timeline.play();
 
         exitButton.setOnAction(event -> {
-            Platform.exit();
+            System.exit(0);
         });
 
 

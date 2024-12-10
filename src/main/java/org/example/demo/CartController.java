@@ -190,7 +190,7 @@ public class CartController {
         clearButton.setOnAction(event -> {
             cart.clear();
             listViewBooks.getItems().clear();
-            System.out.println("Đã xóa toàn bộ giỏ sách!");
+            System.out.println("The entire bookcart has been deleted!");
         });
 
 
@@ -222,7 +222,7 @@ public class CartController {
         private final HBox content = new HBox(10); // HBox chứa các thành phần
         private final ImageView bookImage = new ImageView(); // Ảnh sách
         private final VBox details = new VBox(); // VBox chứa thông tin sách
-        private final Button removeButton = new Button("Xóa"); // Nút "Xóa"
+        private final Button removeButton = new Button("Detele"); // Nút "Xóa"
 
         public BookListCell() {
             // Cài đặt giao diện
@@ -259,10 +259,10 @@ public class CartController {
 
                 // Hiển thị thông tin sách
                 details.getChildren().setAll(
-                        new Text("Tên: " + book.getTitle()),
-                        new Text("Tác giả: " + book.getAuthor()),
-                        new Text("Nhà xuất bản: " + book.getPublisher()),
-                        new Text("Ngày xuất bản: " + book.getPublishedDate())
+                        new Text("Name: " + book.getTitle()),
+                        new Text("Author: " + book.getAuthor()),
+                        new Text("Publisher: " + book.getPublisher()),
+                        new Text("Publication Date: " + book.getPublishedDate())
                 );
 
                 setGraphic(content);
@@ -285,7 +285,7 @@ public class CartController {
 
     private boolean handleReturnBook(Borrowed borrowed) {
         try {
-            boolean confirmed = ConfirmDialog.show("Xác nhận", "Xác nhận trả sách?");
+            boolean confirmed = ConfirmDialog.show("Confirm", "Confirm the return of the book?");
             if (!confirmed) {
                 return false;  // Nếu không xác nhận, trả về false
             }
@@ -293,13 +293,13 @@ public class CartController {
             // Trả sách vào cơ sở dữ liệu
             boolean isReturned = Database.returnBook(borrowed.getBorrowId(), borrowed.getBooks());
             if (isReturned) {
-                System.out.println("Trả sách thành công cho Borrow ID: " + borrowed.getBorrowId());
+                System.out.println("Successful Return to Borrow ID:" + borrowed.getBorrowId());
                 // Cập nhật lại dữ liệu sau khi trả sách
                 loadBorrowData();
                 borrowTableView.refresh(); // Cập nhật TableView để hiển thị sự thay đổi
                 return true; // Trả về true nếu trả sách thành công
             } else {
-                System.out.println("Trả sách thất bại!");
+                System.out.println("Return the book failed!");
                 return false; // Trả về false nếu trả sách thất bại
             }
         } catch (Exception e) {

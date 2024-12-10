@@ -198,7 +198,7 @@ public class TestCamera {
 
                 Platform.runLater(() -> {
                     countDownLabel.setVisible(true);
-                    countDownLabel.setText("Chuẩn bị!");
+                    countDownLabel.setText("Get Started!");
                 });
 
                 // Chạy đếm ngược trong một thread riêng để không block UI thread
@@ -216,7 +216,7 @@ public class TestCamera {
                         if (frame != null) {
                             BufferedImage bufferedImage = frameToBufferedImage(frame);
                             if (bufferedImage != null) {
-                                System.out.println("Chụp ảnh thành công!");
+                                System.out.println("Successful photoshoot!");
                                 gridCanvas.setVisible(false);
 
                                 // Chuyển đổi BufferedImage thành Image và hiển thị lên ImageView
@@ -297,7 +297,7 @@ public class TestCamera {
             // Đảm bảo có đủ byte dữ liệu để xử lý
             int expectedSize = width * height * 3; // Dữ liệu ảnh RGB cần 3 byte mỗi pixel (BGR sẽ cần 3 byte mỗi pixel)
             if (byteBufferSize < expectedSize) {
-                System.out.println("Không đủ byte trong ByteBuffer để tạo ảnh. Dữ liệu không đầy đủ.");
+                System.out.println("There are not enough bytes in the ByteBuffer to create the image. Incomplete data.");
                 return null;  // Dừng lại nếu không đủ dữ liệu
             }
 
@@ -334,7 +334,7 @@ public class TestCamera {
         System.out.println("ImageView size: " + width + "x" + height);
 
         if (width <= 0 || height <= 0) {
-            System.out.println("Kích thước ImageView không hợp lệ, không thể vẽ lưới.");
+            System.out.println("The ImageView size is invalid, the grid cannot be drawn.");
             return;
         }
 
@@ -362,7 +362,7 @@ public class TestCamera {
             gc.strokeLine(x, 0, x, height);
         }
 
-        System.out.println("Đã vẽ lưới 3x3 trên Canvas.");
+        System.out.println("Drew a 3x3 grid on Canvas.");
     }
 
 

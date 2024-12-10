@@ -195,7 +195,7 @@ public class AddBookController {
             resetUI();
             logLabel.setVisible(true);
             // Nếu không có sách nào được chọn, hiển thị thông báo
-            System.out.println("Vui lòng chọn một sách để thêm.");
+            System.out.println("Please select a book to add!");
         }
     }
 
