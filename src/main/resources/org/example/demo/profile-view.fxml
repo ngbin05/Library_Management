@@ -55,7 +55,6 @@
             <Image url="@../../../media/new-folder.png" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane layoutX="22.0" layoutY="337.0" prefHeight="250.0" prefWidth="750.0" styleClass="box" stylesheets="@../../../bookList-view-style.css">
          <children>
             <AnchorPane fx:id="changeInf" layoutX="-21.0" layoutY="48.0" prefHeight="189.0" prefWidth="351.0">
@@ -133,5 +132,6 @@
             <Font name=".VnArial" size="13.0" />
          </font>
       </Label>
+      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

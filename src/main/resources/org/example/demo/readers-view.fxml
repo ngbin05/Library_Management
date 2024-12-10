@@ -18,7 +18,7 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="795.0">
          <children>
-            <TableView fx:id="customerTable" layoutX="33.0" layoutY="276.0" prefHeight="310.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css" AnchorPane.topAnchor="276.0">
+            <TableView fx:id="customerTable" layoutX="22.0" layoutY="270.85714285714283" prefHeight="310.0" prefWidth="750.0" styleClass="tableView" stylesheets="@../../../bookList-view-style.css" AnchorPane.topAnchor="270.85714285714283">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="48.00003099441528" text="ID" />
                   <TableColumn fx:id="colName" prefWidth="165.14289093017578" text="Name" />
