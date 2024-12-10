@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
+<AnchorPane layoutY="1.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
     <children>
         <VBox layoutX="10.857142857142858" layoutY="10.285714285714286" prefHeight="678.0" prefWidth="178.0" style="-fx-background-color: WHITE;" styleClass="vbox" stylesheets="@../../../menu2-style.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
             <children>
@@ -122,7 +122,7 @@
       </Label>
       <HBox layoutX="223.0" layoutY="106.0" prefHeight="180.0" prefWidth="750.0" styleClass="TotalLayout" stylesheets="@../../../menu2-style.css">
          <children>
-            <AnchorPane onMouseClicked="#showReaderList" prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
+            <AnchorPane prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
                <children>
                   <Label fx:id="readersCount" layoutX="14.0" layoutY="14.0" text="10" textFill="WHITE">
                      <font>
@@ -139,22 +139,9 @@
                         <Image url="@../../../media/audience.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" layoutX="-2.0" layoutY="160.0" prefHeight="31.0" prefWidth="243.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
-                     <children>
-                        <Label contentDisplay="RIGHT" styleClass="more-info" stylesheets="@../../../menu2-style.css" text="More info" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../media/rightArrow.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane onMouseClicked="#showBookList" prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
+            <AnchorPane prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
                <children>
                   <Label fx:id="booksCount" layoutX="14.0" layoutY="14.0" text="100" textFill="WHITE">
                      <font>
@@ -171,22 +158,9 @@
                         <Image url="@../../../media/bookTotal.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" layoutY="150.0" prefHeight="31.0" prefWidth="250.0" AnchorPane.bottomAnchor="-1.4285714285714164" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
-                     <children>
-                        <Label contentDisplay="RIGHT" styleClass="more-info" stylesheets="@../../../menu2-style.css" text="More info" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../media/rightArrow.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane onMouseClicked="#showCartView" prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
+            <AnchorPane prefHeight="160.0" prefWidth="250.0" styleClass="totalItem" stylesheets="@../../../menu2-style.css" HBox.hgrow="NEVER">
                <children>
                   <Label fx:id="booksBorrowCount" layoutX="14.0" layoutY="14.0" text="50" textFill="WHITE">
                      <font>
@@ -203,19 +177,6 @@
                         <Image url="@../../../media/pie-chart.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" layoutX="-2.0" layoutY="160.0" prefHeight="31.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
-                     <children>
-                        <Label contentDisplay="RIGHT" styleClass="more-info" stylesheets="@../../../menu2-style.css" text="More info" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../media/rightArrow.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </AnchorPane>
          </children>

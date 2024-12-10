@@ -76,7 +76,10 @@ public class TestCamera {
     private Pane pane;
 
     @FXML
-    public void Close(){ loadPage("profile-view.fxml");}
+    public void Close(){
+        stopCamera();
+        loadPage("profile-view.fxml");
+    }
 
     private FrameGrabber grabber;
     private boolean isCameraRunning = false;
@@ -152,6 +155,7 @@ public class TestCamera {
         try {
             if (grabber != null) {
                 isCameraRunning = false; // Dừng việc lấy frame
+                isPhotoCaptured = false;
                 grabber.stop(); // Đóng camera
                 System.out.println("Closed camera!");
                 imageView.setImage(null); // Xóa ảnh trong ImageView
@@ -163,31 +167,7 @@ public class TestCamera {
         }
     }
 
-    @FXML
-    public void back() {
-        try {
-            stopCamera();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile-view.fxml"));
-            Parent addBookParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
-            profileController = fxmlLoader.getController();
-            Scene addReaderScene = new Scene(addBookParent);  // Thay bằng FXML tương ứng
-            stage.setScene(addReaderScene);
-            profileController.setStage(stage);
-            Platform.runLater(() ->
-            {
-                double mainStageX = stage.getX();
-                double mainStageY = stage.getY();
-                stage.show();
-                double x = mainStageX + stage.getWidth() - 795;
-                double y = mainStageY + stage.getHeight() - 600;
-//                addBookStage.setX(x);
-//                addBookStage.setY(y);
-            });
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void captureImage() {
