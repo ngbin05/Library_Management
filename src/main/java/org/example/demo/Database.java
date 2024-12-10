@@ -14,7 +14,7 @@ public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/ThuVien";
     private static final String USER = "root";
 
-    private static final String PASSWORD = "Binh2352005@";
+    private static final String PASSWORD = "123ABCabc";
 
 
     public static Connection connect() {
@@ -905,7 +905,7 @@ public class Database {
 
         // Thêm điều kiện dựa trên thông tin nhập từ người dùng
         if (!borrowId.isEmpty()) {
-            sql += " AND borrow.borrow_id LIKE ?";
+            sql += " AND borrow.user_id LIKE ?";
         }
         if (!userName.isEmpty()) {
             sql += " AND customers.user_name LIKE ?";

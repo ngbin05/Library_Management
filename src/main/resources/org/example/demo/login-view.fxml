@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<StackPane style="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
+<StackPane style="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
    <children>
       <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
          <children>
@@ -117,26 +117,21 @@
                                     <Font size="13.0" />
                                  </font>
                               </PasswordField>
-                              <Label fx:id="errorLabel" layoutX="152.0" layoutY="206.0" onDragDetected="#initialize" text="Lỗi! Sai tài khoản hoặc tên dăng nhập!" textFill="#db0000">
+                              <Label fx:id="errorLabel" layoutX="152.0" layoutY="206.0" onDragDetected="#initialize" text="Error! Wrong password or username!" textFill="#db0000">
                                  <font>
                                     <Font name="Arial Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="usernameEmpty" layoutX="356.0" layoutY="82.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
+                              <Label fx:id="usernameEmpty" layoutX="356.0" layoutY="82.0" text="Error! User name is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="Arial Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="passwordEmpty" layoutX="368.0" layoutY="135.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
+                              <Label fx:id="passwordEmpty" layoutX="368.0" layoutY="135.0" text="Error! Password is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="Arial Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="174.0" layoutY="162.0" mnemonicParsing="false" onAction="#goToForgotPassword" prefHeight="46.0" prefWidth="178.0" stylesheets="@../../../ForgotPassBut-style.css" text="Forgot password?">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
                            </children>
                         </AnchorPane>
                      </content>
@@ -176,32 +171,32 @@
                                     <Font name="Arial" size="13.0" />
                                  </font>
                               </PasswordField>
-                              <Label fx:id="errorCreate" layoutX="216.0" layoutY="235.0" text="Lỗi! Tài khoản này đã tồn tại!" textFill="#c00000">
+                              <Label fx:id="errorCreate" layoutX="216.0" layoutY="235.0" text="Error! Account already exist!" textFill="#c00000">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="fullnameEmpty" layoutX="402.0" layoutY="48.0" text="Lỗi! Tên bạn còn trống!" textFill="#c50202">
+                              <Label fx:id="fullnameEmpty" layoutX="402.0" layoutY="48.0" text="Error! Username is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="emailEmpty" layoutX="402.0" layoutY="87.0" text="Lỗi! Email còn trống!" textFill="#c50202">
+                              <Label fx:id="emailEmpty" layoutX="402.0" layoutY="87.0" text="Error! Email is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="createUsernameEmpty" layoutX="402.0" layoutY="165.0" text="Lỗi! Tên tài khoản còn trống!" textFill="#c50202">
+                              <Label fx:id="createUsernameEmpty" layoutX="402.0" layoutY="165.0" text="Error! User name is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="createPasswordEmpty" layoutX="402.0" layoutY="203.0" text="Lỗi! Mật khẩu còn trống!" textFill="#c50202">
+                              <Label fx:id="createPasswordEmpty" layoutX="402.0" layoutY="203.0" text="Error! Password is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="phoneEmpty" layoutX="402.0" layoutY="127.0" text="Lỗi! Số điện thoại còn trống!" textFill="#c50202">
+                              <Label fx:id="phoneEmpty" layoutX="402.0" layoutY="127.0" text="Error! Phone is empty!" textFill="#c50202">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

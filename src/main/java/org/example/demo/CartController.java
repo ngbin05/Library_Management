@@ -118,6 +118,27 @@ public class CartController {
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        statusColumn.setCellFactory(column -> new TableCell<Borrowed, String>() {
+            @Override
+            protected void updateItem(String status, boolean empty) {
+                super.updateItem(status, empty);
+
+                if (empty || status == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(status);
+                    if ("BORROWING".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: #f2ce03; -fx-font-weight: bold;");
+                    } else if ("RETURNED".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
+                    } else if ("OVERDUE".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                    }
+                }
+            }
+        });
+
         // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
         bookCountColumn.setCellValueFactory(param -> {
             Borrowed borrowed = param.getValue();

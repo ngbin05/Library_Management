@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.TestCamera">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.TestCamera">
    <children>
-      <Button layoutX="334.0" layoutY="539.0" mnemonicParsing="false" onAction="#captureImage" prefHeight="57.0" prefWidth="74.0" text="Capture" />
+      <Button layoutX="335.0" layoutY="531.0" mnemonicParsing="false" onAction="#captureImage" prefHeight="57.0" prefWidth="74.0" text="Capture" />
       <ImageView fx:id="imageView" fitHeight="480.0" fitWidth="640.0" layoutX="71.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="52.0" text="Close" />
+      <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#Close" prefHeight="34.0" prefWidth="51.0" text="Close" />
       <Label fx:id="countDownLabel" layoutX="71.0" layoutY="59.0" onDragDetected="#captureImage" text="Label" textFill="#000000ba" visible="false">
          <font>
             <Font name="Arial Bold" size="24.0" />
@@ -19,15 +20,16 @@
       </Label>
       <Canvas fx:id="gridCanvas" height="200.0" layoutX="71.0" layoutY="45.0" visible="false" width="200.0" />
       <Button fx:id="retakeButton" layoutX="103.0" layoutY="480.0" mnemonicParsing="false" onAction="#retakePhoto" text="Retake" />
-      <Button fx:id="saveButton" layoutX="160.0" layoutY="480.0" mnemonicParsing="false" onAction="#saveCapturedImage" text="Lưu ảnh" />
+      <Button fx:id="saveButton" layoutX="160.0" layoutY="480.0" mnemonicParsing="false" onAction="#saveCapturedImage" text="Save photo" />
       <Button fx:id="zoomInButton" layoutX="437.0" layoutY="539.0" mnemonicParsing="false" onAction="#zoomInImage" text="Zoom In" />
       <Button fx:id="zoomOutButton" layoutX="237.0" layoutY="539.0" mnemonicParsing="false" onAction="#zoomOutImage" text="Zoom out" />
       <Button fx:id="rotateButton" layoutX="512.0" layoutY="539.0" mnemonicParsing="false" onAction="#rotateImage" text="Rotate" />
       <Button fx:id="flipButton" layoutX="183.0" layoutY="539.0" mnemonicParsing="false" onAction="#flipImageHorizontally" text="Flip" />
-      <Label fx:id="successTakenLabel" layoutX="625.0" layoutY="19.0" text="Thay đổi ảnh thành công!" textFill="#009d27">
+      <Label fx:id="successTakenLabel" layoutX="611.0" layoutY="23.0" text="Ptoto changed sucessfully!" textFill="#009d27">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Label>
+      <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

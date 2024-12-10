@@ -3,6 +3,7 @@ package org.example.demo;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -56,9 +54,13 @@ public class Menu2Controller {
     private Label hi;
 
     @FXML
+    private Button exitButton;
+
+    @FXML
     public void showReaderList(){
         loadPage("readers-view.fxml");
     }
+
     @FXML
     public void showBookList() {
         loadPage("bookList-view.fxml");
@@ -119,6 +121,10 @@ public class Menu2Controller {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        exitButton.setOnAction(event -> {
+            Platform.exit();
+        });
+
 
         try {
             Database.updateOverdueStatus();
@@ -134,6 +140,28 @@ public class Menu2Controller {
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        statusColumn.setCellFactory(column -> new TableCell<Borrowed, String>() {
+            @Override
+            protected void updateItem(String status, boolean empty) {
+                super.updateItem(status, empty);
+
+                if (empty || status == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(status);
+                    if ("BORROWING".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: #f2ce03; -fx-font-weight: bold;");
+                    } else if ("RETURNED".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
+                    } else if ("OVERDUE".equalsIgnoreCase(status)) {
+                        setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                    }
+                }
+            }
+        });
+
 
         // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
         bookCountColumn.setCellValueFactory(param -> {

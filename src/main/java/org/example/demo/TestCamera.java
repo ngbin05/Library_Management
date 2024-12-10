@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.bytedeco.javacv.*;
 
 import java.awt.image.BufferedImage;
@@ -66,6 +71,12 @@ public class TestCamera {
 
     @FXML
     private Label successTakenLabel;
+
+    @FXML
+    private Pane pane;
+
+    @FXML
+    public void Close(){ loadPage("profile-view.fxml");}
 
     private FrameGrabber grabber;
     private boolean isCameraRunning = false;
@@ -142,7 +153,7 @@ public class TestCamera {
             if (grabber != null) {
                 isCameraRunning = false; // Dừng việc lấy frame
                 grabber.stop(); // Đóng camera
-                System.out.println("Camera đã đóng.");
+                System.out.println("Closed camera!");
                 imageView.setImage(null); // Xóa ảnh trong ImageView
                 gridCanvas.setVisible(false);
                 imageView.setVisible(false);
@@ -241,14 +252,14 @@ public class TestCamera {
             try {
                 String fileName = "avatar-image/image_" + System.currentTimeMillis() + ".png";
                 ImageIO.write(currentCapturedImage, "png", new File(fileName));
-                System.out.println("Ảnh đã lưu: " + fileName);
+                System.out.println("Saved image: " + fileName);
                 successTakenLabel.setVisible(true);
                 profileController.loadImageFromCamera();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Không có ảnh nào để lưu!");
+            System.out.println("No photos to save!");
         }
     }
 
@@ -461,7 +472,33 @@ public class TestCamera {
 
 
 
+    private void loadPage(String fxmlFileName) {
+        try {
+            // Load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
 
+            pane.setVisible(true);
+            pane.getChildren().clear();
+            pane.getChildren().setAll(root);
+            pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
+            // Xử lý controller
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof ProfileController) {
+                    profileController.setStage((Stage) pane.getScene().getWindow());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
