@@ -2,9 +2,6 @@ package org.example.demo;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -12,36 +9,36 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class AddReaderController {
-    private Stage stage;
+    @FXML
+    Label successLabel;
 
+    private ListReaderController listReaderController;
+    public void setListReaderController(ListReaderController listReaderController) {
+        this.listReaderController = listReaderController;
+    }
+    public ListReaderController getListReaderController() {
+        return listReaderController;
+    }
+
+    private Stage stage;
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField phoneField;
-
     @FXML
     private TextField addressField;
-
     @FXML
     private TextField cccdField;
-
     @FXML
     private Label errorCreate;
-
     @FXML
     private Label nameEmpty;
-
     @FXML
     private Label phoneEmpty;
-
     @FXML
     private Label addressEmpty;
-
     @FXML
     private Label cccdEmpty;
-
-    @FXML Label successLabel;
 
     @FXML
     private void initialize() {
@@ -51,12 +48,6 @@ public class AddReaderController {
         phoneEmpty.setVisible(false);
         cccdEmpty.setVisible(false);
         successLabel.setVisible(false);
-
-        cccdField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                handleCreate();
-            }
-        });
 
         nameField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.TAB) {
@@ -108,7 +99,7 @@ public class AddReaderController {
             cccdEmpty.setVisible(true);
             errorCreate.setVisible(false);
             addressEmpty.setVisible(false);
-        } else if (Database.isUserExists(cccd)) {
+        } else if (MySQLDatabase.getUserDatabase().isUserExists(cccd)) {
             nameEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
             cccdEmpty.setVisible(false);
@@ -116,7 +107,8 @@ public class AddReaderController {
             addressEmpty.setVisible(false);
             clearTextFields();
         } else {
-            Database.insertUser(fullname, phone, address, cccd);
+            MySQLDatabase.getUserDatabase().insertUser(fullname, phone, address, cccd);
+            listReaderController.loadCustomerData();
             clearError();
             clearTextFields();
             successLabel.setVisible(true);
@@ -128,9 +120,10 @@ public class AddReaderController {
     }
 
     @FXML
-    public void handleClose(){
+    public void handleClose() {
         stage.close();
     }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -141,6 +134,7 @@ public class AddReaderController {
         addressField.clear();
         cccdField.clear();
     }
+
     private void clearError() {
         errorCreate.setVisible(false);
         nameEmpty.setVisible(false);

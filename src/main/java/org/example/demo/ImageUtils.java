@@ -14,16 +14,17 @@ public class ImageUtils {
         if (imageBytes != null && imageBytes.length > 0) {
             return new Image(new ByteArrayInputStream(imageBytes));
         }
-        return null; // Trả về null nếu mảng byte rỗng
+        return null; 
     }
+
     public static byte[] imageToByteArray(Image image) {
         try {
-            // Chuyển đổi Image (JavaFX) sang BufferedImage (AWT)
+            
             BufferedImage bufferedImage = javafxImageToBufferedImage(image);
 
-            // Ghi BufferedImage vào ByteArrayOutputStream
+            
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "png", baos); // Lưu dưới dạng PNG
+            ImageIO.write(bufferedImage, "png", baos); 
             return baos.toByteArray();
 
         } catch (Exception e) {
@@ -34,9 +35,9 @@ public class ImageUtils {
 
     private static BufferedImage javafxImageToBufferedImage(Image image) {
         try {
-            URL url = new URL(image.getUrl()); // Lấy URL của hình ảnh
+            URL url = new URL(image.getUrl()); 
             InputStream inputStream = url.openStream();
-            return ImageIO.read(inputStream); // Đọc ảnh vào BufferedImage
+            return ImageIO.read(inputStream); 
         } catch (Exception e) {
             e.printStackTrace();
         }

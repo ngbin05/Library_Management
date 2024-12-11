@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.addTransactionController">
+<AnchorPane prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../bookList-view-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AddTransactionController">
    <children>
       <Label layoutX="287.0" layoutY="14.0" text="Choose Reader" textFill="#085388">
          <font>

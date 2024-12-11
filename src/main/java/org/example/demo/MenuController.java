@@ -3,8 +3,6 @@ package org.example.demo;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,12 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,36 +24,47 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class Menu2Controller {
+public class MenuController {
     private Stage stage;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Label dateTimeLabel;
+    @FXML
+    private Label readersCount;
+    @FXML
+    private Label booksCount;
+    @FXML
+    private Label booksBorrowCount;
+    @FXML
+    private Label hi;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private TableView<Borrowed> borrowTableView;
+    @FXML
+    private TableColumn<Borrowed, Integer> userIdColumn;
+    @FXML
+    private TableColumn<Borrowed, Integer> userNameColumn;
+    @FXML
+    private TableColumn<Borrowed, Integer> bookCountColumn; 
+    @FXML
+    private TableColumn<Borrowed, String> borrowDateColumn;
+    @FXML
+    private TableColumn<Borrowed, String> returnDateColumn;
+    @FXML
+    private TableColumn<Borrowed, String> statusColumn;
+    @FXML
+    private TableColumn<Borrowed, Void> actionColumn;
+    
+    private final ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     @FXML
-    private Pane pane;
-
-    @FXML
-    private Label dateTimeLabel;
-
-    @FXML
-    private Label readersCount;
-
-    @FXML
-    private Label booksCount;
-
-    @FXML
-    private Label booksBorrowCount;
-
-    @FXML
-    private Label hi;
-
-    @FXML
-    private Button exitButton;
-
-    @FXML
-    public void showReaderList(){
+    public void showReaderList() {
         loadPage("readers-view.fxml");
     }
 
@@ -67,44 +74,19 @@ public class Menu2Controller {
     }
 
     @FXML
-    public void showProfile() { loadPage("profile-view.fxml"); }
+    public void showProfile() {
+        loadPage("profile-view.fxml");
+    }
 
     @FXML
-    public void showDashBoard() { loadPage("dashboard-view.fxml"); }
+    public void showDashBoard() {
+        loadPage("dashboard-view.fxml");
+    }
 
     @FXML
-    public void showCartView() { loadPage("cart-view.fxml"); }
-
-
-    @FXML
-    private TableView<Borrowed> borrowTableView;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> userIdColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> userNameColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> bookCountColumn; // Cột cho tên các cuốn sách
-
-    @FXML
-    private TableColumn<Borrowed, String> borrowDateColumn;
-
-    @FXML
-    private TableColumn<Borrowed, String> returnDateColumn;
-
-    @FXML
-    private TableColumn<Borrowed, String> statusColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Void> actionColumn;
-
-
-
-    // ObservableList chứa các đối tượng Borrowed
-    private ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
-
+    public void showCartView() {
+        loadPage("cart-view.fxml");
+    }
 
     @FXML
     public void initialize() {
@@ -124,14 +106,14 @@ public class Menu2Controller {
 
 
         try {
-            Database.updateOverdueStatus();
+            MySQLDatabase.getBorrowDatabase().updateOverdueStatus();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Kết nối với CSDL và lấy dữ liệu
+        
         loadBorrowData();
 
-        // Cấu hình các cột trong TableView
+        
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("user_name"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
@@ -160,7 +142,7 @@ public class Menu2Controller {
         });
 
 
-        // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
+        
         bookCountColumn.setCellValueFactory(param -> {
             Borrowed borrowed = param.getValue();
             return new javafx.beans.property.SimpleIntegerProperty(borrowed.getBooks().size()).asObject();
@@ -168,7 +150,7 @@ public class Menu2Controller {
 
         actionColumn.setCellFactory(column -> {
             return new TableCell<Borrowed, Void>() {
-                private final javafx.scene.control.Button returnButton = new javafx.scene.control.Button("Trả sách");
+                private final javafx.scene.control.Button returnButton = new javafx.scene.control.Button("Return");
                 private final javafx.scene.control.Label checkMarkLabel = new javafx.scene.control.Label("✔");
 
                 @Override
@@ -176,29 +158,29 @@ public class Menu2Controller {
                     super.updateItem(item, empty);
 
                     if (empty) {
-                        setGraphic(null); // Không hiển thị gì nếu ô trống
+                        setGraphic(null); 
                     } else {
                         Borrowed borrowed = getTableView().getItems().get(getIndex());
 
-                        // So sánh chuỗi bằng phương thức equals()
+                        
                         if ("RETURNED".equals(borrowed.getStatus())) {
                             returnButton.setVisible(false);
                             checkMarkLabel.setVisible(true);
-                            setGraphic(checkMarkLabel); // Hiển thị dấu tích xanh
+                            setGraphic(checkMarkLabel); 
                         } else {
                             returnButton.setVisible(true);
                             checkMarkLabel.setVisible(false);
-                            setGraphic(returnButton); // Hiển thị nút "Trả sách"
+                            setGraphic(returnButton); 
 
-                            // Thiết lập sự kiện cho nút "Trả sách"
+                            
                             returnButton.setOnAction(event -> {
-                                boolean isReturned = handleReturnBook(borrowed); // Gọi hàm xử lý trả sách
+                                boolean isReturned = handleReturnBook(borrowed); 
                                 if (isReturned) {
-                                    // Sau khi trả sách thành công, thay đổi nút "Trả sách" thành dấu tích xanh
-                                    returnButton.setVisible(false); // Ẩn nút "Trả sách"
-                                    checkMarkLabel.setVisible(true); // Hiển thị dấu tích xanh
-                                    borrowed.setStatus("RETURNED"); // Cập nhật trạng thái của đối tượng Borrowed
-                                    // Cập nhật lại TableView sau khi thay đổi trạng thái
+                                    
+                                    returnButton.setVisible(false); 
+                                    checkMarkLabel.setVisible(true); 
+                                    borrowed.setStatus("RETURNED"); 
+                                    
                                     borrowTableView.refresh();
                                 }
                             });
@@ -209,9 +191,9 @@ public class Menu2Controller {
         });
 
 
-        // Đưa danh sách vào TableView
+        
         borrowTableView.setItems(borrowList);
-        borrowTableView.setFixedCellSize(-1); // Cho phép tự động điều chỉnh chiều cao dòng
+        borrowTableView.setFixedCellSize(-1); 
 
 
         showInforLabel();
@@ -219,7 +201,7 @@ public class Menu2Controller {
     }
 
     private void sayHi() {
-        String userName = Database.getFullName(LoginController.account.getUsername());
+        String userName = MySQLDatabase.getUserDatabase().getFullName(LoginController.account.getUsername());
         if (userName != null) {
             hi.setText("Hi, " + userName);
         }
@@ -230,7 +212,14 @@ public class Menu2Controller {
     private void logOut() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-            Scene loginScene = new Scene(loader.load());
+            Parent root = loader.load();
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
+
+            Scene loginScene = new Scene(root);
             loginScene.setFill(Color.TRANSPARENT);
             stage.setScene(loginScene);
             LoginController loginController = loader.getController();
@@ -243,7 +232,7 @@ public class Menu2Controller {
 
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
@@ -257,36 +246,32 @@ public class Menu2Controller {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+            
             Object controller = loader.getController();
             if (controller != null) {
-                if (controller instanceof ListReaderController) {
-                    ListReaderController listReaderController = (ListReaderController) controller;
+                if (controller instanceof ListReaderController listReaderController) {
                     listReaderController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof ListBookController) {
-                    ListBookController listBookController = (ListBookController) controller;
+                } else if (controller instanceof ListBookController listBookController) {
                     listBookController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof ProfileController) {
-                    ProfileController profileController = (ProfileController) controller;
+                } else if (controller instanceof ProfileController profileController) {
                     profileController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof BorrowController) {
-                    BorrowController borrowController = (BorrowController) controller;
+                } else if (controller instanceof BorrowController borrowController) {
                     borrowController.setStage((Stage) pane.getScene().getWindow());
                 }
-                // Thêm các controller khác vào đây nếu cần
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Hàm để lấy dữ liệu từ cơ sở dữ liệu
+    
     private void loadBorrowData() {
         try {
-            // Gọi phương thức lấy tất cả các lượt mượn từ cơ sở dữ liệu
-            List<Borrowed> borrowDataList = Database.getAllBorrowData();
+            
+            List<Borrowed> borrowDataList = MySQLDatabase.getBorrowDatabase().getAllBorrowData();
 
-            // Thêm vào ObservableList để hiển thị trên TableView
+            
             this.borrowList.clear();
             this.borrowList.addAll(borrowDataList);
         } catch (SQLException e) {
@@ -296,38 +281,38 @@ public class Menu2Controller {
 
     private boolean handleReturnBook(Borrowed borrowed) {
         try {
-            boolean confirmed = ConfirmDialog.show("Xác nhận", "Xác nhận trả sách?");
+            boolean confirmed = ConfirmDialog.show("Confirm", "Confirm to return book?");
             if (!confirmed) {
-                return false;  // Nếu không xác nhận, trả về false
+                return false;  
             }
 
-            // Trả sách vào cơ sở dữ liệu
-            boolean isReturned = Database.returnBook(borrowed.getBorrowId(), borrowed.getBooks());
+            
+            boolean isReturned = MySQLDatabase.getBorrowDatabase().returnBook(borrowed.getBorrowId(), borrowed.getBooks());
             if (isReturned) {
                 System.out.println("Trả sách thành công cho Borrow ID: " + borrowed.getBorrowId());
-                // Cập nhật lại dữ liệu sau khi trả sách
+                
                 loadBorrowData();
-                borrowTableView.refresh(); // Cập nhật TableView để hiển thị sự thay đổi
+                borrowTableView.refresh(); 
                 showInforLabel();
-                return true; // Trả về true nếu trả sách thành công
+                return true; 
             } else {
                 System.out.println("Trả sách thất bại!");
-                return false; // Trả về false nếu trả sách thất bại
+                return false; 
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // Trả về false nếu có ngoại lệ xảy ra
+            return false; 
         }
     }
 
-    void showInforLabel(){
-        int userCount = Database.countUsers();
+    void showInforLabel() {
+        int userCount = MySQLDatabase.getUserDatabase().countUsers();
         readersCount.setText(String.valueOf(userCount));
 
-        int bookCount = Database.countBooks();
+        int bookCount = MySQLDatabase.getBookDatabase().countBooks();
         booksCount.setText(String.valueOf(bookCount));
 
-        int bookBorrowCount = Database.countBooksBorrow();
+        int bookBorrowCount = MySQLDatabase.getBorrowDatabase().countBooksBorrow();
         booksBorrowCount.setText(String.valueOf(bookBorrowCount));
     }
 }

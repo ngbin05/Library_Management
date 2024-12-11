@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="795.0" prefHeight="600.0" prefWidth="795.0" styleClass="tableView" stylesheets="@../../../menu2-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.Menu2Controller">
+<AnchorPane minHeight="600.0" minWidth="795.0" prefHeight="600.0" prefWidth="795.0" stylesheets="@../../../menu2-style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MenuController">
    <children>
       <Label layoutX="236.0" layoutY="32.0" />
       <Label layoutX="701.0" layoutY="25.0" text="&gt; Dashboard">

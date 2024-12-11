@@ -1,13 +1,13 @@
 package org.example.demo;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,88 +18,69 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class ProfileController {
     private Stage stage;
+    private CameraController cameraController;
+    @FXML
+    private ImageView avatar;
+    @FXML
+    private AnchorPane changeAccount;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private PasswordField txtOldPassword;
+    @FXML
+    private PasswordField txtNewPassword;
+    @FXML
+    private PasswordField txtConfirmPassword;
+    @FXML
+    private Label lblChangePass;
+    @FXML
+    private TextField userNameTextField;
+    @FXML
+    private TextField phoneNumberTextField;
+    @FXML
+    private TextField gmailTextField;
+    @FXML
+    private AnchorPane changeInf;
+    @FXML
+    private TextField txtName;
+    @FXML
+    private TextField txtPhoneNumber;
+    @FXML
+    private TextField txtGmail;
+    @FXML
+    private Label lblChangeInf;
+    @FXML
+    private Label infChanged;
+    @FXML
+    private Label passwordChanged;
+    @FXML
+    private Pane pane;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    private TestCamera testCamera;
-
-    public void setTestCamera(TestCamera testCamera) {
-        this.testCamera = testCamera;
+    public void setTestCamera(CameraController cameraController) {
+        this.cameraController = cameraController;
     }
 
     @FXML
-    private ImageView avatar;
-
-    @FXML
-    private AnchorPane changeAccount;
-
-    @FXML
-    private TextField txtUsername;
-
-    @FXML
-    private PasswordField txtOldPassword;
-
-    @FXML
-    private PasswordField txtNewPassword;
-
-    @FXML
-    private PasswordField txtConfirmPassword;
-
-    @FXML
-    private Label lblChangePass;
-
-    @FXML
-    private TextField userNameTextField;
-
-    @FXML
-    private TextField phoneNumberTextField;
-
-    @FXML
-    private TextField gmailTextField;
-
-    @FXML
-    private AnchorPane changeInf;
-
-    @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtPhoneNumber;
-
-    @FXML
-    private TextField txtGmail;
-
-    @FXML
-    private Label lblChangeInf;
-
-    @FXML
-    private Label infChanged;
-
-    @FXML
-    private Label passwordChanged;
-
-    @FXML
-    private Pane pane;
-
-    @FXML
-    public void openCamera(){
+    public void openCamera() {
         loadPage("testcam-view.fxml");
     }
 
     @FXML
     public void initialize() {
-        if(LoginController.account.getImage() == null) {
+        if (LoginController.account.getImage() == null) {
             avatar.setImage(new Image(getClass().getResourceAsStream("/media/man-user-icon.jpg")));
         } else {
             avatar.setImage(ImageUtils.byteArrayToImage(LoginController.account.getImage()));
@@ -111,7 +92,7 @@ public class ProfileController {
         loadUserName();
         loadPhoneNumber();
         loadGmail();
-//        loadAddress();
+
 
         userNameTextField.setEditable(false);
         phoneNumberTextField.setEditable(false);
@@ -119,7 +100,6 @@ public class ProfileController {
         lblChangeInf.setVisible(false);
         lblChangePass.setVisible(false);
     }
-
 
 
     @FXML
@@ -146,7 +126,6 @@ public class ProfileController {
             return;
         }
 
-        // Lấy danh sách các tệp trong thư mục và lọc ra các tệp ảnh
         File[] imageFiles = folder.listFiles(file -> file.isFile() &&
                 (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")));
 
@@ -156,10 +135,8 @@ public class ProfileController {
         }
 
 
-        // Sắp xếp các tệp theo thời gian chỉnh sửa (mới nhất ở đầu)
         Arrays.sort(imageFiles, Comparator.comparingLong(File::lastModified).reversed());
 
-        // Lấy tệp ảnh mới nhất
         File latestImage = imageFiles[0];
         Image image = new Image(latestImage.toURI().toString());
         avatar.setImage(image);
@@ -180,7 +157,6 @@ public class ProfileController {
         String newPassword = txtNewPassword.getText();
         String confirmPassword = txtConfirmPassword.getText();
 
-        // Kiểm tra dữ liệu đầu vào
         if (username.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             lblChangePass.setVisible(true);
             lblChangePass.setText("Please enter complete information!");
@@ -201,8 +177,8 @@ public class ProfileController {
             return;
         }
 
-        // Gọi phương thức thay đổi mật khẩu từ lớp Database
-        boolean isPasswordChanged = Database.changePassword(username, oldPassword, newPassword);
+
+        boolean isPasswordChanged = MySQLDatabase.getUserDatabase().changePassword(username, oldPassword, newPassword);
 
         if (isPasswordChanged) {
             lblChangePass.setVisible(true);
@@ -226,35 +202,33 @@ public class ProfileController {
 
 
 
-    // Phương thức lấy dữ liệu từ cơ sở dữ liệu và gán vào TextField
     private void loadUserName() {
-        // Lấy tên người dùng từ Database
-        String userName = Database.getFullName(LoginController.account.getUsername());
 
-        // Nếu có dữ liệu, gán vào TextField
+        String userName = MySQLDatabase.getUserDatabase().getFullName(LoginController.account.getUsername());
+
         if (userName != null) {
-            userNameTextField.setText(userName); // Gán giá trị vào TextField
+            userNameTextField.setText(userName);
         }
     }
 
     private void loadPhoneNumber() {
-        // Lấy tên người dùng từ Database
-        String phoneNumber = Database.getPhoneNumber(LoginController.account.getUsername());
 
-        // Nếu có dữ liệu, gán vào TextField
+        String phoneNumber = MySQLDatabase.getUserDatabase().getPhoneNumber(LoginController.account.getUsername());
+
+
         if (phoneNumber != null) {
-            phoneNumberTextField.setText(phoneNumber); // Gán giá trị vào TextField
+            phoneNumberTextField.setText(phoneNumber);
         }
     }
 
     private void loadGmail() {
-        // Lấy tên người dùng từ Database
-        String gmail = Database.getEmail(LoginController.account.getUsername()
+
+        String gmail = MySQLDatabase.getUserDatabase().getEmail(LoginController.account.getUsername()
         );
 
-        // Nếu có dữ liệu, gán vào TextField
+
         if (gmail != null) {
-            gmailTextField.setText(gmail); // Gán giá trị vào TextField
+            gmailTextField.setText(gmail);
         }
     }
 
@@ -275,13 +249,13 @@ public class ProfileController {
             return;
         }
 
-        boolean isInfoUpdated = Database.updateUserInformation(name, phoneNumber, gmail, LoginController.account.getUsername());
+        boolean isInfoUpdated = MySQLDatabase.getUserDatabase().updateUserInformation(name, phoneNumber, gmail, LoginController.account.getUsername());
 
         if (isInfoUpdated) {
             lblChangeInf.setVisible(true);
             lblChangeInf.setStyle("-fx-text-fill: green;");
             lblChangeInf.setText("Information updated successfully!");
-            loadUserName(); // Optionally reload the values
+            loadUserName();
             loadPhoneNumber();
             loadGmail();
         } else {
@@ -297,7 +271,7 @@ public class ProfileController {
 
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
@@ -310,13 +284,12 @@ public class ProfileController {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+
             Object controller = loader.getController();
             if (controller != null) {
-                if (controller instanceof TestCamera) {
-                    TestCamera testCameraController = (TestCamera) controller;
-                    testCameraController.setStage((Stage) pane.getScene().getWindow());
-                    testCameraController.setProfileController(this);
+                if (controller instanceof CameraController cameraControllerController) {
+                    cameraControllerController.setStage((Stage) pane.getScene().getWindow());
+                    cameraControllerController.setProfileController(this);
                 }
             }
         } catch (IOException e) {

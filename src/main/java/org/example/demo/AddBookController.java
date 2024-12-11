@@ -7,11 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -19,26 +19,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.sound.sampled.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-
 public class AddBookController {
 
-    private Stage stage;
     private final GoogleBooksService googleBooksService = new GoogleBooksService();
-    private final ExecutorService executorService = Executors.newCachedThreadPool(); // Quản lý luồng
-
+    private final ExecutorService executorService = Executors.newCachedThreadPool(); 
+    private Stage stage;
     @FXML
     private Label successLabel;
 
@@ -57,26 +53,26 @@ public class AddBookController {
     @FXML
     private TextField searchTextField;
     @FXML
-    private ListView<Book> bookListView; // Sử dụng ListView để hiển thị danh sách sách
+    private ListView<Book> bookListView; 
     @FXML
     private ProgressIndicator loadingIndicator;
 
-    // Đặt stage cho cửa sổ hiện tại
+    
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     @FXML
     private void initialize() {
-        // Ẩn các thành phần ban đầu
+        
         loadingIndicator.setVisible(false);
         pane.setVisible(false);
 
-        // Set factory cho ListView để hiển thị sách
+        
         bookListView.setCellFactory(param -> new AddBookCellFactory());
 
 
-        // Xử lý tìm kiếm khi nhấn Enter
+        
         searchTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 searchBook();
@@ -86,20 +82,20 @@ public class AddBookController {
     }
 
 
-    // Phương thức tìm kiếm sách
+    
     @FXML
     private void searchBook() {
         String query = searchTextField.getText();
         if (query != null && !query.isEmpty()) {
-            loadingIndicator.setVisible(true); // Hiển thị trạng thái đang tải
+            loadingIndicator.setVisible(true); 
 
-            // Tìm kiếm sách trong background
+            
             executorService.submit(() -> {
                 try {
                     JsonObject response = googleBooksService.searchBooks(query);
                     Platform.runLater(() -> {
                         updateBookList(response);
-                        loadingIndicator.setVisible(false); // Ẩn trạng thái đang tải
+                        loadingIndicator.setVisible(false); 
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -109,7 +105,7 @@ public class AddBookController {
         }
     }
 
-    // Cập nhật danh sách sách vào ListView
+    
     private void updateBookList(JsonObject response) {
         List<Book> books = new ArrayList<>();
         if (response != null && response.has("items") && response.getAsJsonArray("items").size() > 0) {
@@ -126,17 +122,17 @@ public class AddBookController {
                 String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "Không có mô tả";
                 String imageUrl = volumeInfo.has("imageLinks") ? volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString() : null;
 
-                // Tải ảnh và chuyển thành byte[]
+                
                 byte[] image = null;
                 if (imageUrl != null) {
                     image = downloadImage(imageUrl);
                 }
-                // Tạo đối tượng Book từ thông tin nhận được từ API
-                Book book = new Book(0,title, authors, publisher, publishedDate, genre, 5, isbn, image, description);  // Thêm mô tả vào constructor
+                
+                Book book = new Book(0, title, authors, publisher, publishedDate, genre, 5, isbn, image, description);  
                 books.add(book);
             }
 
-            // Cập nhật danh sách sách trong ListView
+            
             bookListView.getItems().setAll(books);
 
             bookListView.setCellFactory(param -> {
@@ -144,7 +140,7 @@ public class AddBookController {
                 return cellFactory;
             });
         } else {
-            bookListView.getItems().clear();  // Xóa danh sách sách cũ
+            bookListView.getItems().clear();  
             resetUI();
             searchFailLabel.setVisible(true);
         }
@@ -156,25 +152,25 @@ public class AddBookController {
             URL url = new URL(imageUrl);
             InputStream inputStream = url.openStream();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(ImageIO.read(inputStream), "jpg", byteArrayOutputStream); // Giả sử ảnh là JPG
+            ImageIO.write(ImageIO.read(inputStream), "jpg", byteArrayOutputStream); 
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
             e.printStackTrace();
-            return null; // Nếu có lỗi, trả về null
+            return null; 
         }
     }
 
     @FXML
     private void handleAddBook(ActionEvent event) {
-        // Lấy sách được chọn từ ListView
-        Book selectedBook = bookListView.getSelectionModel().getSelectedItem();
         
+        Book selectedBook = bookListView.getSelectionModel().getSelectedItem();
 
-        // Kiểm tra nếu có sách được chọn
+
+        
         if (selectedBook != null) {
-            if(!(Database.isBookExistByIsbn(selectedBook.getIsbn(), selectedBook.getTitle()))) {
-                // Gọi hàm insertBook để thêm sách vào cơ sở dữ liệu
-                Database.insertBook(
+            if (!(MySQLDatabase.getBookDatabase().isBookExistByIsbn(selectedBook.getIsbn(), selectedBook.getTitle()))) {
+                
+                MySQLDatabase.getBookDatabase().insertBook(
                         selectedBook.getTitle(),
                         selectedBook.getAuthor(),
                         selectedBook.getPublisher(),
@@ -182,8 +178,8 @@ public class AddBookController {
                         selectedBook.getGenre(),
                         selectedBook.getQuantity(),
                         selectedBook.getIsbn(),
-                        selectedBook.getDescription(),  // Truyền mô tả sách
-                        selectedBook.getImage()          // Truyền ảnh sách
+                        selectedBook.getDescription(),  
+                        selectedBook.getImage()          
                 );
                 resetUI();
                 successLabel.setVisible(true);
@@ -194,7 +190,7 @@ public class AddBookController {
         } else {
             resetUI();
             logLabel.setVisible(true);
-            // Nếu không có sách nào được chọn, hiển thị thông báo
+            
             System.out.println("Please select a book to add!");
         }
     }
@@ -208,11 +204,11 @@ public class AddBookController {
 
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
-            // Xử lý chuyển cảnh và cấu hình controller
+            
             pane.setVisible(true);
             pane.getChildren().clear();
             pane.getChildren().setAll(root);
@@ -223,7 +219,7 @@ public class AddBookController {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+            
             Object controller = loader.getController();
             if (controller != null) {
                 if (controller instanceof ListReaderController) {
@@ -237,6 +233,8 @@ public class AddBookController {
     }
 
     @FXML
-    public void showBookListView() { loadPage("bookList-view.fxml"); }
-
+    public void showBookListView() {
+        loadPage("bookList-view.fxml");
     }
+
+}

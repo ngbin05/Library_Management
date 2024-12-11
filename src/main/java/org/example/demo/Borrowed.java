@@ -8,8 +8,7 @@ public class Borrowed {
     private int borrowId;
     private int userId;
     private String user_name;
-    private List<Book> books = new ArrayList<>()    ; // List chứa các đối tượng Book
-
+    private List<Book> books = new ArrayList<>();
     private String borrowDate;
     private String returnDate;
     private String status;
@@ -42,8 +41,7 @@ public class Borrowed {
         this.status = status;
     }
 
-    // Getter và Setter
-    public int getBorrowId() {
+        public int getBorrowId() {
         return borrowId;
     }
 

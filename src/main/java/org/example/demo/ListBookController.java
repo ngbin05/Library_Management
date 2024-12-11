@@ -3,13 +3,11 @@ package org.example.demo;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -19,9 +17,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -31,51 +27,37 @@ import java.time.format.DateTimeFormatter;
 
 public class ListBookController {
     private Stage stage;
+    @FXML
+    private TableView<Book> bookTable;
+    @FXML
+    private TableColumn<Book, Integer> colId;
+    @FXML
+    private TableColumn<Book, String> colTitle;
+    @FXML
+    private TableColumn<Book, String> colAuthor;
+    @FXML
+    private TableColumn<Book, String> colPublishedDate;
+    @FXML
+    private TableColumn<Book, Integer> colQuantity;
+    @FXML
+    private TableColumn<Book, Void> colAction;
+    @FXML
+    private TextField txtTitle;
+    @FXML
+    private TextField txtAuthor;
+    @FXML
+    private Rectangle rectangle;
+    @FXML
+    private Label dateTimeLabel;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Label hi;
+    private final ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    @FXML
-    private TableView<Book> bookTable;
-
-    @FXML
-    private TableColumn<Book, Integer> colId;
-
-    @FXML
-    private TableColumn<Book, String> colTitle;
-
-    @FXML
-    private TableColumn<Book, String> colAuthor;
-
-    @FXML
-    private TableColumn<Book, String> colPublishedDate;
-
-    @FXML
-    private TableColumn<Book, Integer> colQuantity;
-
-    @FXML
-    private TableColumn<Book, Void> colAction;
-
-    @FXML
-    private TextField txtTitle;
-
-    @FXML
-    private TextField txtAuthor;
-
-    @FXML
-    private Rectangle rectangle;
-
-    @FXML
-    private Label dateTimeLabel;
-
-    @FXML
-    private Pane pane;
-
-    @FXML
-    private Label hi;
-
-    private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -112,7 +94,7 @@ public class ListBookController {
     }
 
     private void sayHi() {
-        String userName = Database.getFullName(LoginController.account.getUsername());
+        String userName = MySQLDatabase.getUserDatabase().getFullName(LoginController.account.getUsername());
         if (userName != null) {
             hi.setText("Hi, " + userName);
         }
@@ -122,8 +104,8 @@ public class ListBookController {
     private void loadBookData() {
         try {
             bookList.clear();
-            bookList.addAll(Database.getBooks());
-            bookTable.setItems(bookList); // Gắn dữ liệu vào TableView
+            bookList.addAll(MySQLDatabase.getBookDatabase().getBooks());
+            bookTable.setItems(bookList); 
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -144,8 +126,7 @@ public class ListBookController {
             fadeTransition.play();
 
             Object controller = fxmlLoader.getController();
-            if (controller instanceof BookDetailsController) {
-                BookDetailsController bookDetailsController = (BookDetailsController) controller;
+            if (controller instanceof BookDetailsController bookDetailsController) {
                 bookDetailsController.setStage((Stage) pane.getScene().getWindow());
                 bookDetailsController.displayBookDetails(book);
                 bookDetailsController.setBook(book);
@@ -174,6 +155,7 @@ public class ListBookController {
                     handleDeleteBook(book);
                 });
             }
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -198,7 +180,7 @@ public class ListBookController {
         }
 
         try {
-            ObservableList<Book> searchResults = Database.getBooksByNameOrAuthor(searchTitle, searchAuthor);
+            ObservableList<Book> searchResults = MySQLDatabase.getBookDatabase().getBooksByNameOrAuthor(searchTitle, searchAuthor);
 
             if (!searchResults.isEmpty()) {
                 bookList.clear();
@@ -215,7 +197,6 @@ public class ListBookController {
     }
 
 
-
     private void handleDeleteBook(Book book) {
         if (book != null) {
             try {
@@ -225,13 +206,13 @@ public class ListBookController {
                     return;
                 }
 
-                // Gọi phương thức xóa trong Database
-                Database.deleteBook(book.getId());
+                
+                MySQLDatabase.getBookDatabase().deleteBook(book.getId());
 
-                // Xóa khỏi danh sách hiển thị
+                
                 bookList.remove(book);
 
-                // Cập nhật lại bảng
+                
                 bookTable.setItems(bookList);
 
                 System.out.println("Người đọc đã bị xóa: " + book.getTitle());
@@ -241,68 +222,13 @@ public class ListBookController {
         }
     }
 
-//    @FXML
-//    private void handleAddBook() {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("book-view.fxml"));
-//            Parent addBookParent = fxmlLoader.load(); // Load FXML cho cửa sổ thêm sách
-//            BookController controller = fxmlLoader.getController();
-//
-//            // Tạo Scene cho cửa sổ phụ
-//            Scene addBookScene = new Scene(addBookParent);
-//            Stage addBookStage = new Stage();
-//
-//            // Đảm bảo cửa sổ không có viền
-//            addBookStage.initModality(Modality.APPLICATION_MODAL); // Đặt cửa sổ phụ là modal
-//            addBookStage.initOwner(stage); // Gắn cửa sổ phụ vào cửa sổ chính
-//            addBookStage.initStyle(StageStyle.UNDECORATED); // Bỏ viền cửa sổ
-//            addBookScene.setFill(Color.TRANSPARENT); // Đảm bảo nền trong suốt nếu cần
-//
-//            // Gắn Scene vào Stage của cửa sổ phụ
-//            addBookStage.setScene(addBookScene);
-//
-//            // Truyền Stage cho controller của cửa sổ phụ
-//            controller.setStage(addBookStage);
-//
-//            // Tính toán kích thước và vị trí cho cửa sổ phụ để khớp với màn hình chính
-//            Platform.runLater(() -> {
-//                double mainStageX = stage.getX(); // Vị trí X của cửa sổ chính
-//                double mainStageY = stage.getY(); // Vị trí Y của cửa sổ chính
-//                double mainStageWidth = stage.getWidth(); // Chiều rộng cửa sổ chính
-//                double addBookStageWidth = 800; // Chiều rộng của cửa sổ phụ
-//                double addBookStageHeight = 600; // Chiều cao của cửa sổ phụ
-//
-//                // Tính toán vị trí cửa sổ phụ sát vào bên phải cửa sổ chính
-//                double newStageX = mainStageX + mainStageWidth - addBookStageWidth;
-//                double newStageY = mainStageY;
-//
-//                // Đặt vị trí và kích thước cho cửa sổ phụ
-//                addBookStage.setX(newStageX);
-//                addBookStage.setY(newStageY);
-//                addBookStage.setWidth(addBookStageWidth);
-//                addBookStage.setHeight(addBookStageHeight);
-//
-//                // Hiển thị cửa sổ phụ
-//                addBookStage.show();
-//
-//                // Xử lý sự kiện khi đóng cửa sổ phụ
-//                addBookStage.setOnHidden(e -> rectangle.setVisible(false));
-//            });
-//
-//            // Hiển thị hiệu ứng Rectangle để báo hiệu màn hình chuyển
-//            rectangle.setVisible(true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
-            // Xử lý chuyển cảnh và cấu hình controller
+            
             pane.setVisible(true);
             pane.getChildren().clear();
             pane.getChildren().setAll(root);
@@ -313,7 +239,7 @@ public class ListBookController {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+            
             Object controller = loader.getController();
             if (controller != null) {
                 if (controller instanceof ListReaderController) {
@@ -327,6 +253,8 @@ public class ListBookController {
     }
 
     @FXML
-    public void showBookView() { loadPage("book-view.fxml"); }
+    public void showBookView() {
+        loadPage("book-view.fxml");
+    }
 
 }

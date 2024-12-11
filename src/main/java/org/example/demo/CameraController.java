@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -17,23 +16,49 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.bytedeco.javacv.*;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import javax.imageio.ImageIO;
 
-public class TestCamera {
+public class CameraController {
     private Stage stage;
     private ProfileController profileController;
+    @FXML
+    private Canvas gridCanvas;
+    @FXML
+    private Label countDownLabel;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private Button zoomInButton;
+    @FXML
+    private Button zoomOutButton;
+    @FXML
+    private Button rotateButton;
+    @FXML
+    private Button flipButton;
+    @FXML
+    private Button retakeButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Label successTakenLabel;
+    @FXML
+    private Pane pane;
+    private FrameGrabber grabber;
+    private boolean isCameraRunning = false;
+    private boolean isPhotoCaptured = false;
+    private BufferedImage currentCapturedImage;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -42,54 +67,17 @@ public class TestCamera {
     public void setProfileController(ProfileController profileController) {
         this.profileController = profileController;
     }
-    @FXML
-    private Canvas gridCanvas;
 
     @FXML
-    private Label countDownLabel;
-
-    @FXML
-    private ImageView imageView;
-
-    @FXML
-    private Button zoomInButton;
-
-    @FXML
-    private Button zoomOutButton;
-
-    @FXML
-    private Button rotateButton;
-
-    @FXML
-    private Button flipButton;
-
-    @FXML
-    private Button retakeButton;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Label successTakenLabel;
-
-    @FXML
-    private Pane pane;
-
-    @FXML
-    public void Close(){
+    public void Close() {
         stopCamera();
         loadPage("profile-view.fxml");
     }
 
-    private FrameGrabber grabber;
-    private boolean isCameraRunning = false;
-    private boolean isPhotoCaptured = false;
-    private BufferedImage currentCapturedImage;
-
     @FXML
     public void initialize() {
         stage = new Stage();
-            resetUI();
+        resetUI();
         imageView.setStyle("-fx-background-color: #000000; " +
                 "-fx-padding: 10; " +
                 "-fx-border-color: #000000; " +
@@ -97,26 +85,26 @@ public class TestCamera {
                 "-fx-border-radius: 10; " +
                 "-fx-background-radius: 10; " +
                 "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0);");
-        // Khởi tạo camera và bắt đầu lấy khung hình ngay khi ứng dụng chạ
+        
         imageView.boundsInParentProperty().addListener((obs, oldBounds, newBounds) -> drawGridOverlay());
         drawGridOverlay();
         startCamera();
     }
 
     public void startCamera() {
-        // Mở camera và bắt đầu lấy frame liên tục
+        
         imageView.setVisible(true);
         new Thread(() -> {
             try {
-                grabber = new OpenCVFrameGrabber(0); // 0 là ID của camera mặc định
+                grabber = new OpenCVFrameGrabber(0); 
                 grabber.start();
                 isCameraRunning = true;
                 gridCanvas.setVisible(true);
 
-                // Liên tục lấy frame từ camera và cập nhật lên ImageViewret
+                
                 while (isCameraRunning) {
                     if (isPhotoCaptured) {
-                        break;  // Nếu đã chụp ảnh, dừng lấy frame từ camera
+                        break;  
                     }
                     Frame frame = grabber.grab();
                     if (frame != null) {
@@ -124,13 +112,13 @@ public class TestCamera {
                         if (bufferedImage != null) {
                             Image image = bufferedImageToImage(bufferedImage);
                             if (image != null) {
-                                // Cập nhật ảnh lên ImageView (phải thực hiện trên UI thread)
+                                
 
                                 Platform.runLater(() -> {
-//                                    imageView.setFitWidth(300); // Chiều rộng của ImageView
-//                                    imageView.setFitHeight(200); // Chiều cao của ImageView
-//                                    imageView.setPreserveRatio(true); // Đảm bảo giữ tỷ lệ của ảnh
-                                    imageView.setImage(image); // Cập nhật ảnh
+
+
+
+                                    imageView.setImage(image); 
                                 });
                             }
                         }
@@ -144,21 +132,21 @@ public class TestCamera {
 
     @FXML
     public void retakePhoto() {
-            resetUI();
-            isPhotoCaptured = false; // Reset trạng thái đã chụp ảnh
-            imageView.setImage(null); // Xóa ảnh đã chụp
-            startCamera();
+        resetUI();
+        isPhotoCaptured = false; 
+        imageView.setImage(null); 
+        startCamera();
     }
 
 
     public void stopCamera() {
         try {
             if (grabber != null) {
-                isCameraRunning = false; // Dừng việc lấy frame
+                isCameraRunning = false; 
                 isPhotoCaptured = false;
-                grabber.stop(); // Đóng camera
+                grabber.stop(); 
                 System.out.println("Closed camera!");
-                imageView.setImage(null); // Xóa ảnh trong ImageView
+                imageView.setImage(null); 
                 gridCanvas.setVisible(false);
                 imageView.setVisible(false);
             }
@@ -168,30 +156,29 @@ public class TestCamera {
     }
 
 
-
     @FXML
     public void captureImage() {
         if (grabber != null && isCameraRunning) {
             try {
-                // Đếm ngược thời gian trước khi chụp ảnh
-                int countdownTime = 3; // Đếm ngược từ 3 giây
+                
+                int countdownTime = 3; 
 
                 Platform.runLater(() -> {
                     countDownLabel.setVisible(true);
                     countDownLabel.setText("Get Started!");
                 });
 
-                // Chạy đếm ngược trong một thread riêng để không block UI thread
+                
                 new Thread(() -> {
                     try {
                         for (int i = countdownTime; i > 0; i--) {
                             final int count = i;
-                            Thread.sleep(1000); // Dừng lại 1 giây giữa mỗi vòng lặp
+                            Thread.sleep(1000); 
 
                             Platform.runLater(() -> countDownLabel.setText(Integer.toString(count)));
                         }
 
-                        // Sau khi đếm ngược, thực hiện chụp ảnh
+                        
                         Frame frame = grabber.grab();
                         if (frame != null) {
                             BufferedImage bufferedImage = frameToBufferedImage(frame);
@@ -199,11 +186,11 @@ public class TestCamera {
                                 System.out.println("Successful photoshoot!");
                                 gridCanvas.setVisible(false);
 
-                                // Chuyển đổi BufferedImage thành Image và hiển thị lên ImageView
+                                
                                 Image image = bufferedImageToImage(bufferedImage);
                                 if (image != null) {
                                     isPhotoCaptured = true;
-                                    currentCapturedImage = bufferedImage; // Lưu ảnh vào biến tạm
+                                    currentCapturedImage = bufferedImage; 
                                     Platform.runLater(() -> imageView.setImage(image));
                                     zoomInButton.setVisible(true);
                                     zoomOutButton.setVisible(true);
@@ -244,7 +231,6 @@ public class TestCamera {
     }
 
 
-
     public Image bufferedImageToImage(BufferedImage bufferedImage) {
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(toByteArray(bufferedImage));
@@ -257,47 +243,47 @@ public class TestCamera {
 
     public byte[] toByteArray(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", baos);  // Sử dụng PNG để đảm bảo chất lượng
+        ImageIO.write(bufferedImage, "png", baos);  
         return baos.toByteArray();
     }
 
     public BufferedImage frameToBufferedImage(Frame frame) {
-        // Kiểm tra loại Frame và chuyển đổi
+        
         if (frame != null && frame.image != null) {
             int width = frame.imageWidth;
             int height = frame.imageHeight;
 
-            // Tạo BufferedImage mới với không gian màu RGB
+            
             BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-            // Lấy dữ liệu pixel từ Frame (ByteBuffer)
-            ByteBuffer byteBuffer = (ByteBuffer) frame.image[0].position(0);  // Lấy dữ liệu từ Frame
-            int byteBufferSize = byteBuffer.remaining();  // Kiểm tra số byte còn lại trong byteBuffer
+            
+            ByteBuffer byteBuffer = (ByteBuffer) frame.image[0].position(0);  
+            int byteBufferSize = byteBuffer.remaining();  
 
-            // Đảm bảo có đủ byte dữ liệu để xử lý
-            int expectedSize = width * height * 3; // Dữ liệu ảnh RGB cần 3 byte mỗi pixel (BGR sẽ cần 3 byte mỗi pixel)
+            
+            int expectedSize = width * height * 3; 
             if (byteBufferSize < expectedSize) {
                 System.out.println("There are not enough bytes in the ByteBuffer to create the image. Incomplete data.");
-                return null;  // Dừng lại nếu không đủ dữ liệu
+                return null;  
             }
 
-            byte[] byteArray = new byte[expectedSize]; // Tạo mảng byte đủ lớn
-            byteBuffer.get(byteArray, 0, expectedSize);  // Lấy dữ liệu byte vào mảng
+            byte[] byteArray = new byte[expectedSize]; 
+            byteBuffer.get(byteArray, 0, expectedSize);  
 
             int[] pixels = new int[width * height];
 
-            // Giả sử dữ liệu ảnh là màu BGR (3 byte cho mỗi pixel), ta cần đổi BGR thành RGB
+            
             for (int i = 0; i < byteArray.length / 3; i++) {
-                int b = byteArray[i * 3] & 0xFF;     // Màu xanh dương (B)
-                int g = byteArray[i * 3 + 1] & 0xFF; // Màu xanh lá (G)
-                int r = byteArray[i * 3 + 2] & 0xFF; // Màu đỏ (R)
+                int b = byteArray[i * 3] & 0xFF;     
+                int g = byteArray[i * 3 + 1] & 0xFF; 
+                int r = byteArray[i * 3 + 2] & 0xFF; 
 
-                // Đổi từ BGR sang RGB
-                int rgb = (r << 16) | (g << 8) | b;   // Tạo RGB từ R, G, B
-                pixels[i] = rgb;                      // Thêm giá trị vào mảng pixels
+                
+                int rgb = (r << 16) | (g << 8) | b;   
+                pixels[i] = rgb;                      
             }
 
-            // Sao chép dữ liệu vào BufferedImage
+            
             bufferedImage.setRGB(0, 0, width, height, pixels, 0, width);
 
             return bufferedImage;
@@ -306,11 +292,11 @@ public class TestCamera {
     }
 
     private void drawGridOverlay() {
-        // Kích thước của ImageView
+        
         double width = imageView.getBoundsInParent().getWidth();
         double height = imageView.getBoundsInParent().getHeight();
 
-        // Kiểm tra kích thước
+        
         System.out.println("ImageView size: " + width + "x" + height);
 
         if (width <= 0 || height <= 0) {
@@ -318,25 +304,25 @@ public class TestCamera {
             return;
         }
 
-        // Kích thước của Canvas giống với ImageView
+        
         gridCanvas.setWidth(width);
         gridCanvas.setHeight(height);
 
-        // Lấy GraphicsContext để vẽ
+        
         GraphicsContext gc = gridCanvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, width, height); // Xóa canvas trước khi vẽ lại
+        gc.clearRect(0, 0, width, height); 
 
-        // Cài đặt màu và độ rộng của lưới
+        
         gc.setStroke(javafx.scene.paint.Color.WHITESMOKE.deriveColor(0, 1, 1, 0.5));
         gc.setLineWidth(1);
 
-        // Vẽ các đường ngang
+        
         for (int i = 1; i < 3; i++) {
             double y = height * i / 3;
             gc.strokeLine(0, y, width, y);
         }
 
-        // Vẽ các đường dọc
+        
         for (int i = 1; i < 3; i++) {
             double x = width * i / 3;
             gc.strokeLine(x, 0, x, height);
@@ -344,22 +330,6 @@ public class TestCamera {
 
         System.out.println("Drew a 3x3 grid on Canvas.");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @FXML
@@ -398,34 +368,34 @@ public class TestCamera {
 
     @FXML
     public void zoomInImage() {
-        zoomImage(1.2); // Phóng to 20%
+        zoomImage(1.2); 
     }
 
     @FXML
     public void zoomOutImage() {
-        zoomImage(1 / 1.2); // Thu nhỏ 20%
+        zoomImage(1 / 1.2); 
     }
 
     private void zoomImage(double zoomFactor) {
-        if (imageView.getImage() == null) return; // Đảm bảo có ảnh trong ImageView
+        if (imageView.getImage() == null) return; 
 
-        // Lấy viewport hiện tại hoặc tạo mới nếu chưa có
+        
         Rectangle2D viewport = imageView.getViewport();
         if (viewport == null) {
             viewport = new Rectangle2D(0, 0, imageView.getImage().getWidth(), imageView.getImage().getHeight());
         }
 
-        // Tính toán kích thước mới của viewport
+        
         double newWidth = viewport.getWidth() / zoomFactor;
         double newHeight = viewport.getHeight() / zoomFactor;
 
-        // Tính toán vị trí mới để viewport vẫn giữ nguyên tâm
+        
         double centerX = viewport.getMinX() + viewport.getWidth() / 2;
         double centerY = viewport.getMinY() + viewport.getHeight() / 2;
         double newMinX = centerX - newWidth / 2;
         double newMinY = centerY - newHeight / 2;
 
-        // Đảm bảo không vượt quá biên của ảnh
+        
         newMinX = Math.max(newMinX, 0);
         newMinY = Math.max(newMinY, 0);
         if (newMinX + newWidth > imageView.getImage().getWidth()) {
@@ -435,7 +405,7 @@ public class TestCamera {
             newMinY = imageView.getImage().getHeight() - newHeight;
         }
 
-        // Cập nhật viewport
+        
         imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
     }
 
@@ -451,10 +421,9 @@ public class TestCamera {
     }
 
 
-
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
@@ -468,7 +437,7 @@ public class TestCamera {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+            
             Object controller = loader.getController();
             if (controller != null) {
                 if (controller instanceof ProfileController) {

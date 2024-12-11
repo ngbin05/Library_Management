@@ -49,22 +49,22 @@ public class ForgotPassController {
             return;
         }
 
-        // Gọi phương thức kiểm tra từ Database
-        boolean accountExists = Database.checkEmailExists(_email);
+        
+        boolean accountExists = MySQLDatabase.getUserDatabase().checkEmailExists(_email);
 
         if (accountExists) {
-            // Nếu tài khoản tồn tại, ẩn lỗi và hiển thị giao diện đổi mật khẩu
-            error_em.setVisible(false); // Đảm bảo thông báo lỗi bị ẩn
-            changePass.setVisible(true); // Hiển thị giao diện thay đổi mật khẩu
+            
+            error_em.setVisible(false); 
+            changePass.setVisible(true); 
             email_text.setVisible(false);
             next_but.setVisible(false);
             email.setVisible(false);
         } else {
-            // Nếu tài khoản không tồn tại, hiển thị lỗi
+            
             error_em.setText("Email không tồn tại!");
             error_em.setStyle("-fx-text-fill: red;");
-            error_em.setVisible(true); // Hiển thị thông báo lỗi
-            changePass.setVisible(false); // Ẩn giao diện thay đổi mật khẩu
+            error_em.setVisible(true); 
+            changePass.setVisible(false); 
         }
     }
 
@@ -92,16 +92,16 @@ public class ForgotPassController {
             return;
         }
 
-        boolean isPasswordChanged = Database.updatenewPass(_email, password);
+        boolean isPasswordChanged = MySQLDatabase.getUserDatabase().updatenewPass(_email, password);
 
         if (isPasswordChanged) {
-            error_pass.setStyle("-fx-text-fill: green;"); // Đổi màu chữ sang xanh lá
+            error_pass.setStyle("-fx-text-fill: green;"); 
             error_pass.setText("Password changed successfully!");
             error_pass.setVisible(true);
             pass.clear();
             confirm.clear();
         } else {
-            error_pass.setStyle("-fx-text-fill: red;"); // Đổi màu chữ sang xanh lá
+            error_pass.setStyle("-fx-text-fill: red;"); 
             error_pass.setText("Password changed failed!");
             error_pass.setVisible(true);
             pass.clear();
@@ -126,11 +126,11 @@ public class ForgotPassController {
         }
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public Stage getStage() {
         return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

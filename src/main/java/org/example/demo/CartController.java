@@ -24,23 +24,64 @@ import java.util.List;
 
 public class CartController {
 
+    private static final List<Book> cart = new ArrayList<>();
     private BorrowController borrowController;
+    private Stage stage;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Label emptyLabel;
+    @FXML
+    private TableView<Borrowed> borrowTableView;
+    @FXML
+    private TableColumn<Borrowed, Integer> userIdColumn;
+    @FXML
+    private TableColumn<Borrowed, Integer> userNameColumn;
+    @FXML
+    private TableColumn<Borrowed, Integer> bookCountColumn; 
+    @FXML
+    private TableColumn<Borrowed, String> borrowDateColumn;
+    @FXML
+    private TableColumn<Borrowed, String> returnDateColumn;
+    @FXML
+    private TableColumn<Borrowed, String> statusColumn;
+    @FXML
+    private TableColumn<Borrowed, Void> actionColumn;
+    @FXML
+    private TextField txtSearchID;
+    @FXML
+    private TextField txtSearchUserName;
+    @FXML
+    private TextField txtSearchLoanDate;
+    @FXML
+    private TextField txtSearchStatus;
+    @FXML
+    private ListView<Book> listViewBooks;
+    @FXML
+    private Button clearButton;
+    
+    private final ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
 
-    // Phương thức setBorrowController để truyền BorrowController vào
+    private static boolean isBookInCart(Book book) {
+        return cart.stream().anyMatch(b -> b.getId() == book.getId());
+    }
+
+    public static boolean addBookIfNotInCart(Book book) {
+        return BookCartManager.addBookIfNotInCart(book);
+    }
+
+    public static void remove(Book book) {
+        BookCartManager.removeBook(book);
+    }
+
+    
     public void setBorrowController(BorrowController borrowController) {
         this.borrowController = borrowController;
     }
-    private Stage stage;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    @FXML
-    private Pane pane;
-
-    @FXML
-    private Label emptyLabel;
 
     @FXML
     public void showBookList() {
@@ -57,61 +98,11 @@ public class CartController {
     }
 
     @FXML
-    private TableView<Borrowed> borrowTableView;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> userIdColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> userNameColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Integer> bookCountColumn; // Cột cho tên các cuốn sách
-
-    @FXML
-    private TableColumn<Borrowed, String> borrowDateColumn;
-
-    @FXML
-    private TableColumn<Borrowed, String> returnDateColumn;
-
-    @FXML
-    private TableColumn<Borrowed, String> statusColumn;
-
-    @FXML
-    private TableColumn<Borrowed, Void> actionColumn;
-
-    @FXML
-    private TextField txtSearchID;
-
-    @FXML
-    private TextField txtSearchUserName;
-
-    @FXML
-    private TextField txtSearchLoanDate;
-
-    @FXML
-    private TextField txtSearchStatus;
-
-    private static List<Book> cart = new ArrayList<>();
-
-    @FXML
-    private ListView<Book> listViewBooks;
-
-    @FXML
-    private Button clearButton;
-
-
-
-    // ObservableList chứa các đối tượng Borrowed
-    private ObservableList<Borrowed> borrowList = FXCollections.observableArrayList();
-
-
-    @FXML
     public void initialize() {
         listViewBooks.setCellFactory(listView -> new BookListCell());
         emptyLabel.setVisible(false);
 
-        // Cấu hình các cột trong TableView
+        
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("user_name"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
@@ -139,7 +130,7 @@ public class CartController {
             }
         });
 
-        // Tùy chỉnh cột bookTitlesColumn để hiển thị danh sách sách với số thứ tự và xuống dòng
+        
         bookCountColumn.setCellValueFactory(param -> {
             Borrowed borrowed = param.getValue();
             return new javafx.beans.property.SimpleIntegerProperty(borrowed.getBooks().size()).asObject();
@@ -155,29 +146,29 @@ public class CartController {
                     super.updateItem(item, empty);
 
                     if (empty) {
-                        setGraphic(null); // Không hiển thị gì nếu ô trống
+                        setGraphic(null); 
                     } else {
                         Borrowed borrowed = getTableView().getItems().get(getIndex());
 
-                        // So sánh chuỗi bằng phương thức equals()
+                        
                         if ("RETURNED".equals(borrowed.getStatus())) {
                             returnButton.setVisible(false);
                             checkMarkLabel.setVisible(true);
-                            setGraphic(checkMarkLabel); // Hiển thị dấu tích xanh
+                            setGraphic(checkMarkLabel); 
                         } else {
                             returnButton.setVisible(true);
                             checkMarkLabel.setVisible(false);
-                            setGraphic(returnButton); // Hiển thị nút "Trả sách"
+                            setGraphic(returnButton); 
 
-                            // Thiết lập sự kiện cho nút "Trả sách"
+                            
                             returnButton.setOnAction(event -> {
-                                boolean isReturned = handleReturnBook(borrowed); // Gọi hàm xử lý trả sách
+                                boolean isReturned = handleReturnBook(borrowed); 
                                 if (isReturned) {
-                                    // Sau khi trả sách thành công, thay đổi nút "Trả sách" thành dấu tích xanh
-                                    returnButton.setVisible(false); // Ẩn nút "Trả sách"
-                                    checkMarkLabel.setVisible(true); // Hiển thị dấu tích xanh
-                                    borrowed.setStatus("RETURNED"); // Cập nhật trạng thái của đối tượng Borrowed
-                                    // Cập nhật lại TableView sau khi thay đổi trạng thái
+                                    
+                                    returnButton.setVisible(false); 
+                                    checkMarkLabel.setVisible(true); 
+                                    borrowed.setStatus("RETURNED"); 
+                                    
                                     borrowTableView.refresh();
                                 }
                             });
@@ -194,7 +185,7 @@ public class CartController {
         });
 
 
-        // Đưa danh sách vào TableView
+        
         borrowTableView.setItems(borrowList);
         borrowTableView.setFixedCellSize(-1);
 
@@ -202,80 +193,16 @@ public class CartController {
         updateListView();
     }
 
-    private static boolean isBookInCart(Book book) {
-        return cart.stream().anyMatch(b -> b.getId() == book.getId());
-    }
-
-    public static boolean addBookIfNotInCart(Book book) {
-        return BookCartManager.addBookIfNotInCart(book);
-    }
-
-    public static void remove(Book book) {
-        BookCartManager.removeBook(book);
-    }
-
     private void updateListView() {
         listViewBooks.getItems().setAll(BookCartManager.getCart());
     }
 
-    static class BookListCell extends javafx.scene.control.ListCell<Book> {
-        private final HBox content = new HBox(10); // HBox chứa các thành phần
-        private final ImageView bookImage = new ImageView(); // Ảnh sách
-        private final VBox details = new VBox(); // VBox chứa thông tin sách
-        private final Button removeButton = new Button("Detele"); // Nút "Xóa"
-
-        public BookListCell() {
-            // Cài đặt giao diện
-            bookImage.setFitWidth(50);
-            bookImage.setFitHeight(50);
-
-            // Tạo sự kiện cho nút "Xóa"
-            removeButton.setStyle("-fx-background-color: #FF6B6B; -fx-text-fill: white; -fx-font-size: 14px; -fx-shape: \"M 0,0 L 1,0 L 1,1 L 0,1 Z\"; -fx-background-radius: 15px; -fx-border-radius: 15px;");
-            removeButton.setOnAction(event -> {
-                Book book = getItem();
-                if (book != null) {
-                    BorrowController.remove(book); // Xóa sách khỏi giỏ
-                    getListView().getItems().remove(book); // Xóa khỏi giao diện
-                }
-            });
-
-            // Sắp xếp các phần tử
-            content.getChildren().addAll(bookImage, details, removeButton);
-        }
-
-        @Override
-        protected void updateItem(Book book, boolean empty) {
-            super.updateItem(book, empty);
-
-            if (empty || book == null) {
-                setGraphic(null);
-            } else {
-                // Hiển thị ảnh sách
-                if (book.getImage() != null) {
-                    bookImage.setImage(new Image(new ByteArrayInputStream(book.getImage())));
-                } else {
-                    bookImage.setImage(null); // Ảnh mặc định nếu không có
-                }
-
-                // Hiển thị thông tin sách
-                details.getChildren().setAll(
-                        new Text("Name: " + book.getTitle()),
-                        new Text("Author: " + book.getAuthor()),
-                        new Text("Publisher: " + book.getPublisher()),
-                        new Text("Publication Date: " + book.getPublishedDate())
-                );
-
-                setGraphic(content);
-            }
-        }
-    }
-
     private void loadBorrowData() {
         try {
-            // Gọi phương thức lấy tất cả các lượt mượn từ cơ sở dữ liệu
-            List<Borrowed> borrowDataList = Database.getAllBorrowData();
+            
+            List<Borrowed> borrowDataList = MySQLDatabase.getBorrowDatabase().getAllBorrowData();
 
-            // Thêm vào ObservableList để hiển thị trên TableView
+            
             this.borrowList.clear();
             this.borrowList.addAll(borrowDataList);
         } catch (SQLException e) {
@@ -287,29 +214,30 @@ public class CartController {
         try {
             boolean confirmed = ConfirmDialog.show("Confirm", "Confirm the return of the book?");
             if (!confirmed) {
-                return false;  // Nếu không xác nhận, trả về false
+                return false;  
             }
 
-            // Trả sách vào cơ sở dữ liệu
-            boolean isReturned = Database.returnBook(borrowed.getBorrowId(), borrowed.getBooks());
+            
+            boolean isReturned = MySQLDatabase.getBorrowDatabase().returnBook(borrowed.getBorrowId(), borrowed.getBooks());
             if (isReturned) {
                 System.out.println("Successful Return to Borrow ID:" + borrowed.getBorrowId());
-                // Cập nhật lại dữ liệu sau khi trả sách
+                
                 loadBorrowData();
-                borrowTableView.refresh(); // Cập nhật TableView để hiển thị sự thay đổi
-                return true; // Trả về true nếu trả sách thành công
+                borrowTableView.refresh(); 
+                return true; 
             } else {
                 System.out.println("Return the book failed!");
-                return false; // Trả về false nếu trả sách thất bại
+                return false; 
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // Trả về false nếu có ngoại lệ xảy ra
+            return false; 
         }
     }
+
     private void loadPage(String fxmlFileName) {
         try {
-            // Load FXML
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
@@ -323,31 +251,26 @@ public class CartController {
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
-            // Xử lý controller
+            
             Object controller = loader.getController();
             if (controller != null) {
-                if (controller instanceof ListReaderController) {
-                    ListReaderController listReaderController = (ListReaderController) controller;
+                if (controller instanceof ListReaderController listReaderController) {
                     listReaderController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof ListBookController) {
-                    ListBookController listBookController = (ListBookController) controller;
+                } else if (controller instanceof ListBookController listBookController) {
                     listBookController.setStage((Stage) pane.getScene().getWindow());
-                } else if (controller instanceof BorrowController) {
-                    BorrowController borrowController = (BorrowController) controller;
+                } else if (controller instanceof BorrowController borrowController) {
                     borrowController.setStage((Stage) pane.getScene().getWindow());
                 }
-                // Thêm các controller khác vào đây nếu cần
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
     @FXML
     private void handleSearchBorrowRecords() {
-        // Lấy thông tin từ các TextField
+        
         String borrowId = txtSearchID.getText().trim();
         String userName = txtSearchUserName.getText().trim();
         String loanDate = txtSearchLoanDate.getText().trim();
@@ -356,16 +279,16 @@ public class CartController {
         try {
             ObservableList<Borrowed> searchResults;
 
-            // Kiểm tra nếu tất cả các trường tìm kiếm đều trống
+            
             if (borrowId.isEmpty() && userName.isEmpty() && loanDate.isEmpty() && status.isEmpty()) {
-                // Gọi hàm getAllBorrowData để lấy toàn bộ dữ liệu
-                searchResults = FXCollections.observableArrayList(Database.getAllBorrowData());
+                
+                searchResults = FXCollections.observableArrayList(MySQLDatabase.getBorrowDatabase().getAllBorrowData());
             } else {
-                // Gọi hàm tìm kiếm với các tham số
-                searchResults = Database.searchBorrowRecords(borrowId, userName, loanDate, status);
+                
+                searchResults = MySQLDatabase.getBorrowDatabase().searchBorrowRecords(borrowId, userName, loanDate, status);
             }
 
-            // Cập nhật TableView với kết quả tìm kiếm
+            
             borrowTableView.setItems(searchResults);
 
         } catch (SQLException e) {
@@ -374,6 +297,57 @@ public class CartController {
         }
     }
 
+    static class BookListCell extends javafx.scene.control.ListCell<Book> {
+        private final HBox content = new HBox(10); 
+        private final ImageView bookImage = new ImageView(); 
+        private final VBox details = new VBox(); 
+        private final Button removeButton = new Button("Detele"); 
+
+        public BookListCell() {
+            
+            bookImage.setFitWidth(50);
+            bookImage.setFitHeight(50);
+
+            
+            removeButton.setStyle("-fx-background-color: #FF6B6B; -fx-text-fill: white; -fx-font-size: 14px; -fx-shape: \"M 0,0 L 1,0 L 1,1 L 0,1 Z\"; -fx-background-radius: 15px; -fx-border-radius: 15px;");
+            removeButton.setOnAction(event -> {
+                Book book = getItem();
+                if (book != null) {
+                    BorrowController.remove(book); 
+                    getListView().getItems().remove(book); 
+                }
+            });
+
+            
+            content.getChildren().addAll(bookImage, details, removeButton);
+        }
+
+        @Override
+        protected void updateItem(Book book, boolean empty) {
+            super.updateItem(book, empty);
+
+            if (empty || book == null) {
+                setGraphic(null);
+            } else {
+                
+                if (book.getImage() != null) {
+                    bookImage.setImage(new Image(new ByteArrayInputStream(book.getImage())));
+                } else {
+                    bookImage.setImage(null); 
+                }
+
+                
+                details.getChildren().setAll(
+                        new Text("Name: " + book.getTitle()),
+                        new Text("Author: " + book.getAuthor()),
+                        new Text("Publisher: " + book.getPublisher()),
+                        new Text("Publication Date: " + book.getPublishedDate())
+                );
+
+                setGraphic(content);
+            }
+        }
+    }
 
 
 }

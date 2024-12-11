@@ -10,10 +10,9 @@ public class Book {
     private String description;
     private int quantity;
     private String isbn;
-    private byte[] image; // Trường ảnh dưới dạng byte[]
+    private byte[] image; 
 
-    // Constructor
-    public Book(int id, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, byte[] image, String description) {
+        public Book(int id, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, byte[] image, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -29,7 +28,7 @@ public class Book {
     public Book(int bookId, String title, String author, String publisher, String publishedDate, String genre, int quantity, String isbn, String description) {
     }
 
-    // Getter và Setter cho tất cả các trường
+    
     public int getId() {
         return id;
     }

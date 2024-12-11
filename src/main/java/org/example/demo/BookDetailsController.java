@@ -20,15 +20,6 @@ import java.io.IOException;
 public class BookDetailsController {
     private Stage stage;
     private Book book;
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     @FXML
     private Label bookTitleLabel;
     @FXML
@@ -47,9 +38,16 @@ public class BookDetailsController {
     private Label addSuccessLabel;
     @FXML
     private Label addFailureLabel;
-
     @FXML
     private Pane pane;
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     @FXML
     public void initialize() {
@@ -66,7 +64,7 @@ public class BookDetailsController {
         bookDescriptionLabel.setText("Description: " + book.getDescription());
         bookIsbnLabel.setText("ISBN: " + book.getIsbn());
 
-        // Hiển thị ảnh (nếu có)
+        
         if (book.getImage() != null) {
             Image image = new Image(new ByteArrayInputStream(book.getImage()));
             bookImageView.setImage(image);
@@ -78,7 +76,7 @@ public class BookDetailsController {
     @FXML
     private void addBookToCart() {
         boolean flag = CartController.addBookIfNotInCart(book);
-        if (flag == true) {
+        if (flag) {
             addSuccessLabel.setVisible(true);
             addFailureLabel.setVisible(false);
         } else {
@@ -108,9 +106,12 @@ public class BookDetailsController {
     }
 
     @FXML
-    private void handleClose() {loadPage("bookList-view.fxml");
+    private void handleClose() {
+        loadPage("bookList-view.fxml");
     }
 
     @FXML
-    private void goToCart() {loadPage("cart-view.fxml");}
+    private void goToCart() {
+        loadPage("cart-view.fxml");
+    }
 }

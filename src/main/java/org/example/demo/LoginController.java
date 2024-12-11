@@ -1,4 +1,5 @@
 package org.example.demo;
+
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,19 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class LoginController {
-    private Stage primaryStage;
     public static Account account = new Account();
-
+    private Stage primaryStage;
     @FXML
     private Pane pane;
 
@@ -40,6 +36,28 @@ public class LoginController {
 
     @FXML
     private Label passwordEmpty;
+    @FXML
+    private TextField fullnameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField createUsername;
+    @FXML
+    private PasswordField createPassword;
+    @FXML
+    private Label errorCreate;
+    @FXML
+    private Label fullnameEmpty;
+    @FXML
+    private Label emailEmpty;
+    @FXML
+    private Label phoneEmpty;
+    @FXML
+    private Label createUsernameEmpty;
+    @FXML
+    private Label createPasswordEmpty;
 
     @FXML
     private void handleLogin() {
@@ -47,19 +65,19 @@ public class LoginController {
 
         String password = passwordField.getText();
 
-        if(username == null || username.isEmpty()) {
+        if (username == null || username.isEmpty()) {
             errorLabel.setVisible(false);
             usernameEmpty.setVisible(true);
             passwordEmpty.setVisible(false);
-        } else if(password == null || password.isEmpty()) {
+        } else if (password == null || password.isEmpty()) {
             errorLabel.setVisible(false);
             usernameEmpty.setVisible(false);
             passwordEmpty.setVisible(true);
-        } else if (Database.validAccount(username, password)) {
+        } else if (MySQLDatabase.getUserDatabase().validAccount(username, password)) {
             errorLabel.setVisible(false);
             usernameEmpty.setVisible(false);
             passwordEmpty.setVisible(false);
-            account = Database.getAccountByUsername(username);
+            account = MySQLDatabase.getUserDatabase().getAccountByUsername(username);
             switchToMainScreen();
         } else {
             errorLabel.setVisible(true);
@@ -71,39 +89,6 @@ public class LoginController {
     }
 
     @FXML
-    private TextField fullnameField;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField phoneField;
-
-    @FXML
-    private TextField createUsername;
-
-    @FXML
-    private PasswordField createPassword;
-
-    @FXML
-    private Label errorCreate;
-
-    @FXML
-    private Label fullnameEmpty;
-
-    @FXML
-    private Label emailEmpty;
-
-    @FXML
-    private Label phoneEmpty;
-
-    @FXML
-    private Label createUsernameEmpty;
-
-    @FXML
-    private Label createPasswordEmpty;
-
-    @FXML
     private void handleCreate() {
         String fullname = fullnameField.getText();
         String email = emailField.getText();
@@ -111,42 +96,42 @@ public class LoginController {
         String username = createUsername.getText();
         String password = createPassword.getText();
 
-        if(fullname == null || fullname.isEmpty()) {
+        if (fullname == null || fullname.isEmpty()) {
             fullnameEmpty.setVisible(true);
             errorLabel.setVisible(false);
             emailEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
             createUsernameEmpty.setVisible(false);
             createPasswordEmpty.setVisible(false);
-        } else if(email == null || email.isEmpty()) {
+        } else if (email == null || email.isEmpty()) {
             fullnameEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
             createUsernameEmpty.setVisible(false);
             createPasswordEmpty.setVisible(false);
             errorLabel.setVisible(false);
             emailEmpty.setVisible(true);
-        } else if(phone == null || phone.isEmpty()) {
+        } else if (phone == null || phone.isEmpty()) {
             fullnameEmpty.setVisible(false);
             emailEmpty.setVisible(false);
             createUsernameEmpty.setVisible(false);
             createPasswordEmpty.setVisible(false);
             errorLabel.setVisible(false);
             phoneEmpty.setVisible(true);
-        } else if(username == null || username.isEmpty()) {
+        } else if (username == null || username.isEmpty()) {
             fullnameEmpty.setVisible(false);
             emailEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
             createPasswordEmpty.setVisible(false);
             errorLabel.setVisible(false);
             createUsernameEmpty.setVisible(true);
-        } else if(password == null || password.isEmpty()) {
+        } else if (password == null || password.isEmpty()) {
             fullnameEmpty.setVisible(false);
             emailEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
             createUsernameEmpty.setVisible(false);
             createPasswordEmpty.setVisible(true);
             errorLabel.setVisible(false);
-        } else if(Database.isUsernameTaken(username)) {
+        } else if (MySQLDatabase.getUserDatabase().isUsernameTaken(username)) {
             fullnameEmpty.setVisible(false);
             emailEmpty.setVisible(false);
             phoneEmpty.setVisible(false);
@@ -156,8 +141,8 @@ public class LoginController {
             createUsername.clear();
             createPassword.clear();
         } else {
-            Database.registerAccount(fullname, email, phone, username, password);
-            account = Database.getAccountByUsername(username);
+            MySQLDatabase.getUserDatabase().registerAccount(fullname, email, phone, username, password);
+            account = MySQLDatabase.getUserDatabase().getAccountByUsername(username);
             switchToMainScreen();
         }
     }
@@ -235,18 +220,19 @@ public class LoginController {
     public void setStage(Stage stage) {
         this.primaryStage = stage;
     }
-    private void switchToMainScreen () {
+
+    private void switchToMainScreen() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu2-view.fxml"));
             Parent root = loader.load();
             Scene mainScene = new Scene(root);
             mainScene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(mainScene);
-            Menu2Controller homeController = loader.getController();
+            MenuController homeController = loader.getController();
             homeController.setStage(primaryStage);
 
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root );
-            fadeTransition.setFromValue(0.0);
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), root);
+            fadeTransition.setFromValue(0.9);
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
 
@@ -256,34 +242,8 @@ public class LoginController {
         }
     }
 
-    @FXML
-    public void goToForgotPassword() {
-            try {
-                // Load FXML
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPass-view.fxml"));
-                Parent root = loader.load();
-
-                pane.setVisible(true);
-                pane.getChildren().clear();
-                pane.getChildren().setAll(root);
-                pane.setBackground(new Background(new BackgroundFill(Color.web("F4F4F4"), null, null)));
-
-                FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), root);
-                fadeTransition.setFromValue(0.0);
-                fadeTransition.setToValue(1.0);
-                fadeTransition.play();
-
-                ForgotPassController fgPassController = loader.getController();
-                fgPassController.setStage((Stage) pane.getScene().getWindow());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-
-
 
     public void handleExitButton(ActionEvent event) {
-        Platform.exit(); // Đóng toàn bộ ứng dụng
+        Platform.exit(); 
     }
 }

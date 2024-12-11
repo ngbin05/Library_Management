@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -75,12 +74,12 @@ public class ListReaderController {
     private Label hi;
 
 
-    // ObservableList chứa danh sách khách hàng
-    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
+    
+    private final ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Gắn cột với thuộc tính của lớp Customer
+        
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
@@ -104,18 +103,18 @@ public class ListReaderController {
     }
 
     private void sayHi() {
-        String userName = Database.getFullName(LoginController.account.getUsername());
+        String userName = MySQLDatabase.getUserDatabase().getFullName(LoginController.account.getUsername());
         if (userName != null) {
             hi.setText("Hi, " + userName);
         }
     }
 
 
-    private void loadCustomerData() {
+    public void loadCustomerData() {
         try {
             customerList.clear();
-            customerList.addAll(Database.getCustomers());
-            customerTable.setItems(customerList); // Gắn dữ liệu vào TableView
+            customerList.addAll(MySQLDatabase.getUserDatabase().getCustomers());
+            customerTable.setItems(customerList); 
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,27 +128,28 @@ public class ListReaderController {
     private void handleAddReader() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-reader-view.fxml"));
-            Parent addReaderParent = fxmlLoader.load();  // Load FXML cho cửa sổ Add Reader
+            Parent addReaderParent = fxmlLoader.load();  
             AddReaderController controller = fxmlLoader.getController();
-            Scene addReaderScene = new Scene(addReaderParent,557, 362);  // Thay bằng FXML tương ứng
+            Scene addReaderScene = new Scene(addReaderParent, 557, 362);  
             Stage addReaderStage = new Stage();
-            addReaderStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
+            addReaderStage.initModality(Modality.APPLICATION_MODAL);  
             addReaderStage.initOwner(stage);
             addReaderScene.setFill(Color.TRANSPARENT);
             addReaderStage.initStyle(StageStyle.TRANSPARENT);
             addReaderStage.setScene(addReaderScene);
             controller.setStage(addReaderStage);
+            controller.setListReaderController(this);
             Platform.runLater(() ->
             {
-            double mainStageX = stage.getX();
-            double mainStageY = stage.getY();
-            double mainStageWidth = stage.getWidth();
-            double mainStageHeight = stage.getHeight();
-            addReaderStage.show();
-            double x = mainStageX + 315;
-            double y = mainStageY + (mainStageHeight - addReaderStage.getHeight()) / 2;
-            addReaderStage.setX(x);
-            addReaderStage.setY(y);
+                double mainStageX = stage.getX();
+                double mainStageY = stage.getY();
+                double mainStageWidth = stage.getWidth();
+                double mainStageHeight = stage.getHeight();
+                addReaderStage.show();
+                double x = mainStageX + 315;
+                double y = mainStageY + (mainStageHeight - addReaderStage.getHeight()) / 2;
+                addReaderStage.setX(x);
+                addReaderStage.setY(y);
 
 
             });
@@ -161,33 +161,33 @@ public class ListReaderController {
 
     @FXML
     private void handleSearch() {
-        // Lấy giá trị từ các ô tìm kiếm
+        
         String searchID = txtSearchID.getText().trim();
         String searchName = txtSearchName.getText().trim();
         String searchPhone = txtSearchPhone.getText().trim();
         String searchCCCD = txtSearchCCCD.getText().trim();
 
-        // Nếu tất cả các ô tìm kiếm đều trống, tải lại toàn bộ danh sách
+        
         if (searchID.isEmpty() && searchName.isEmpty() && searchPhone.isEmpty() && searchCCCD.isEmpty()) {
-            loadCustomerData();  // Load lại toàn bộ danh sách
+            loadCustomerData();  
             return;
         }
 
         try {
-            ObservableList<Customer> searchResults = Database.getUsersByMultipleSearchTerms(searchID, searchName, searchPhone, searchCCCD);
+            ObservableList<Customer> searchResults = MySQLDatabase.getUserDatabase().getUsersByMultipleSearchTerms(searchID, searchName, searchPhone, searchCCCD);
 
             if (!searchResults.isEmpty()) {
                 customerList.clear();
-                customerList.addAll(searchResults);  // Thêm kết quả tìm kiếm vào danh sách
-                customerTable.setItems(customerList);  // Cập nhật TableView
+                customerList.addAll(searchResults);  
+                customerTable.setItems(customerList);  
             } else {
-                customerList.clear();  // Nếu không tìm thấy, làm trống TableView
+                customerList.clear();  
                 customerTable.setItems(customerList);
-                // Có thể thêm thông báo cho người dùng nếu cần
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Thêm thông báo lỗi cho người dùng nếu có sự cố trong truy vấn SQL
+            
         }
     }
 
@@ -197,7 +197,7 @@ public class ListReaderController {
 
             {
 
-                // Nút Xóa
+                
                 Image trashIcon = new Image(getClass().getResourceAsStream("/media/trash.png"));
                 ImageView trashImageView = new ImageView(trashIcon);
                 trashImageView.setFitWidth(20);
@@ -216,8 +216,8 @@ public class ListReaderController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox buttonBox = new HBox(10, btnDelete);  // Đặt các nút trong một HBox
-                    setGraphic(buttonBox);  // Hiển thị các nút trong mỗi ô của cột Action
+                    HBox buttonBox = new HBox(10, btnDelete);  
+                    setGraphic(buttonBox);  
                 }
             }
         });
@@ -233,13 +233,13 @@ public class ListReaderController {
                     return;
                 }
 
-                // Gọi phương thức xóa trong Database
-                Database.deleteCustomer(customer.getId());
+                
+                MySQLDatabase.getUserDatabase().deleteCustomer(customer.getId());
 
-                // Xóa khỏi danh sách hiển thị
+                
                 customerList.remove(customer);
 
-                // Cập nhật lại bảng
+                
                 customerTable.setItems(customerList);
 
                 System.out.println("Reader removed:" + customer.getName());
@@ -248,41 +248,5 @@ public class ListReaderController {
             }
         }
     }
-
-    private void handleBorrowCustomer(Customer customer) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("borrow-view.fxml"));
-            Parent parent = fxmlLoader.load();  // Load FXML cho cửa sổ chi tiết sách
-            BorrowController controller = fxmlLoader.getController();
-            Scene borrowScene = new Scene(parent);
-            Stage borrowStage = new Stage();
-//            borrowStage.initModality(Modality.APPLICATION_MODAL);  // Đảm bảo cửa sổ này là modal
-            borrowStage.initOwner(stage);
-            borrowScene.setFill(Color.TRANSPARENT);
-            borrowStage.initStyle(StageStyle.TRANSPARENT);
-            controller.setStage(borrowStage);
-            Platform.runLater(() ->
-            {
-                double mainStageX = stage.getX();
-                double mainStageY = stage.getY();
-                borrowStage.show();
-                double x = mainStageX + stage.getWidth() - 795;
-                double y = mainStageY + stage.getHeight() - 600;
-                borrowStage.setX(x);
-                borrowStage.setY(y);
-            });
-
-            // Hiển thị thông tin chi tiết sách
-            controller.setIdLabel(customer.getId());
-            controller.setNameLabel(customer.getName());
-
-            borrowStage.setScene(borrowScene);
-            borrowStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 }
